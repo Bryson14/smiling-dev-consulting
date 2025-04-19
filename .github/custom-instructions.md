@@ -1,6 +1,6 @@
 # Copilot Instructions
 
-This project is a web application to promote a personal tech consulting website, showcasing owner and previous projects
+This project is a web application to promote a personal tech consulting website, showcasing owner and previous projects. The files in `old-src/` are the old react project that i'm replacing with Astro. use them as a reference and inspiration for content, but not for style or layout.
 
 ## Coding Standards
 
