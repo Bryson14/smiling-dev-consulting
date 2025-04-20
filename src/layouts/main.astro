@@ -1,16 +1,182 @@
 ---
-import '../styles/global.css';
-const { content } = Astro.props;
+import Head from '../components/Head.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import MobileNav from '../components/MobileNav.astro';
+import DarkMode from '../components/DarkMode.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const { 
+  title = "Smiling Dev Consulting - Professional Tech Solutions",
+  description = "Expert tech consulting services by Bryson Meiling, specializing in web development, AI integration, and digital transformation.",
+  image,
+  type = 'website'
+} = Astro.props;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>{content.title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <Head 
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+    />
+    <script>
+      // Prevent flash of wrong theme
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    </script>
+  </head>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div class="flex flex-col min-h-screen">
+      <header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+          <nav class="flex items-center space-x-8">
+            <a href="/" class="flex items-center space-x-2">
+              <img src="/favicon.svg" alt="Smiling Dev Logo" class="w-8 h-8" />
+              <span class="font-semibold text-xl text-teal-600 dark:text-teal-500">Smiling Dev</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+              <a href="/" class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors">Home</a>
+              <a href="/about" class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors">About</a>
+              <a href="/projects" class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors">Projects</a>
+              <a href="/blog" class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors">Blog</a>
+              <a href="/contact" class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors">Contact</a>
+              <DarkMode />
+            </div>
+          </nav>
+          
+          <div class="flex items-center space-x-4 md:hidden">
+            <DarkMode />
+            <MobileNav />
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-grow">
+        <slot />
+      </main>
+
+      <footer class="mt-auto py-8 bg-gray-50 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+              <h3 class="font-semibold mb-4 dark:text-gray-100">Contact</h3>
+              <p class="text-gray-600 dark:text-gray-300">Email: info@smiling.dev</p>
+              <p class="text-gray-600 dark:text-gray-300">Hours: Mon-Fri, 9AM-5PM PT</p>
+            </div>
+            
+            <div>
+              <h3 class="font-semibold mb-4 dark:text-gray-100">Quick Links</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a href="/projects" class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors">
+                    Projects
+                  </a>
+                </li>
+                <li>
+                  <a href="/blog" class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors">
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a href="/about" class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="/terms" class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors">
+                    Terms & Conditions
+                  </a>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 class="font-semibold mb-4 dark:text-gray-100">Services</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a href="/projects" class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors">
+                    Web Development
+                  </a>
+                </li>
+                <li>
+                  <a href="/projects" class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors">
+                    Technical Consulting
+                  </a>
+                </li>
+                <li>
+                  <a href="/projects" class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors">
+                    Cloud Development
+                  </a>
+                </li>
+                <li>
+                  <a href="/projects" class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors">
+                    SEO Optimization
+                  </a>
+                </li>
+              </ul>
+            </div>
+            
+            <div>
+              <NewsletterForm
+                title="Newsletter"
+                description="Stay updated with the latest tech insights and project updates."
+              />
+            </div>
+          </div>
+
+          <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div class="text-center text-gray-600 dark:text-gray-400 text-sm">
+              <p>© {new Date().getFullYear()} Smiling Dev Consulting. All rights reserved.</p>
+              <p class="mt-2">
+                <a href="/rss.xml" class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors">RSS Feed</a>
+                <span class="mx-2">•</span>
+                <a href="/sitemap.xml" class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors">Sitemap</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <ScrollToTop />
+    <script>
+      // Add preload class to prevent transitions on page load
+      document.documentElement.classList.add('preload');
+      window.addEventListener('load', () => {
+        document.documentElement.classList.remove('preload');
+      });
+
+      // Add smooth scroll behavior to all internal links
+      document.querySelectorAll('a[href^="/"]:not([href^="//"])').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          if (href && href.startsWith('/')) {
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

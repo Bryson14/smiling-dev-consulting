@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/main.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+---
+
+<Layout title="Projects | Smiling Dev Consulting" description="View our portfolio of web development and consulting projects">
+  <main class="container mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+      Our Projects
+    </h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projects.map((project) => (
+        <ProjectCard
+          title={project.data.title}
+          description={project.data.description}
+          image={project.data.image}
+          link={`/projects/${project.slug}`}
+          technologies={project.data.technologies}
+        />
+      ))}
+    </div>
+
+    <div class="mt-12 text-center">
+      <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Looking to start your own project? Let's discuss how we can help bring your vision to life.
+      </p>
+      <a
+        href="/contact"
+        class="inline-flex items-center px-6 py-3 mt-6 bg-teal-600 dark:bg-teal-500 text-white rounded-lg hover:bg-teal-700 dark:hover:bg-teal-600 transition-colors"
+      >
+        Start a Project
+        <svg
+          class="w-5 h-5 ml-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 8l4 4m0 0l-4 4m4-4H3"
+          />
+        </svg>
+      </a>
+    </div>
+  </main>
+</Layout>

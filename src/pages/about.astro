@@ -1,0 +1,118 @@
+---
+import MainLayout from '../layouts/main.astro';
+import Button from '../components/Button.astro';
+
+const skills = [
+  {
+    category: "Web Development",
+    technologies: ["React", "Next.js", "Astro", "TypeScript", "Node.js", "TailwindCSS"]
+  },
+  {
+    category: "Cloud & DevOps",
+    technologies: ["AWS", "Cloudflare", "Docker", "CI/CD", "Terraform"]
+  },
+  {
+    category: "AI & Integration",
+    technologies: ["OpenAI API", "LangChain", "REST APIs", "GraphQL"]
+  },
+  {
+    category: "Performance & SEO",
+    technologies: ["Lighthouse", "Google Analytics", "Schema.org", "Core Web Vitals"]
+  }
+];
+
+const experience = [
+  {
+    period: "2020 - Present",
+    role: "Tech Consultant & Full Stack Developer",
+    company: "Smiling Dev Consulting",
+    description: "Founded and run a successful tech consultancy helping businesses transform their digital presence through modern web development, AI integration, and technical strategy."
+  },
+  {
+    period: "2018 - 2020",
+    role: "Senior Software Engineer",
+    company: "Tech Innovation Co",
+    description: "Led development of enterprise-scale web applications, mentored junior developers, and implemented best practices for code quality and performance."
+  },
+  {
+    period: "2016 - 2018",
+    role: "Full Stack Developer",
+    company: "Digital Solutions Inc",
+    description: "Developed and maintained multiple client projects using React, Node.js, and AWS, focusing on scalable and maintainable solutions."
+  }
+];
+---
+
+<MainLayout 
+  title="About Bryson Meiling - Smiling Dev Consulting" 
+  description="Learn about Bryson Meiling's experience in tech consulting, web development, and digital transformation."
+>
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-4xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-12 items-start mb-16">
+        <div>
+          <h1 class="text-4xl font-bold mb-6">About Me</h1>
+          <p class="text-xl text-gray-600 mb-6">
+            I'm Bryson Meiling, a tech consultant and full-stack developer passionate about creating impactful digital solutions that drive business growth.
+          </p>
+          <p class="text-gray-600 mb-6">
+            With over 8 years of experience in web development and technical consulting, I specialize in helping businesses leverage modern technology to achieve their goals. My approach combines technical expertise with business acumen to deliver solutions that not only work flawlessly but also provide real value.
+          </p>
+          <p class="text-gray-600 mb-8">
+            Whether it's building high-performance web applications, implementing AI solutions, or providing technical strategy, I'm committed to delivering excellence in every project.
+          </p>
+          <div class="flex gap-4">
+            <Button href="/contact">Work with Me</Button>
+            <Button href="/projects" variant="outline">View Projects</Button>
+          </div>
+        </div>
+        <div class="relative">
+          <img 
+            src="/bryson-smiling-lake.webp" 
+            alt="Bryson Meiling"
+            class="rounded-lg shadow-xl"
+            width="500"
+            height="600"
+          />
+          <div class="absolute -bottom-6 -right-6 bg-teal-600 text-white p-4 rounded-lg shadow-lg">
+            <p class="font-semibold">8+ Years Experience</p>
+            <p class="text-sm">50+ Projects Delivered</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <h2 class="text-3xl font-bold mb-8">Technical Expertise</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          {skills.map(({ category, technologies }) => (
+            <div class="bg-gray-50 p-6 rounded-lg">
+              <h3 class="text-xl font-semibold mb-4">{category}</h3>
+              <div class="flex flex-wrap gap-2">
+                {technologies.map(tech => (
+                  <span class="px-3 py-1 bg-white text-teal-600 rounded-full text-sm shadow-sm">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-3xl font-bold mb-8">Professional Experience</h2>
+        <div class="space-y-8">
+          {experience.map(({ period, role, company, description }) => (
+            <div class="relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-teal-600">
+              <div class="absolute left-0 top-2 w-2 h-2 bg-teal-600 rounded-full -translate-x-[5px]"></div>
+              <p class="text-sm text-teal-600 font-medium">{period}</p>
+              <h3 class="text-xl font-semibold mt-1">{role}</h3>
+              <p class="text-gray-600 font-medium">{company}</p>
+              <p class="text-gray-600 mt-2">{description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>

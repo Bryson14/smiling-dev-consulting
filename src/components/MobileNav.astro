@@ -1,0 +1,91 @@
+---
+import Button from './Button.astro';
+---
+
+<div class="md:hidden">
+  <button
+    id="mobileMenuButton"
+    class="p-2 text-gray-600 hover:text-teal-600 dark:text-gray-400 dark:hover:text-teal-500 transition-colors"
+    aria-label="Toggle mobile menu"
+  >
+    <svg
+      class="w-6 h-6"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16"
+        class="menu-icon"
+      />
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M6 18L18 6M6 6l12 12"
+        class="close-icon hidden"
+      />
+    </svg>
+  </button>
+
+  <div
+    id="mobileMenu"
+    class="fixed inset-0 z-50 transform translate-x-full transition-transform duration-300 ease-in-out"
+  >
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="mobileMenuOverlay"></div>
+    <div class="absolute right-0 h-full w-64 bg-white dark:bg-gray-900 shadow-lg">
+      <div class="p-6 space-y-6">
+        <nav class="space-y-4">
+          <a href="/" class="block text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors">Home</a>
+          <a href="/about" class="block text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors">About</a>
+          <a href="/projects" class="block text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors">Projects</a>
+          <a href="/blog" class="block text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors">Blog</a>
+          <a href="/contact" class="block text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const button = document.getElementById('mobileMenuButton');
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('mobileMenuOverlay');
+  const menuIcon = button?.querySelector('.menu-icon');
+  const closeIcon = button?.querySelector('.close-icon');
+
+  let isOpen = false;
+
+  const toggleMenu = () => {
+    isOpen = !isOpen;
+    if (isOpen) {
+      menu?.classList.remove('translate-x-full');
+      menuIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    } else {
+      menu?.classList.add('translate-x-full');
+      menuIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+  };
+
+  button?.addEventListener('click', toggleMenu);
+  overlay?.addEventListener('click', toggleMenu);
+
+  // Close menu when clicking on a link
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (isOpen) toggleMenu();
+    });
+  });
+
+  // Close menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) toggleMenu();
+  });
+</script>

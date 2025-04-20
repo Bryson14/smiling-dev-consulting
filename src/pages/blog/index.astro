@@ -1,0 +1,147 @@
+---
+import MainLayout from '../../layouts/main.astro';
+import Button from '../../components/Button.astro';
+
+// This will be replaced with actual blog data from the content collections
+const posts = [
+  {
+    title: "Building High-Performance Web Applications with Astro",
+    slug: "building-high-performance-web-apps-astro",
+    description: "Learn how to leverage Astro's unique architecture to create blazing-fast websites while maintaining a great developer experience.",
+    pubDate: new Date('2025-04-15'),
+    image: "/blog/astro-performance.webp",
+    tags: ["Web Development", "Astro", "Performance"]
+  },
+  {
+    title: "Integrating OpenAI's GPT in Your Applications",
+    slug: "integrating-openai-gpt-applications",
+    description: "A comprehensive guide to implementing AI features in your web applications using OpenAI's GPT API.",
+    pubDate: new Date('2025-04-10'),
+    image: "/blog/openai-integration.webp",
+    tags: ["AI", "API Integration", "Tutorial"]
+  },
+  {
+    title: "Modern SEO Practices for Developers",
+    slug: "modern-seo-practices-developers",
+    description: "Essential SEO techniques and best practices that every developer should know to build search-engine friendly websites.",
+    pubDate: new Date('2025-04-05'),
+    image: "/blog/seo-practices.webp",
+    tags: ["SEO", "Web Development", "Best Practices"]
+  }
+];
+
+const tags = [...new Set(posts.flatMap(post => post.tags))].sort();
+
+// You might want to get these from URL parameters in a real implementation
+const selectedTag = '';
+const searchQuery = '';
+
+const filteredPosts = posts
+  .filter(post => !selectedTag || post.tags.includes(selectedTag))
+  .filter(post => !searchQuery || 
+    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.description.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+  .sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
+---
+
+<MainLayout 
+  title="Blog - Smiling Dev Consulting"
+  description="Technical insights, tutorials, and industry best practices from Bryson Meiling."
+>
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-5xl mx-auto">
+      <div class="mb-12">
+        <h1 class="text-4xl font-bold mb-6">Blog</h1>
+        <p class="text-xl text-gray-600">
+          Insights, tutorials, and best practices for modern web development, 
+          tech consulting, and digital transformation.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-[250px,1fr] gap-12">
+        <aside>
+          <div class="sticky top-24">
+            <div class="mb-8">
+              <h2 class="font-semibold mb-4">Search</h2>
+              <form class="relative">
+                <input
+                  type="search"
+                  placeholder="Search articles..."
+                  class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-teal-600 pl-10"
+                />
+              </form>
+            </div>
+
+            <div>
+              <h2 class="font-semibold mb-4">Categories</h2>
+              <div class="space-y-2">
+                {tags.map(tag => (
+                  <a
+                    href={`/blog/tag/${tag.toLowerCase()}`}
+                    class:list={[
+                      "block px-3 py-2 rounded-lg",
+                      selectedTag === tag 
+                        ? "bg-teal-600 text-white" 
+                        : "text-gray-600 hover:bg-gray-50"
+                    ]}
+                  >
+                    {tag}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div class="space-y-12">
+          {filteredPosts.map(post => (
+            <article class="grid md:grid-cols-[250px,1fr] gap-8">
+              <a href={`/blog/${post.slug}`} class="block">
+                <img 
+                  src={post.image} 
+                  alt={post.title}
+                  class="w-full aspect-video object-cover rounded-lg"
+                />
+              </a>
+              <div>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  {post.tags.map(tag => (
+                    <a 
+                      href={`/blog/tag/${tag.toLowerCase()}`}
+                      class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-sm hover:bg-teal-100"
+                    >
+                      {tag}
+                    </a>
+                  ))}
+                </div>
+                
+                <h2 class="text-2xl font-bold mb-3">
+                  <a href={`/blog/${post.slug}`} class="hover:text-teal-600">
+                    {post.title}
+                  </a>
+                </h2>
+                
+                <p class="text-gray-600 mb-4">
+                  {post.description}
+                </p>
+                
+                <div class="flex items-center gap-4 text-sm text-gray-600">
+                  <span>Bryson Meiling</span>
+                  <span>•</span>
+                  <time datetime={post.pubDate.toISOString()}>
+                    {post.pubDate.toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </time>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>

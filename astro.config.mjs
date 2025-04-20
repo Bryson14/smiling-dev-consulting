@@ -1,14 +1,40 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-
 import react from '@astrojs/react';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+
+import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-      plugins: [tailwindcss()]
-	},
+  site: 'https://smiling.dev',
 
-  integrations: [react()]
+  integrations: [
+    react(),
+    mdx(),
+    sitemap()
+  ],
+  markdown: {
+    shikiConfig: {
+      theme: 'github-dark',
+      wrap: true
+    }
+  },
+
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp'
+    }
+  },
+
+  compressHTML: true,
+
+  build: {
+    inlineStylesheets: 'auto'
+  },
+
+  vite: {
+    plugins: [tailwindcss()]
+  }
 });

@@ -1,13 +1,36 @@
 ---
-// Click button, get confetti!
-// Styled by Tailwind :)
+interface Props {
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  variant?: "default" | "outline";
+  class?: string;
+}
+
+const { 
+  href, 
+  type = "button",
+  variant = "default",
+  class: className = ""
+} = Astro.props;
+
+const baseStyles = "inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500";
+
+const variants = {
+  default: "bg-teal-600 text-white hover:bg-teal-700 dark:bg-teal-500 dark:hover:bg-teal-600",
+  outline: "border-2 border-teal-600 text-teal-600 hover:bg-teal-50 dark:border-teal-500 dark:text-teal-500 dark:hover:bg-gray-800"
+};
+
+const styles = `${baseStyles} ${variants[variant]} ${className}`;
+
+const Tag = href ? "a" : "button";
 ---
 
-<button
-	class="appearance-none py-2 px-4 bg-purple-500 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-75"
+<Tag
+  {...href ? { href } : { type }}
+  class={styles}
 >
-	<slot />
-</button>
+  <slot />
+</Tag>
 
 <script>
 	import confetti from 'canvas-confetti';

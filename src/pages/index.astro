@@ -1,25 +1,129 @@
 ---
-import '../styles/global.css';
-// Component Imports
+import MainLayout from '../layouts/main.astro';
 import Button from '../components/Button.astro';
 
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+const projects = [
+  {
+    title: "The Massapequa Tutor",
+    description: "A real-time tutoring platform with student-tutor matching, live scheduling, and performance tracking.",
+    image: "/clients/the-massapequa-tutor/landing-stats.webp",
+    link: "https://themassapequatutor.com",
+    technologies: ["Next.js", "React", "Socket.io", "Prisma"]
+  },
+  {
+    title: "Aval Legal",
+    description: "AI-powered legal platform streamlining document analysis and case management.",
+    image: "/clients/aval-legal/aval.webp",
+    link: "https://aval-legal.com",
+    technologies: ["OpenAI", "React", "Node.js", "PostgreSQL"]
+  },
+  {
+    title: "Sublime Events and Decor",
+    description: "Digital transformation for an events company with e-commerce and booking system.",
+    image: "/clients/sublime-decor/landing-page-sublime.webp",
+    link: "https://sublimeeventsdecor.com",
+    technologies: ["Next.js", "Stripe", "Tailwind CSS"]
+  },
+  {
+    title: "Crocker Ventures",
+    description: "Modern website redesign for a venture capital firm focusing on user experience.",
+    image: "/clients/crocker-ventures/landing_page.webp",
+    link: "https://crockerventures.com",
+    technologies: ["React", "Gatsby", "GraphQL"]
+  },
+  {
+    title: "Sorenson Legacy Foundation",
+    description: "Secure website migration and modernization for a non-profit organization.",
+    image: "/clients/sorenson-legacy-foundation/landing-sorenson.webp",
+    link: "https://sorensonlegacyfoundation.org",
+    technologies: ["WordPress", "PHP", "MySQL"]
+  },
+  {
+    title: "TikCook Recipes",
+    description: "High-performance recipe platform with social sharing features.",
+    image: "/clients/tikcook-recipes/tikcook-logo.webp",
+    link: "https://tik-cook-recipes.pages.dev",
+    technologies: ["Astro", "React", "Cloudflare"]
+  }
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro + TailwindCSS</title>
-	</head>
+<MainLayout>
+  <section class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            Transforming Ideas into
+            <span class="text-teal-600">Digital Solutions</span>
+          </h1>
+          <p class="text-xl text-gray-600 mb-8">
+            Hi, I'm Bryson Meiling. I help businesses and organizations build modern, efficient, and user-friendly digital experiences.
+          </p>
+          <div class="flex gap-4">
+            <Button href="/contact">Get in Touch</Button>
+            <Button href="/projects" variant="outline">View Projects</Button>
+          </div>
+        </div>
+        <div class="relative">
+          <img 
+            src="/bryson-smiling-lake.webp" 
+            alt="Bryson Meiling"
+            class="rounded-lg shadow-xl"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<body>
-		<div class="grid place-items-center h-screen content-center">
-			<Button>Tailwind Button in Astro!</Button>
-			<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		</div>
-	</body>
-</html>
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">Featured Projects</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map(project => (
+          <a href={project.link} target="_blank" rel="noopener noreferrer" 
+             class="group block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow">
+            <div class="aspect-video overflow-hidden">
+              <img 
+                src={project.image} 
+                alt={project.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">{project.title}</h3>
+              <p class="text-gray-600 mb-4">{project.description}</p>
+              <div class="flex flex-wrap gap-2">
+                {project.technologies.map(tech => (
+                  <span class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-sm">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-8">Stay Updated</h2>
+      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Subscribe to my newsletter for the latest tech insights, project updates, and industry best practices.
+      </p>
+      <form class="max-w-md mx-auto flex gap-4">
+        <input 
+          type="email" 
+          placeholder="Enter your email" 
+          class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+          required
+        />
+        <Button type="submit">Subscribe</Button>
+      </form>
+    </div>
+  </section>
+</MainLayout>

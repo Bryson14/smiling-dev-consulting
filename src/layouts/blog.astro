@@ -1,0 +1,122 @@
+---
+import MainLayout from './main.astro';
+import SocialShare from '../components/SocialShare.astro';
+import JsonLd from '../components/JsonLd.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  author?: string;
+  image?: string;
+  tags?: string[];
+}
+
+const { 
+  title, 
+  description, 
+  pubDate,
+  author = "Bryson Meiling",
+  image,
+  tags = []
+} = Astro.props;
+
+// Convert string date to Date object if needed
+const dateObject = pubDate instanceof Date ? pubDate : new Date(pubDate);
+const formattedDate = dateObject.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+const articleStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "image": image ? new URL(image, Astro.url) : undefined,
+  "datePublished": dateObject.toISOString(),
+  "dateModified": dateObject.toISOString(),
+  "author": {
+    "@type": "Person",
+    "name": author,
+    "url": "https://smiling.dev/about"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Smiling Dev Consulting",
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL("/favicon.svg", Astro.url)
+    }
+  },
+  "keywords": tags.join(", "),
+  "url": Astro.url.href,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": Astro.url.href
+  }
+};
+---
+
+<MainLayout title={`${title} - Smiling Dev Blog`} description={description}>
+  <JsonLd data={articleStructuredData} />
+  <article class="container mx-auto px-4 py-12">
+    <div class="max-w-3xl mx-auto">
+      {image && (
+        <img 
+          src={image}
+          alt={title}
+          class="w-full aspect-video object-cover rounded-xl mb-8"
+        />
+      )}
+
+      <div class="mb-8">
+        {tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-4">
+            {tags.map(tag => (
+              <a 
+                href={`/blog/tag/${tag.toLowerCase()}`}
+                class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-sm hover:bg-teal-100"
+              >
+                {tag}
+              </a>
+            ))}
+          </div>
+        )}
+
+        <h1 class="text-4xl font-bold mb-4">{title}</h1>
+        
+        <div class="flex flex-wrap items-center gap-4 text-gray-600 mb-6">
+          <span>{author}</span>
+          <span>•</span>
+          <time datetime={dateObject.toISOString()}>{formattedDate}</time>
+        </div>
+
+        <SocialShare
+          title={title}
+          description={description}
+          url={Astro.url.href}
+          class="mb-8"
+        />
+      </div>
+
+      <div class="prose prose-lg max-w-none">
+        <slot />
+      </div>
+
+      <div class="mt-16 pt-8 border-t">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-gray-600">
+            Share this article:
+          </div>
+          <SocialShare
+            title={title}
+            description={description}
+            url={Astro.url.href}
+          />
+        </div>
+      </div>
+    </div>
+  </article>
+</MainLayout>

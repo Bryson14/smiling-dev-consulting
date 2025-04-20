@@ -1,0 +1,121 @@
+---
+import MainLayout from '../layouts/main.astro';
+
+const lastUpdated = "April 19, 2025";
+---
+
+<MainLayout
+  title="Terms & Conditions - Smiling Dev Consulting"
+  description="Terms and conditions for using Smiling Dev Consulting services."
+>
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl font-bold mb-8">Terms & Conditions</h1>
+      
+      <div class="prose prose-lg max-w-none">
+        <p class="text-sm text-gray-600 mb-8">Last Updated: {lastUpdated}</p>
+
+        <section class="mb-8">
+          <h2>1. Services</h2>
+          <p>
+            Smiling Dev Consulting ("we," "us," or "our") provides web development, technical consulting, 
+            and digital transformation services to clients. By engaging our services, you agree to these terms and conditions.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2>2. Project Terms</h2>
+          <p>
+            All projects begin with a written agreement outlining scope, deliverables, timeline, and payment terms. 
+            Changes to project scope must be agreed upon in writing.
+          </p>
+          <ul>
+            <li>Project timelines are estimates and subject to change based on project complexity and client feedback</li>
+            <li>Final deliverables are provided upon receipt of full payment</li>
+            <li>Source code ownership transfers to the client upon final payment</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2>3. Payment Terms</h2>
+          <p>
+            Our standard payment terms include:
+          </p>
+          <ul>
+            <li>50% deposit required to begin work</li>
+            <li>Remaining balance due upon project completion</li>
+            <li>Additional work beyond agreed scope billed at our standard hourly rate</li>
+            <li>Late payments subject to 1.5% monthly interest charge</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2>4. Intellectual Property</h2>
+          <p>
+            Upon final payment, clients receive full rights to the completed project deliverables. 
+            We retain rights to:
+          </p>
+          <ul>
+            <li>Display the work in our portfolio</li>
+            <li>Describe the project in case studies</li>
+            <li>Use non-proprietary code components in other projects</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2>5. Confidentiality</h2>
+          <p>
+            We maintain strict confidentiality regarding client information and project details. 
+            Non-disclosure agreements available upon request.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2>6. Warranty & Support</h2>
+          <p>
+            We provide:
+          </p>
+          <ul>
+            <li>30-day bug fix warranty on all delivered work</li>
+            <li>Documentation for all completed projects</li>
+            <li>Optional ongoing support and maintenance packages</li>
+          </ul>
+        </section>
+
+        <section class="mb-8">
+          <h2>7. Limitation of Liability</h2>
+          <p>
+            Our liability is limited to the amount paid for services. We are not liable for indirect, 
+            consequential, or incidental damages.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2>8. Termination</h2>
+          <p>
+            Either party may terminate services with 30 days written notice. Client is responsible for 
+            payment for all work completed up to termination date.
+          </p>
+        </section>
+
+        <section class="mb-8">
+          <h2>9. Governing Law</h2>
+          <p>
+            These terms are governed by the laws of the State of Utah, United States. 
+            Any disputes will be resolved in Salt Lake City, Utah.
+          </p>
+        </section>
+
+        <section>
+          <h2>10. Contact</h2>
+          <p>
+            Questions about these terms should be sent to:{' '}
+            <a href="mailto:info@smiling.dev" class="text-teal-600 hover:text-teal-700">
+              info@smiling.dev
+            </a>
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</MainLayout>

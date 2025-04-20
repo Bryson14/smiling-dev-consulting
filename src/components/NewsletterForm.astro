@@ -1,0 +1,151 @@
+---
+import Button from "./Button.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  class?: string;
+}
+
+const {
+  title = "Subscribe to Newsletter",
+  description = "Get the latest updates and insights delivered to your inbox.",
+  class: className = "",
+} = Astro.props;
+---
+
+<div class:list={["newsletter-form", className]}>
+  <h3 class="font-semibold mb-2 dark:text-gray-100">{title}</h3>
+  <p class="text-gray-600 dark:text-gray-300 mb-4 text-sm">{description}</p>
+
+  <form id="newsletterForm" class="space-y-4">
+    <div class="flex flex-col md:flex-row gap-4">
+      <div class="relative md:flex-1">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+          class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-teal-600 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100 dark:placeholder-gray-400"
+        />
+        <div
+          class="text-sm text-red-600 dark:text-red-400 mt-1 hidden"
+          data-error="email"
+        >
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        id="subscribeButton"
+        class="w-full md:w-auto px-6 bg-teal-600 text-white py-2 rounded-lg font-medium hover:bg-teal-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 dark:bg-teal-500 dark:hover:bg-teal-600"
+      >
+        Subscribe
+      </button>
+    </div>
+
+    <div id="newsletterSuccess" class="hidden">
+      <p class="text-green-600 dark:text-green-400 text-sm">
+        Thanks for subscribing! Please check your email to confirm.
+      </p>
+    </div>
+
+    <div id="newsletterError" class="hidden">
+      <p class="text-red-600 dark:text-red-400 text-sm"></p>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById("newsletterForm") as HTMLFormElement;
+  const emailInput = document.getElementById("email") as HTMLInputElement;
+  const submitButton = document.getElementById(
+    "subscribeButton",
+  ) as HTMLButtonElement;
+  const successDiv = document.getElementById("newsletterSuccess");
+  const errorDiv = document.getElementById("newsletterError");
+  const emailError = document.querySelector('[data-error="email"]');
+
+  function setLoading(loading: boolean) {
+    if (loading) {
+      submitButton.disabled = true;
+      submitButton.classList.add("opacity-70", "cursor-not-allowed");
+      submitButton.innerHTML = `
+      <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      Subscribing...
+    `;
+    } else {
+      submitButton.disabled = false;
+      submitButton.classList.remove("opacity-70", "cursor-not-allowed");
+      submitButton.textContent = "Subscribe";
+    }
+  }
+
+  function validateEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(email);
+
+    if (!isValid && emailError) {
+      emailError.textContent = "Please enter a valid email address";
+      emailError.classList.remove("hidden");
+    } else if (emailError) {
+      emailError.classList.add("hidden");
+    }
+
+    return isValid;
+  }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Reset messages
+    successDiv?.classList.add("hidden");
+    errorDiv?.classList.add("hidden");
+
+    const email = emailInput.value;
+
+    if (!validateEmail(email)) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to subscribe");
+      }
+
+      // Show success message
+      successDiv?.classList.remove("hidden");
+      form.reset();
+    } catch (error) {
+      // Show error message
+      if (errorDiv) {
+        errorDiv.querySelector("p")!.textContent =
+          error instanceof Error ? error.message : "An error occurred";
+        errorDiv.classList.remove("hidden");
+      }
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  // Real-time email validation
+  emailInput?.addEventListener("input", () => {
+    validateEmail(emailInput.value);
+  });
+</script>
