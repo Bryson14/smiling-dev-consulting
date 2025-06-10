@@ -1,0 +1,39 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/main.astro";
+
+interface TagDict {
+    name: string;
+    count: number;
+    linkList: string[];
+}
+
+export async function getStaticPaths() {
+    const tags: Record<string, TagDict> = {};
+    const posts = await getCollection("blog");
+
+    for (const post of posts) {
+        for (const tag of post.data.keywords) {
+            if (tags[tag]) {
+                // Changed from tags.has(tag)
+                tags[tag].count += 1; // Changed from tags.tag.count
+                tags[tag].linkList.push(post.data.slug); // Changed from tags.tag.linkList
+            } else {
+                tags[tag] = { count: 1, name: tag, linkList: [post.data.slug] };
+            }
+        }
+    }
+
+    // Fixed the map function - Object.entries to get key-value pairs
+    return Object.entries(tags).map(([name, data]) => ({
+        params: { tag: name },
+        props: { tag: data },
+    }));
+}
+
+const { tag } = Astro.props;
+---
+
+<Layout>
+    <div>Hello Tag {tag.name}</div>
+</Layout>

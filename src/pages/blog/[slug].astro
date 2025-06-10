@@ -1,29 +1,21 @@
 ---
-import MainLayout from './main.astro';
-import SocialShare from '../components/SocialShare.astro';
-import JsonLd from '../components/JsonLd.astro';
+import { getCollection, render } from 'astro:content';
+import MainLayout from '@/layouts/main.astro';
+import SocialShare from '@/components/SocialShare.astro';
+import JsonLd from '@/components/JsonLd.astro';
 
-interface Props {
-  title: string;
-  description: string;
-  pubDate: Date;
-  author?: string;
-  image?: string;
-  tags?: string[];
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
 }
 
-const { 
-  title, 
-  description, 
-  pubDate,
-  author = "Bryson Meiling",
-  image,
-  tags = []
-} = Astro.props;
+const { post } = Astro.props;
+const { Content } = await render(post);
 
-// Convert string date to Date object if needed
-const dateObject = pubDate instanceof Date ? pubDate : new Date(pubDate);
-const formattedDate = dateObject.toLocaleDateString('en-US', {
+const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
@@ -32,14 +24,14 @@ const formattedDate = dateObject.toLocaleDateString('en-US', {
 const articleStructuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": title,
-  "description": description,
-  "image": image ? new URL(image, Astro.url) : undefined,
-  "datePublished": dateObject.toISOString(),
-  "dateModified": dateObject.toISOString(),
+  "headline": post.data.title,
+  "description": post.data.description,
+  // "image": image ? new URL(image, Astro.url) : undefined,
+  "datePublished": post.data.pubDate.toISOString(),
+  "dateModified": post.data.updateDate? post.data.updateDate.toISOString() :post.data.pubDate.toISOString(),
   "author": {
     "@type": "Person",
-    "name": author,
+    "name": post.data.author,
     "url": "https://smiling.dev/about"
   },
   "publisher": {
@@ -50,7 +42,7 @@ const articleStructuredData = {
       "url": new URL("/favicon.svg", Astro.url)
     }
   },
-  "keywords": tags.join(", "),
+  "keywords": post.data.keywords.join(", "),
   "url": Astro.url.href,
   "mainEntityOfPage": {
     "@type": "WebPage",
@@ -59,22 +51,22 @@ const articleStructuredData = {
 };
 ---
 
-<MainLayout title={`${title} - Smiling Dev Blog`} description={description}>
+<MainLayout title={`${post.data.title} - Smiling Dev Blog`} description={post.data.description}>
   <JsonLd data={articleStructuredData} />
   <article class="container mx-auto px-4 py-12">
     <div class="max-w-3xl mx-auto">
-      {image && (
+      <!-- {image && (
         <img 
           src={image}
-          alt={title}
+          alt={post.data.title}
           class="w-full aspect-video object-cover rounded-xl mb-8"
         />
-      )}
+      )} -->
 
       <div class="mb-8">
-        {tags.length > 0 && (
+        {post.data.keywords.length > 0 && (
           <div class="flex flex-wrap gap-2 mb-4">
-            {tags.map(tag => (
+            {post.data.keywords.map(tag => (
               <a 
                 href={`/blog/tag/${tag.toLowerCase()}`}
                 class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-sm hover:bg-teal-100"
@@ -85,24 +77,24 @@ const articleStructuredData = {
           </div>
         )}
 
-        <h1 class="text-4xl font-bold mb-4">{title}</h1>
+        <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
         
         <div class="flex flex-wrap items-center gap-4 text-gray-600 mb-6">
-          <span>{author}</span>
+          <span>{post.data.author}</span>
           <span>•</span>
-          <time datetime={dateObject.toISOString()}>{formattedDate}</time>
+          <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
         </div>
 
         <SocialShare
-          title={title}
-          description={description}
+          title={post.data.title}
+          description={post.data.description}
           url={Astro.url.href}
           class="mb-8"
         />
       </div>
 
       <div class="prose prose-lg max-w-none">
-        <slot />
+        <Content />
       </div>
 
       <div class="mt-16 pt-8 border-t">
@@ -111,8 +103,8 @@ const articleStructuredData = {
             Share this article:
           </div>
           <SocialShare
-            title={title}
-            description={description}
+            title={post.data.title}
+            description={post.data.description}
             url={Astro.url.href}
           />
         </div>
