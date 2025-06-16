@@ -20,7 +20,10 @@ export default defineConfig({
       themes: {
         light: "github-light",
         dark: "github-dark",
-      }
+      },
+    },
+    syntaxHighlight: {
+      excludeLangs: ["mermaid", "math"],
     },
   },
 
