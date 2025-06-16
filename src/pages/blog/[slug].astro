@@ -1,12 +1,15 @@
 ---
-import { getCollection, render } from 'astro:content';
-import MainLayout from '@/layouts/main.astro';
-import SocialShare from '@/components/SocialShare.astro';
-import JsonLd from '@/components/JsonLd.astro';
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets"
+import MainLayout from "@/layouts/main.astro";
+import SocialShare from "@/components/SocialShare.astro";
+import JsonLd from "@/components/JsonLd.astro";
+const MEDIUM_IMG =
+  "data:image/png;base64,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";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map(post => ({
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
     params: { slug: post.data.slug },
     props: { post },
   }));
@@ -15,74 +18,86 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const formattedDate = post.data.pubDate.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
+const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
 });
 
 const articleStructuredData = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": post.data.title,
-  "description": post.data.description,
+  headline: post.data.title,
+  description: post.data.description,
   // "image": image ? new URL(image, Astro.url) : undefined,
-  "datePublished": post.data.pubDate.toISOString(),
-  "dateModified": post.data.updateDate? post.data.updateDate.toISOString() :post.data.pubDate.toISOString(),
-  "author": {
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: post.data.updateDate
+    ? post.data.updateDate.toISOString()
+    : post.data.pubDate.toISOString(),
+  author: {
     "@type": "Person",
-    "name": post.data.author,
-    "url": "https://smiling.dev/about"
+    name: post.data.author,
+    url: "https://smiling.dev/about",
   },
-  "publisher": {
+  publisher: {
     "@type": "Organization",
-    "name": "Smiling Dev Consulting",
-    "logo": {
+    name: "Smiling Dev Consulting",
+    logo: {
       "@type": "ImageObject",
-      "url": new URL("/favicon.svg", Astro.url)
-    }
+      url: new URL("/favicon.svg", Astro.url),
+    },
   },
-  "keywords": post.data.keywords.join(", "),
-  "url": Astro.url.href,
-  "mainEntityOfPage": {
+  keywords: post.data.keywords.join(", "),
+  url: Astro.url.href,
+  mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": Astro.url.href
-  }
+    "@id": Astro.url.href,
+  },
 };
 ---
 
-<MainLayout title={`${post.data.title} - Smiling Dev Blog`} description={post.data.description}>
+<MainLayout
+  title={`${post.data.title} - Smiling Dev Blog`}
+  description={post.data.description}
+>
   <JsonLd data={articleStructuredData} />
   <article class="container mx-auto px-4 py-12">
     <div class="max-w-3xl mx-auto">
-      <!-- {image && (
-        <img 
-          src={image}
-          alt={post.data.title}
-          class="w-full aspect-video object-cover rounded-xl mb-8"
-        />
-      )} -->
 
       <div class="mb-8">
-        {post.data.keywords.length > 0 && (
-          <div class="flex flex-wrap gap-2 mb-4">
-            {post.data.keywords.map(tag => (
-              <a 
-                href={`/blog/tag/${tag.toLowerCase()}`}
-                class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-sm hover:bg-teal-100"
-              >
-                {tag}
-              </a>
-            ))}
-          </div>
-        )}
+        {
+          post.data.keywords.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-4">
+              {post.data.keywords.map((tag) => (
+                <a
+                  href={`/blog/tag/${tag.toLowerCase()}`}
+                  class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-sm hover:bg-teal-100"
+                >
+                  {tag}
+                </a>
+              ))}
+            </div>
+          )
+        }
 
         <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
-        
+
         <div class="flex flex-wrap items-center gap-4 text-gray-600 mb-6">
           <span>{post.data.author}</span>
           <span>•</span>
-          <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
+          <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time
+          >
+          {
+            post.data.mediumLink && (
+              <a
+                href={`${post.data.mediumLink}?utm_source=smiling.dev&utm_medium=blog&utm_campaign=${post.data.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image src={MEDIUM_IMG} alt="Medium logo" height={4} />
+              </a>
+            )
+          }
         </div>
 
         <SocialShare
@@ -99,9 +114,7 @@ const articleStructuredData = {
 
       <div class="mt-16 pt-8 border-t">
         <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-600">
-            Share this article:
-          </div>
+          <div class="text-sm text-gray-600">Share this article:</div>
           <SocialShare
             title={post.data.title}
             description={post.data.description}

@@ -1,14 +1,134 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from "@/layouts/main.astro"
-const posts = await getCollection('blog');
----
-<Layout>
+import { getCollection } from "astro:content";
+import { Image, Picture } from "astro:assets"
+import Layout from "@/layouts/main.astro";
+const posts = await getCollection("blog");
 
-    <h1>My posts</h1>
-    <ul>
-        {posts.map(post => (
-            <li><a href={`/blog/${post.id}`}>{post.data.title}</a></li>
-        ))}
-</ul>
+// Sort posts by date (newest first)
+const sortedPosts = posts.sort((a, b) => 
+  new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+// Format date function
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
+---
+
+<Layout>
+  <div class="container mx-auto px-4 py-12">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">Blog Posts</h1>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Thoughts, tutorials, and insights on web development, design, and technology.
+      </p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {sortedPosts.map((post) => (
+        <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+          {post.data.image && (
+            <div class="aspect-video overflow-hidden">
+              <Picture 
+                src={post.data.image} 
+                alt={post.data.title}
+                formats={['avif', 'webp']}
+                class:list={["w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"]}
+              />
+            </div>
+          )}
+          
+          <div class="p-6">
+            <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-3">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate)}
+              </time>
+              <span class="text-teal-600 dark:text-teal-400 font-medium">
+                {post.data.author}
+              </span>
+            </div>
+
+            <h2 class="text-xl font-bold mb-3 group-hover:text-teal-600 transition-colors duration-200">
+              <a href={`/blog/${post.id}`} class="stretched-link">
+                {post.data.title}
+              </a>
+            </h2>
+
+            <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+              {post.data.description}
+            </p>
+
+            {post.data.keywords && post.data.keywords.length > 0 && (
+              <div class="flex flex-wrap gap-2 mb-4">
+                {post.data.keywords.slice(0, 3).map((keyword) => (
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
+                    {keyword}
+                  </span>
+                ))}
+                {post.data.keywords.length > 3 && (
+                  <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs rounded-full">
+                    +{post.data.keywords.length - 3} more
+                  </span>
+                )}
+              </div>
+            )}
+
+            <div class="flex items-center justify-between">
+              <span class="text-teal-600 dark:text-teal-400 font-medium text-sm group-hover:underline">
+                Read more →
+              </span>
+              {post.data.mediumLink && (
+                <a 
+                  href={post.data.mediumLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                  aria-label="Read on Medium"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75S24 8.83 24 12z"/>
+                  </svg>
+                </a>
+              )}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    {posts.length === 0 && (
+      <div class="text-center py-12">
+        <p class="text-xl text-gray-500 dark:text-gray-400">
+          No blog posts yet. Check back soon!
+        </p>
+      </div>
+    )}
+  </div>
 </Layout>
+
+<style>
+  .stretched-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  article {
+    position: relative;
+  }
+</style>

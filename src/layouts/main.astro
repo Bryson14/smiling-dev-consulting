@@ -5,7 +5,8 @@ import MobileNav from "../components/MobileNav.astro";
 import DarkMode from "../components/DarkMode.astro";
 import ScrollToTop from "../components/ScrollToTop.astro";
 import "../styles/global.css";
-import { Network, Rss } from "lucide-react";
+import { Network, Rss } from "@lucide/astro";
+import { Image } from "astro:assets"
 
 interface Props {
 	title?: string;
@@ -59,10 +60,11 @@ const {
 				>
 					<nav class="flex items-center space-x-8">
 						<a href="/" class="flex items-center space-x-2">
-							<img
+							<Image
 								src="/favicon.svg"
 								alt="Smiling Dev Logo"
-								class="w-8 h-8"
+								height={8}
+								width={8}
 							/>
 							<span
 								class="font-semibold text-xl text-teal-600 dark:text-teal-500"

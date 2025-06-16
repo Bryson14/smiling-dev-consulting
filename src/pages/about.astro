@@ -1,4 +1,5 @@
 ---
+import { Picture } from "astro:assets"
 import MainLayout from '../layouts/main.astro';
 import Button from '../components/Button.astro';
 
@@ -85,9 +86,10 @@ const experience = [
           </div>
         </div>
         <div class="relative">
-          <img 
+          <Picture 
             src="/bryson-smiling-lake.webp" 
             alt="Bryson Meiling"
+            formats={["avif", "webp"]}
             class="rounded-lg shadow-xl"
             width="500"
             height="600"

@@ -1,23 +1,23 @@
 ---
+import { Picture } from 'astro:assets';
 interface Props {
   title: string;
   description: string;
   image: string;
   link: string;
-  loading?: 'eager' | 'lazy';
 }
 
-const { title, description, image, link, loading = 'lazy' } = Astro.props;
+const { title, description, image, link } = Astro.props;
 ---
 
 <a href={link} class="group">
   <div class="overflow-hidden rounded-lg border border-slate-200 transition-all duration-300 hover:shadow-lg dark:border-slate-700">
     <div class="relative aspect-video w-full overflow-hidden">
-      <img
+      <Picture
         src={image}
         alt={title}
-        loading={loading}
-        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        formats={["avif", "webp"]}
+        class:list={["h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"]}
       />
     </div>
     <div class="p-4">
