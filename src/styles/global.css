@@ -48,9 +48,13 @@ p {
   margin-bottom: 1rem;
 }
 
-a {
+a:not(.btn):not([class*="inline-flex"]) {
   color: #0d9488;
   transition: color 0.2s;
+}
+
+a:not(.btn):not([class*="inline-flex"]):hover {
+  color: #0f766e;
 }
 
 a:hover {
@@ -92,3 +96,8 @@ input:focus, textarea:focus, select:focus {
 [data-theme="dark"] .scroll-to-top:hover {
   background-color: #6b7280;
 }
+
+ /* .astro-code,
+  .astro-code span {
+    background-color: red;
+  } */
