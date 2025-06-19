@@ -10,7 +10,7 @@ interface Props {
 const {
   title,
   description,
-  image = '/slogan-laptop-smile.webp',
+  image = "/smiling-dev-logo-small.png",
   canonicalUrl = Astro.url.href,
   type = 'website',
 } = Astro.props;
@@ -21,7 +21,7 @@ const siteTitle = title.includes('Smiling Dev') ? title : `${title} - Smiling De
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" href="/smiling-dev-logo-small.png" />
 <meta name="generator" content={Astro.generator} />
 
 <!-- Primary Meta Tags -->
@@ -60,5 +60,5 @@ const siteTitle = title.includes('Smiling Dev') ? title : `${title} - Smiling De
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
 <!-- Preload critical images -->
-<link rel="preload" as="image" href="/favicon.svg" />
+<link rel="preload" as="image" href="/smiling-dev-logo-small.png" />
 {image && <link rel="preload" as="image" href={image} />}
