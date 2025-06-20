@@ -1,0 +1,83 @@
+media: 
+  - name: files
+    label: Files
+    input: src/content/files
+    output: src/content/files
+  - name: images
+    label: Images
+    input: src/content/images
+    output: src/content/images
+    extensions:
+      - jpg
+      - jpeg
+      - png
+      - gif
+      - svg
+      - webp
+      - avif
+
+content:
+  - name: blog
+    label: Blog Posts
+    path: src/content/blog
+    type: collection
+    format: yaml-frontmatter
+    filename: '{slug}.md'
+    fields:
+      - name: slug
+        label: Slug
+        type: string
+        required: true
+        description: The unique identifier for the blog post, used in the URL.
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text # Using 'text' for potentially longer descriptions
+        required: true
+      - name: author
+        label: Author
+        type: string
+        required: true
+      - name: pubDate
+        label: Publish Date
+        type: date
+        required: true
+        options:
+          format: YYYY-MM-DD # Matches Zod's date type for consistent formatting
+      - name: updateDate
+        label: Last Updated Date
+        type: date
+        required: false
+        options:
+          format: YYYY-MM-DD
+      - name: mediumLink
+        label: Medium Link
+        type: string
+        required: false
+        pattern: # Validates for a URL, matching Zod's .url()
+          regex: '^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$'
+          message: 'Please enter a valid URL (e.g., https://example.com/)'
+      - name: keywords
+        label: Keywords
+        type: string
+        list: true # Allows multiple keywords, mapping to Zod's z.array(z.string())
+        description: A list of keywords for SEO.
+      - name: image
+        label: Cover Image
+        type: image # This aligns with Astro's image helper
+        required: true
+        description: The main cover image for the blog post.
+      - name: body # This represents the main Markdown content after the frontmatter
+        label: Content
+        type: rich-text # Provides a rich text editor for your Markdown content
+        description: The main content of your blog post.
+    view:
+      fields: [title, author, pubDate, slug]
+      primary: title
+      sort: [pubDate, title]
+      default:
+        sort: pubDate
+        order: desc
