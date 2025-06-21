@@ -1,0 +1,41 @@
+name: Deploy Cloudflare Pages on Source Change
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**' # Trigger only when files in the 'src' directory change
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy to Cloudflare Pages
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # Checks out your repository code
+
+      - name: Setup Node.js and pnpm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # Or your desired Node.js version
+          cache: 'pnpm' # Caches pnpm dependencies for faster builds
+
+      - name: Install Dependencies
+        run: pnpm ci # Installs project dependencies using pnpm
+
+      - name: Build Project
+        run: pnpm run build # Runs the build script defined in your package.json
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3 # Uses the official Wrangler GitHub Action
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }} # Your Cloudflare API Token secret
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }} # Your Cloudflare Account ID secret
+          packageManager: pnpm # Explicitly specifies pnpm as the package manager
+          command: pages deploy dist --project-name=smiling-tech-consulting # Deploys the 'dist' folder to your Pages project
+
+    permissions:
+      contents: read # Required to checkout the repository
+      deployments: write # Required for GitHub Deployments to track your Pages deployments
