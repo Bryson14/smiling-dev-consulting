@@ -46,13 +46,13 @@ content:
         type: date
         required: true
         options:
-          format: YYYY-MM-DD # Matches Zod's date type for consistent formatting
+          format: yyyy-MM-dd
       - name: updateDate
         label: Last Updated Date
         type: date
         required: false
         options:
-          format: YYYY-MM-DD
+          format: yyyy-MM-dd
       - name: mediumLink
         label: Medium Link
         type: string
