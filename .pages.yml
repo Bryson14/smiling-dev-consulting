@@ -131,6 +131,18 @@ content:
         type: image
         required: false
         description: Optional cover image for the project.
+      - name: websiteLink
+        type: string
+        description: URL to the active website
+      - name: githubLink
+        type: string
+        description: URL to the github repository
+      - name: demoLink
+        type: string
+        description: URL to the demo version
+      - name: videoLink
+        type: string
+        description: URL to a video 
       - name: body
         label: Content
         type: rich-text
