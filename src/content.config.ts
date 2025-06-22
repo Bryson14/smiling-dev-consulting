@@ -23,7 +23,7 @@ const projects = defineCollection({
         slug: z.string().regex(/^[a-z0-9-]+$/, "Project slugs must be lowercase and can only contain letters, numbers, and hyphens."),
         title: z.string(),
         description: z.string(),
-        status: z.enum(['active', 'finished', 'in-progress']),
+        status: z.enum(['Active', 'Finished', 'In-Progress']),
         updateDate: z.date(),
         keywords: z.array(z.string()),
         technologies: z.array(z.string()),

@@ -107,9 +107,10 @@ content:
         type: select
         required: true
         options:
-          - in-progress
-          - active
-          - finished
+          values:
+            - In-Progress
+            - Active
+            - Finished
       - name: updateDate
         label: Last Updated Date
         type: date
