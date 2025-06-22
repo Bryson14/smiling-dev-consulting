@@ -15,9 +15,9 @@ for (const post of posts) {
     for (const tag of post.data.keywords) {
         if (tags[tag]) {
             tags[tag].count += 1;
-            tags[tag].linkList.push(post.slug);
+            tags[tag].linkList.push(post.data.slug);
         } else {
-            tags[tag] = { count: 1, name: tag, linkList: [post.slug] };
+            tags[tag] = { count: 1, name: tag, linkList: [post.data.slug] };
         }
     }
 }
