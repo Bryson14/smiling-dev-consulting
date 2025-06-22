@@ -1,5 +1,5 @@
 ---
-import { Picture } from 'astro:assets';
+import { Picture } from "astro:assets";
 interface Props {
   title: string;
   description: string;
@@ -12,15 +12,23 @@ const { title, description, image, link } = Astro.props;
 ---
 
 <a href={link} class="group">
-  <div class="overflow-hidden rounded-lg border border-slate-200 transition-all duration-300 hover:shadow-lg dark:border-slate-700">
-    <div class="relative aspect-video w-full overflow-hidden">
-      <Picture
-        src={image}
-        alt={title}
-        formats={["avif", "webp"]}
-        class:list={["h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"]}
-      />
-    </div>
+  <div
+    class="overflow-hidden rounded-lg border border-slate-200 transition-all duration-300 hover:shadow-lg dark:border-slate-700"
+  >
+    {
+      image && image !== "" && (
+        <div class="relative aspect-video w-full overflow-hidden">
+          <Picture
+            src={image}
+            alt={title}
+            formats={["avif", "webp"]}
+            class:list={[
+              "h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
+            ]}
+          />
+        </div>
+      )
+    }
     <div class="p-4">
       <h3 class="mb-2 text-xl font-semibold transition-colors">{title}</h3>
       <p class="text-slate-600 dark:text-slate-300">{description}</p>
@@ -30,8 +38,14 @@ const { title, description, image, link } = Astro.props;
 
 <style>
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   div {

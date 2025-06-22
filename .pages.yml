@@ -107,6 +107,8 @@ content:
         type: select
         required: true
         options:
+          - value: in-progress
+            label: In Progress
           - value: active
             label: Active
           - value: finished

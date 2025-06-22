@@ -1,31 +1,39 @@
 ---
-import Layout from '../layouts/main.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/main.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
 ---
 
-<Layout title="Projects | Smiling Dev Consulting" description="View our portfolio of web development and consulting projects">
+<Layout
+  title="Projects | Smiling Dev Consulting"
+  description="View our portfolio of web development and consulting projects"
+>
   <main class="container mx-auto px-4 py-12">
-    <h1 class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+    <h1
+      class="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white"
+    >
       Our Projects
     </h1>
-    
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {projects.map((project) => (
-        <ProjectCard
-          title={project.data.title}
-          description={project.data.description}
-          image={project.data.image.src}
-          link={`/projects/${project.data.slug}`}
-        />
-      ))}
+      {
+        projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            image={project.data.image?.src ?? ""}
+            link={`/projects/${project.data.slug}`}
+          />
+        ))
+      }
     </div>
 
     <div class="mt-12 text-center">
       <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Looking to start your own project? Let's discuss how we can help bring your vision to life.
+        Looking to start your own project? Let's discuss how we can help bring
+        your vision to life.
       </p>
       <a
         href="/contact"
@@ -42,8 +50,7 @@ const projects = await getCollection("projects");
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M17 8l4 4m0 0l-4 4m4-4H3"
-          />
+            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
         </svg>
       </a>
     </div>

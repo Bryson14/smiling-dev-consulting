@@ -5,7 +5,7 @@ import { glob } from 'astro/loaders';
 const blog = defineCollection({
     loader: glob({ pattern: "**/*.md", base: "src/content/blog" }),
     schema: ({ image }) => z.object({
-        slug: z.string(),
+        slug: z.string().regex(/^[a-z0-9-]+$/, "Project slugs must be lowercase and can only contain letters, numbers, and hyphens."),
         title: z.string(),
         description: z.string(),
         author: z.string(),
@@ -20,10 +20,10 @@ const blog = defineCollection({
 const projects = defineCollection({
     loader: glob({ pattern: "**/*.md", base: "src/content/projects" }),
     schema: ({ image }) => z.object({
-        slug: z.string(),
+        slug: z.string().regex(/^[a-z0-9-]+$/, "Project slugs must be lowercase and can only contain letters, numbers, and hyphens."),
         title: z.string(),
         description: z.string(),
-        status: z.enum(['active', 'finished']),
+        status: z.enum(['active', 'finished', 'in-progress']),
         updateDate: z.date(),
         keywords: z.array(z.string()),
         technologies: z.array(z.string()),
