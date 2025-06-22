@@ -32,7 +32,6 @@ jobs:
         uses: cloudflare/wrangler-action@v3 # Uses the official Wrangler GitHub Action
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }} # Your Cloudflare API Token secret
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }} # Your Cloudflare Account ID secret
           packageManager: pnpm # Explicitly specifies pnpm as the package manager
           command: pages deploy dist --project-name=smiling-tech-consulting # Deploys the 'dist' folder to your Pages project
 
