@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'src/**' # Trigger only when files in the 'src' directory change
+    # paths:
+    #   - 'src/**' # Trigger only when files in the 'src' directory change
 
 jobs:
   deploy:
@@ -16,14 +16,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4 # Checks out your repository code
 
-      - name: Setup Node.js and pnpm
-        uses: actions/setup-node@v4
+      - name: Setup pnpm
+        uses: npm/action-setup@v4
         with:
-          node-version: '22' # Or your desired Node.js version
-          cache: 'pnpm' # Caches pnpm dependencies for faster builds
+          version: 10
 
       - name: Install Dependencies
-        run: pnpm ci # Installs project dependencies using pnpm
+        run: pnpm install
 
       - name: Build Project
         run: pnpm run build # Runs the build script defined in your package.json
