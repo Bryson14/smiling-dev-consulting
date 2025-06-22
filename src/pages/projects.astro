@@ -3,7 +3,7 @@ import Layout from '../layouts/main.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 
-const projects = await getCollection('projects');
+const projects = await getCollection("projects");
 ---
 
 <Layout title="Projects | Smiling Dev Consulting" description="View our portfolio of web development and consulting projects">
@@ -17,9 +17,8 @@ const projects = await getCollection('projects');
         <ProjectCard
           title={project.data.title}
           description={project.data.description}
-          image={project.data.image}
-          link={`/projects/${project.slug}`}
-          technologies={project.data.technologies}
+          image={project.data.image.src}
+          link={`/projects/${project.data.slug}`}
         />
       ))}
     </div>

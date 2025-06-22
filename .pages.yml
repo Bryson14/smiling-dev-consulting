@@ -81,3 +81,64 @@ content:
       default:
         sort: pubDate
         order: desc
+
+  - name: project
+    label: Projects
+    path: src/content/projects
+    type: collection
+    format: yaml-frontmatter
+    filename: '{slug}.md'
+    fields:
+      - name: slug
+        label: Slug
+        type: string
+        required: true
+        description: The unique identifier for the project, used in the URL.
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: status
+        label: Status
+        type: select
+        required: true
+        options:
+          - value: active
+            label: Active
+          - value: finished
+            label: Finished
+      - name: updateDate
+        label: Last Updated Date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: keywords
+        label: Keywords
+        type: string
+        list: true
+      - name: technologies
+        label: Technologies
+        type: string
+        list: true
+        description: A list of keywords for SEO.
+      - name: image
+        label: Cover Image
+        type: image
+        required: false
+        description: Optional cover image for the project.
+      - name: body
+        label: Content
+        type: rich-text
+        description: The main content of your project.
+    view:
+      fields: [title, status, updateDate, slug]
+      primary: title
+      sort: [updateDate, title]
+      default:
+        sort: updateDate
+        order: desc
