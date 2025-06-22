@@ -14,4 +14,5 @@ technologies:
   - MySQL
   - Wix
 image: src/content/images/slf-landing-page.webp
+websiteLink: https://sorensonlegacyfoundation.org
 ---
