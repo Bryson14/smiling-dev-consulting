@@ -18,10 +18,10 @@ const { title, description, image, link } = Astro.props;
     {
       image && image !== "" && (
         <div class="relative aspect-video w-full overflow-hidden">
-          <Picture
+          {/* TODO use Picture component */}
+          <img 
             src={image}
             alt={title}
-            formats={["avif", "webp"]}
             class:list={[
               "h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
             ]}
