@@ -27,7 +27,11 @@ const projects = defineCollection({
         updateDate: z.date(),
         keywords: z.array(z.string()),
         technologies: z.array(z.string()),
-        image: image().optional()
+        image: image().optional(),
+        websiteLink: z.string().url().optional(),
+        githubLink: z.string().url().optional(),
+        demoLink: z.string().url().optional(),
+        videoLink: z.string().url().optional(),
     })
 
 })

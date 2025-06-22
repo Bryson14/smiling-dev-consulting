@@ -2,57 +2,61 @@
 import { Picture } from "astro:assets";
 import MainLayout from "../layouts/main.astro";
 import Button from "../components/Button.astro";
+import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
-const projects = [
-  {
-    title: "The Massapequa Tutor",
-    description:
-      "A real-time tutoring platform with student-tutor matching, live scheduling, and performance tracking.",
-    image: "/clients/the-massapequa-tutor/landing-stats.webp",
-    link: "https://themassapequatutor.com",
-    technologies: ["Next.js", "React", "Socket.io", "Prisma"],
-  },
-  {
-    title: "Aval Legal",
-    description:
-      "AI-powered legal platform streamlining document analysis and case management.",
-    image: "/clients/aval-legal/aval.webp",
-    link: "https://aval-legal.com",
-    technologies: ["OpenAI", "React", "Node.js", "PostgreSQL"],
-  },
-  {
-    title: "Sublime Events and Decor",
-    description:
-      "Digital transformation for an events company with e-commerce and booking system.",
-    image: "/clients/sublime-decor/landing-page-sublime.webp",
-    link: "https://sublimeeventsdecor.com",
-    technologies: ["Next.js", "Stripe", "Tailwind CSS"],
-  },
-  {
-    title: "Crocker Ventures",
-    description:
-      "Modern website redesign for a venture capital firm focusing on user experience.",
-    image: "/clients/crocker-ventures/landing_page.webp",
-    link: "https://crockerventures.com",
-    technologies: ["React", "Gatsby", "GraphQL"],
-  },
-  {
-    title: "Sorenson Legacy Foundation",
-    description:
-      "Secure website migration and modernization for a non-profit organization.",
-    image: "/clients/sorenson-legacy-foundation/landing-sorenson.webp",
-    link: "https://sorensonlegacyfoundation.org",
-    technologies: ["WordPress", "PHP", "MySQL"],
-  },
-  {
-    title: "TikCook Recipes",
-    description:
-      "High-performance recipe platform with social sharing features.",
-    image: "/clients/tikcook-recipes/tikcook-logo.webp",
-    link: "https://tik-cook-recipes.pages.dev",
-    technologies: ["Astro", "React", "Cloudflare"],
-  },
-];
+const projects = await getCollection("projects");
+
+// const projects = [
+//   {
+//     title: "The Massapequa Tutor",
+//     description:
+//       "A real-time tutoring platform with student-tutor matching, live scheduling, and performance tracking.",
+//     image: "/clients/the-massapequa-tutor/landing-stats.webp",
+//     link: "https://themassapequatutor.com",
+//     technologies: ["Next.js", "React", "Socket.io", "Prisma"],
+//   },
+//   {
+//     title: "Aval Legal",
+//     description:
+//       "AI-powered legal platform streamlining document analysis and case management.",
+//     image: "/clients/aval-legal/aval.webp",
+//     link: "https://aval-legal.com",
+//     technologies: ["OpenAI", "React", "Node.js", "PostgreSQL"],
+//   },
+//   {
+//     title: "Sublime Events and Decor",
+//     description:
+//       "Digital transformation for an events company with e-commerce and booking system.",
+//     image: "/clients/sublime-decor/landing-page-sublime.webp",
+//     link: "https://sublimeeventsdecor.com",
+//     technologies: ["Next.js", "Stripe", "Tailwind CSS"],
+//   },
+//   {
+//     title: "Crocker Ventures",
+//     description:
+//       "Modern website redesign for a venture capital firm focusing on user experience.",
+//     image: "/clients/crocker-ventures/landing_page.webp",
+//     link: "https://crockerventures.com",
+//     technologies: ["React", "Gatsby", "GraphQL"],
+//   },
+//   {
+//     title: "Sorenson Legacy Foundation",
+//     description:
+//       "Secure website migration and modernization for a non-profit organization.",
+//     image: "/clients/sorenson-legacy-foundation/landing-sorenson.webp",
+//     link: "https://sorensonlegacyfoundation.org",
+//     technologies: ["WordPress", "PHP", "MySQL"],
+//   },
+//   {
+//     title: "TikCook Recipes",
+//     description:
+//       "High-performance recipe platform with social sharing features.",
+//     image: "/clients/tikcook-recipes/tikcook-logo.webp",
+//     link: "https://tik-cook-recipes.pages.dev",
+//     technologies: ["Astro", "React", "Cloudflare"],
+//   },
+// ];
 ---
 
 <MainLayout>
@@ -94,24 +98,24 @@ const projects = [
         {
           projects.map((project) => (
             <a
-              href={project.link}
+              href={project.data.websiteLink}
               target="_blank"
               rel="noopener noreferrer"
               class="group block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
             >
               <div class="aspect-video overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
+                <Image
+                  src={project.data.image?.src ?? ""}
+                  alt={project.data.title}
                   // formats={["avif", "webp"]} TODO move client images to src
                   class="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 />
               </div>
               <div class="p-6">
-                <h3 class="text-xl font-semibold mb-2">{project.title}</h3>
-                <p class="text-gray-600 mb-4">{project.description}</p>
+                <h3 class="text-xl font-semibold mb-2">{project.data.title}</h3>
+                <p class="text-gray-600 mb-4">{project.data.description}</p>
                 <div class="flex flex-wrap gap-2">
-                  {project.technologies.map((tech) => (
+                  {project.data.technologies.map((tech) => (
                     <span class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-sm">
                       {tech}
                     </span>
