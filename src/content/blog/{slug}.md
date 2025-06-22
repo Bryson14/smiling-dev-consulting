@@ -18,7 +18,7 @@ keywords:
   - Software Development
   - Software Engineering
   - entrepreneurship
-image: src/content/files/ask-the-customer.jpg
+image: src/content/images/ask-the-customer.jpg
 ---
 ![](https://miro.medium.com/v2/resize:fit:500/1*mVH46i8ccrRj4SQ1_NXfRA@2x.jpeg)  
   

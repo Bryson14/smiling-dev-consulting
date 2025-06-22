@@ -1,8 +1,4 @@
 media: 
-  - name: files
-    label: Files
-    input: src/content/files
-    output: src/content/files
   - name: images
     label: Images
     input: src/content/images
@@ -15,6 +11,10 @@ media:
       - svg
       - webp
       - avif
+  - name: files
+    label: Files
+    input: src/content/files
+    output: src/content/files
 
 content:
   - name: blog
