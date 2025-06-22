@@ -11,10 +11,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Build and Deploy to Cloudflare Pages
+    environment: main
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4 # Checks out your repository code
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -23,15 +24,11 @@ jobs:
         run: pnpm install
 
       - name: Build Project
-        run: pnpm run build # Runs the build script defined in your package.json
+        run: pnpm run build
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3 # Uses the official Wrangler GitHub Action
+        uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }} # Your Cloudflare API Token secret
-          packageManager: pnpm # Explicitly specifies pnpm as the package manager
-          command: pages deploy dist --project-name=smiling-tech-consulting # Deploys the 'dist' folder to your Pages project
-
-    permissions:
-      contents: read # Required to checkout the repository
-      deployments: write # Required for GitHub Deployments to track your Pages deployments
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=smiling-tech-consulting
