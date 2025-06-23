@@ -153,7 +153,7 @@ content:
         type: rich-text
         description: The main content of your project.
     view:
-      fields: [title, status, updateDate, slug]
+      fields: [title, status, updateDate, featured, slug]
       primary: title
       sort: [updateDate, title]
       default:
