@@ -5,10 +5,11 @@ interface Props {
   description: string;
   image: string;
   link: string;
+  updated: Date;
   technologies?: string[];
 }
 
-const { title, description, image, link } = Astro.props;
+const { title, description, image, link, updated } = Astro.props;
 ---
 
 <a href={link} class="group">
@@ -32,6 +33,7 @@ const { title, description, image, link } = Astro.props;
     <div class="p-4">
       <h3 class="mb-2 text-xl font-semibold transition-colors">{title}</h3>
       <p class="text-slate-600 dark:text-slate-300">{description}</p>
+      <p class="text-slate-500 text-sm">Updated: {updated.toLocaleDateString()}</p>
     </div>
   </div>
 </a>
