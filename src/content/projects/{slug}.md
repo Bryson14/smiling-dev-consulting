@@ -27,8 +27,6 @@ websiteLink: https://ffofficers.com/
 
 FFO Officers needed a sophisticated digital presence to match their expertise in providing fractional CFO services to scaling businesses. With New York clients and ambitious growth plans, they required a professional website that would establish credibility and generate qualified leads within an aggressive two-week timeline.
 
-![](src/content/images/ffo-officers-contact-us-form.png)
-
 ![](src/content/images/ffo-officers-who-we-serve.png)
 
 ## The Challenge
