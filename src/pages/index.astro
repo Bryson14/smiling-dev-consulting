@@ -5,26 +5,12 @@ import Button from "../components/Button.astro";
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
-const projects = await getCollection("projects");
-
-// const projects = [
-//   {
-//     title: "Aval Legal",
-//     description:
-//       "AI-powered legal platform streamlining document analysis and case management.",
-//     image: "/clients/aval-legal/aval.webp",
-//     link: "https://aval-legal.com",
-//     technologies: ["OpenAI", "React", "Node.js", "PostgreSQL"],
-//   },
-//   {
-//     title: "TikCook Recipes",
-//     description:
-//       "High-performance recipe platform with social sharing features.",
-//     image: "/clients/tikcook-recipes/tikcook-logo.webp",
-//     link: "https://tik-cook-recipes.pages.dev",
-//     technologies: ["Astro", "React", "Cloudflare"],
-//   },
-// ];
+let projects = await getCollection("projects");
+projects = projects
+  .filter((project) => project.data.featured)
+  .sort((a, b) => {
+    return new Date(b.data.updateDate).getTime() - new Date(a.data.updateDate).getTime();
+  });
 ---
 
 <MainLayout>
@@ -62,19 +48,17 @@ const projects = await getCollection("projects");
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <h2 class="text-3xl font-bold text-center mb-12">Featured Projects</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="flex flex-wrap justify-center gap-8">
         {
           projects.map((project) => (
             <a
-              href={project.data.websiteLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
+              href={`/projects/${project.data.slug}`}
+              class="group block lg:max-w-2xl bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
             >
               {project.data.image && (
                 <div class="aspect-video overflow-hidden">
                   <Image
-                    src={project.data.image.src}
+                    src={project.data.image}
                     alt={project.data.title}
                     width={project.data.image.width}
                     height={project.data.image.height}

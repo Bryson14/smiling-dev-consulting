@@ -7,6 +7,8 @@ updateDate: 2025-06-12
 keywords: ['full-stack', 'custom-dashboard']
 technologies: ['aws amplify','react', 'shadcn ui', 'tailwind css', 'aws lambda', 'aws s3']
 websiteLink: https://tutorthefuture.com
+image: "../images/ttf-landing-stats.webp"
+featured: true
 ---
 
 ## Project Overview

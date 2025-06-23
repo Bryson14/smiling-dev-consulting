@@ -131,6 +131,11 @@ content:
         type: image
         required: false
         description: Optional cover image for the project.
+      - name: featured
+        label: Featured
+        type: boolean
+        description: Mark this project as featured on the homepage.
+        default: false
       - name: websiteLink
         type: string
         description: URL to the active website

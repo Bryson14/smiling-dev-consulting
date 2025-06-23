@@ -28,7 +28,7 @@ Sublime Events & Decor was experiencing organic growth beyond their initial frie
 - **Limited online presence**: No professional website to showcase their portfolio and services
 - **Missed opportunities**: Potential clients couldn't easily discover or contact the business
 - **Manual processes**: No systematic way to manage bookings, payments, or client communications
-- **Diverse services**: Needed to effectively present multiple service categories including balloon arrangements, event décor, furniture rentals, and cultural wedding attire
+- **Diverse services**: Needed to effectively present multiple service categories including balloon arrangements, event decor, furniture rentals, and cultural wedding attire
 - **Growing demand**: Required efficient systems to handle increasing client inquiries and bookings
 
 ## My Solution
@@ -38,7 +38,7 @@ I designed a comprehensive digital business platform that addressed both marketi
 **Professional Website Development**
 - Created a visually appealing website that showcases the full range of services
 - Developed organized content collections to highlight different service categories
-- Featured portfolio galleries demonstrating balloon arches, event décor, and specialty items
+- Featured portfolio galleries demonstrating balloon arches, event decor, and specialty items
 - Highlighted unique offerings including traditional Ugandan wedding attire and cultural celebrations
 
 **Business Management Integration**
@@ -51,7 +51,7 @@ I designed a comprehensive digital business platform that addressed both marketi
 - Optimized search engine visibility to attract local clients
 - Enhanced Google search presence for relevant event planning keywords
 - Improved online discoverability for specialized cultural event services
-- Established professional branding across all digital touchpoints
+- Established professional branding across all digital touch-points
 
 **Client Experience**
 - Streamlined the inquiry and booking process

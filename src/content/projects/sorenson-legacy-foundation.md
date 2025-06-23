@@ -15,6 +15,7 @@ technologies:
   - Wix
 image: src/content/images/slf-landing-page.webp
 websiteLink: https://sorensonlegacyfoundation.org
+featured: true
 ---
 
 ## Project Overview
