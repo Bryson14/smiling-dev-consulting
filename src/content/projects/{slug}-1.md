@@ -16,7 +16,8 @@ technologies:
   - FastAPI
   - MongoDB
   - Vector Embeddings
-featured: false
+image: src/content/images/IMG_9429.png
+featured: true
 ---
 \## Project Overview
 
