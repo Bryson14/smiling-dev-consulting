@@ -22,7 +22,7 @@ content:
     path: src/content/blog
     type: collection
     format: yaml-frontmatter
-    filename: '{slug}.md'
+    filename: '{primary}.md'
     fields:
       - name: slug
         label: Slug
@@ -76,7 +76,7 @@ content:
         description: The main content of your blog post.
     view:
       fields: [title, author, pubDate, slug]
-      primary: title
+      primary: slug
       sort: [pubDate, title]
       default:
         sort: pubDate
@@ -87,7 +87,7 @@ content:
     path: src/content/projects
     type: collection
     format: yaml-frontmatter
-    filename: '{slug}.md'
+    filename: '{primary}.md'
     fields:
       - name: slug
         label: Slug
@@ -154,7 +154,7 @@ content:
         description: The main content of your project.
     view:
       fields: [title, status, updateDate, featured, slug]
-      primary: title
+      primary: slug
       sort: [updateDate, title]
       default:
         sort: updateDate
