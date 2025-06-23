@@ -1,5 +1,5 @@
 ---
-slug: GEHC-discover-chatbot
+slug: ge-healthcare-discover-chatbot
 title: AI Chatbot with GE Healthcare
 description: Enterprise-grade AI chatbot framework for healthcare compliance and
   internal operations.
