@@ -26,7 +26,7 @@ export async function GET(context: any) {
 
 
   return rss({
-    title: 'Smiling Dev Blog',
+    title: 'Smiling Dev Consulting RSS Feed',
     description: 'Project Tech Consulting, Technical insights, tutorials, and industry best practices from Bryson Meiling.',
     site: context.site,
     items: allPosts.map(post => ({
