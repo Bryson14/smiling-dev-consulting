@@ -262,4 +262,4 @@ UV is more than just a new tool; it’s a huge step forward for Python developme
 
 If you’re still stuck with older ways of managing Python projects, now’s the time to switch. **Jump on the UV Python bandwagon. You won’t be disappointed.** Your development process will be smoother, faster, and much more enjoyable.
 
-Comment and clap for the article if you learned something new! Or check out some of my other articles on medium or on https://smiling.dev/blog
+Comment and clap for the article if you learned something new! Or check out some of my other articles on medium or on https://medium.com/@BryMei
