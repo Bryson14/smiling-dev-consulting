@@ -5,8 +5,8 @@ import MobileNav from "../components/MobileNav.astro";
 import DarkMode from "../components/DarkMode.astro";
 import ScrollToTop from "../components/ScrollToTop.astro";
 import "../styles/global.css";
-import { Network, Rss } from "@lucide/astro";
-import { Image } from "astro:assets"
+import { Network, Rss, Github, Mail } from "@lucide/astro";
+import { Image } from "astro:assets";
 
 interface Props {
 	title?: string;
@@ -121,129 +121,145 @@ const {
 							<h3 class="font-semibold mb-4 dark:text-gray-100">
 								Contact
 							</h3>
-							<p class="text-gray-600 dark:text-gray-300">
-								Email: info@smiling.dev
-							</p>
-						</div>
-
-						<div>
-							<h3 class="font-semibold mb-4 dark:text-gray-100">
-								Quick Links
-							</h3>
-							<ul class="space-y-2">
-								<li>
-									<a
-										href="/projects"
-										class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
-									>
-										Projects
-									</a>
-								</li>
-								<li>
-									<a
-										href="/blog"
-										class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
-									>
-										Blog
-									</a>
-								</li>
-								<li>
-									<a
-										href="/about"
-										class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
-									>
-										About
-									</a>
-								</li>
-								<li>
-									<a
-										href="/terms"
-										class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
-									>
-										Terms & Conditions
-									</a>
-								</li>
-							</ul>
-						</div>
-
-						<div>
-							<h3 class="font-semibold mb-4 dark:text-gray-100">
-								Services
-							</h3>
-							<ul class="space-y-2">
-								<li>
-									<a
-										href="/projects"
-										class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
-									>
-										Web Development
-									</a>
-								</li>
-								<li>
-									<a
-										href="/projects"
-										class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
-									>
-										Technical Consulting
-									</a>
-								</li>
-								<li>
-									<a
-										href="/projects"
-										class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
-									>
-										Cloud Development
-									</a>
-								</li>
-								<li>
-									<a
-										href="/projects"
-										class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
-									>
-										SEO Optimization
-									</a>
-								</li>
-							</ul>
-						</div>
-
-						<div>
-							<NewsletterForm
-								title="Newsletter"
-								description="Stay updated with the latest tech insights and project updates."
-							/>
+							<div class="space-y-3">
+								<a
+									href="mailto:info@smiling.dev"
+									class="flex items-center gap-3 text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
+								>
+									<Mail size={20} />
+									<span>info@smiling.dev</span>
+								</a>
+								<a
+									href="https://github.com/bryson14"
+									target="_blank"
+									rel="noopener noreferrer"
+									class="flex items-center gap-3 text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
+								>
+									<Github size={20} />
+									<span>GitHub</span>
+								</a>
+							</div>
 						</div>
 					</div>
 
-					<div
-						class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"
-					>
-						<div
-							class="text-center text-gray-600 dark:text-gray-400 text-sm"
-						>
-							<p>
-								© {new Date().getFullYear()} Smiling Dev Consulting.
-								All rights reserved.
-							</p>
-							<p class="mt-2">
+					<div>
+						<h3 class="font-semibold mb-4 dark:text-gray-100">
+							Quick Links
+						</h3>
+						<ul class="space-y-2">
+							<li>
 								<a
-									href="/rss.xml"
-									class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors inline-flex items-center gap-1"
+									href="/projects"
+									class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
 								>
-									<Rss size={16} />RSS Feed
+									Projects
 								</a>
-								<span class="mx-2">•</span>
+							</li>
+							<li>
 								<a
-									href="/sitemap-index.xml"
-									class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors inline-flex items-center gap-1"
+									href="/blog"
+									class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
 								>
-									<Network />Sitemap</a
+									Blog
+								</a>
+							</li>
+							<li>
+								<a
+									href="/about"
+									class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
 								>
-							</p>
-						</div>
+									About
+								</a>
+							</li>
+							<li>
+								<a
+									href="/terms"
+									class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
+								>
+									Terms & Conditions
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div>
+						<h3 class="font-semibold mb-4 dark:text-gray-100">
+							Services
+						</h3>
+						<ul class="space-y-2">
+							<li>
+								<a
+									href="/projects"
+									class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
+								>
+									Web Development
+								</a>
+							</li>
+							<li>
+								<a
+									href="/projects"
+									class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
+								>
+									Technical Consulting
+								</a>
+							</li>
+							<li>
+								<a
+									href="/projects"
+									class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
+								>
+									Cloud Development
+								</a>
+							</li>
+							<li>
+								<a
+									href="/projects"
+									class="text-gray-600 hover:text-teal-600 dark:text-gray-300 dark:hover:text-teal-500 transition-colors"
+								>
+									SEO Optimization
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div>
+						<NewsletterForm
+							title="Newsletter"
+							description="Stay updated with the latest tech insights and project updates."
+						/>
+					</div>
+				</div>
+
+				<div
+					class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"
+				>
+					<div
+						class="text-center text-gray-600 dark:text-gray-400 text-sm"
+					>
+						<p>
+							© {new Date().getFullYear()} Smiling Dev Consulting.
+							All rights reserved.
+						</p>
+						<p class="mt-2">
+							<a
+								href="/rss.xml"
+								class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors inline-flex items-center gap-1"
+							>
+								<Rss size={16} />RSS Feed
+							</a>
+							<span class="mx-2">•</span>
+							<a
+								href="/sitemap-index.xml"
+								class="hover:text-teal-600 dark:hover:text-teal-500 transition-colors inline-flex items-center gap-1"
+							>
+								<Network />Sitemap</a
+							>
+						</p>
 					</div>
 				</div>
 			</footer>
 		</div>
+
 		<ScrollToTop />
 		<script>
 			// Add preload class to prevent transitions on page load
