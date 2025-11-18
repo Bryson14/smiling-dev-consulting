@@ -1,5 +1,5 @@
 ---
-slug: "airflow-deployment-with-aws-ecs "
+slug: airflow-deployment-with-aws-ecs
 title: Defying airflow to Amazon ECS
 description: This was a big writeup of my five days of struggling to deploy
   airflow to Amazon ECS. May you not have as many difficulties as I did?
