@@ -2,15 +2,15 @@
 import Button from "./Button.astro";
 
 interface Props {
-  title?: string;
-  description?: string;
-  class?: string;
+	title?: string;
+	description?: string;
+	class?: string;
 }
 
 const {
-  title = "Subscribe to Newsletter",
-  description = "Get the latest updates and insights delivered to your inbox.",
-  class: className = "",
+	title = "Subscribe to Newsletter",
+	description = "Get the latest updates and insights delivered to your inbox.",
+	class: className = "",
 } = Astro.props;
 ---
 

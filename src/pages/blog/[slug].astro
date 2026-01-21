@@ -1,58 +1,59 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
-import { Image } from "astro:assets"
-import MainLayout from "@/layouts/main.astro";
-import SocialShare from "@/components/SocialShare.astro";
 import JsonLd from "@/components/JsonLd.astro";
+import SocialShare from "@/components/SocialShare.astro";
+import MainLayout from "@/layouts/main.astro";
+
 const MEDIUM_IMG =
-  "https://upload.wikimedia.org/wikipedia/commons/0/0d/Medium_%28website%29_logo.svg";
+	"https://upload.wikimedia.org/wikipedia/commons/0/0d/Medium_%28website%29_logo.svg";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
-  return posts.map((post) => ({
-    params: { slug: post.data.slug },
-    props: { post },
-  }));
+	const posts = await getCollection("blog");
+	return posts.map((post) => ({
+		params: { slug: post.data.slug },
+		props: { post },
+	}));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
 
 const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
+	year: "numeric",
+	month: "long",
+	day: "numeric",
 });
 
 const articleStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.data.title,
-  description: post.data.description,
-  // "image": image ? new URL(image, Astro.url) : undefined,
-  datePublished: post.data.pubDate.toISOString(),
-  dateModified: post.data.updateDate
-    ? post.data.updateDate.toISOString()
-    : post.data.pubDate.toISOString(),
-  author: {
-    "@type": "Person",
-    name: post.data.author,
-    url: "https://smiling.dev/about",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "Smiling Dev Consulting",
-    logo: {
-      "@type": "ImageObject",
-      url: new URL("/smiling-dev-logo-small.png", Astro.url),
-    },
-  },
-  keywords: post.data.keywords.join(", "),
-  url: Astro.url.href,
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": Astro.url.href,
-  },
+	"@context": "https://schema.org",
+	"@type": "BlogPosting",
+	headline: post.data.title,
+	description: post.data.description,
+	// "image": image ? new URL(image, Astro.url) : undefined,
+	datePublished: post.data.pubDate.toISOString(),
+	dateModified: post.data.updateDate
+		? post.data.updateDate.toISOString()
+		: post.data.pubDate.toISOString(),
+	author: {
+		"@type": "Person",
+		name: post.data.author,
+		url: "https://smiling.dev/about",
+	},
+	publisher: {
+		"@type": "Organization",
+		name: "Smiling Dev Consulting",
+		logo: {
+			"@type": "ImageObject",
+			url: new URL("/smiling-dev-logo-small.png", Astro.url),
+		},
+	},
+	keywords: post.data.keywords.join(", "),
+	url: Astro.url.href,
+	mainEntityOfPage: {
+		"@type": "WebPage",
+		"@id": Astro.url.href,
+	},
 };
 ---
 

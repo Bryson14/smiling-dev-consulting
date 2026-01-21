@@ -1,64 +1,82 @@
 ---
-import { Picture } from "astro:assets"
-import MainLayout from '../layouts/main.astro';
-import Button from '../components/Button.astro';
+import { Picture } from "astro:assets";
+import Button from "../components/Button.astro";
+import MainLayout from "../layouts/main.astro";
 
 const skills = [
-  {
-    category: "Web Development",
-    technologies: ["React", "Next.js", "Astro", "TypeScript", "Node.js", "TailwindCSS"]
-  },
-  {
-    category: "Cloud & DevOps",
-    technologies: ["AWS", "Cloudflare", "Docker", "CI/CD", "Terraform"]
-  },
-  {
-    category: "AI & Integration",
-    technologies: ["OpenAI API", "LangChain", "REST APIs", "GraphQL"]
-  },
-  {
-    category: "Performance & SEO",
-    technologies: ["Lighthouse", "Google Analytics", "Schema.org", "Core Web Vitals"]
-  }
+	{
+		category: "Web Development",
+		technologies: [
+			"React",
+			"Next.js",
+			"Astro",
+			"TypeScript",
+			"Node.js",
+			"TailwindCSS",
+		],
+	},
+	{
+		category: "Cloud & DevOps",
+		technologies: ["AWS", "Cloudflare", "Docker", "CI/CD", "Terraform"],
+	},
+	{
+		category: "AI & Integration",
+		technologies: ["OpenAI API", "LangChain", "REST APIs", "GraphQL"],
+	},
+	{
+		category: "Performance & SEO",
+		technologies: [
+			"Lighthouse",
+			"Google Analytics",
+			"Schema.org",
+			"Core Web Vitals",
+		],
+	},
 ];
 
 const experience = [
-  {
-    period: "July 2023 - Present",
-    role: "AI & Cloud Senior Engineer",
-    company: "GE Healthcare | Seattle, WA",
-    description: "Led development of a new database architecture and API for a Generative AI System, resulting in a 30% increase in engineering productivity. Orchestrated migration of over 3 billion Elasticsearch documents and optimized log collection systems, reducing processing time by 95%."
-  },
-  {
-    period: "July 2022 - July 2023",
-    role: "Edison Engineering Development Program",
-    company: "GE Healthcare | Milwaukee, WI",
-    description: "Completed intensive rotational program focusing on software engineering, cloud architecture, and AI/ML applications in healthcare. Contributed to critical healthcare software systems while developing broad technical expertise."
-  },
-  {
-    period: "Aug 2021 - Present",
-    role: "Founder & Technical Consultant",
-    company: "Smiling Dev Consulting",
-    description: "Founded and operating a successful tech consultancy focused on web development, AI integration, and cloud solutions. Delivering high-impact projects for clients across various industries while maintaining excellent client satisfaction."
-  },
-  {
-    period: "Jun 2021 - May 2022",
-    role: "Cybersecurity Healthcare Consultant",
-    company: "University of Notre Dame | South Bend, IN",
-    description: "Developed comprehensive cybersecurity strategies and conducted market analysis identifying a $10.5M Total Addressable Market. Innovated new product concepts enabling market expansion into emerging cybersecurity markets."
-  },
-  {
-    period: "Aug 2021 - July 2022",
-    role: "Software and Manufacturing Consultant",
-    company: "Enfocus | South Bend, IN",
-    description: "Facilitated bi-weekly software development meetings and conducted in-depth analyses of operations. Developed strategic proposals for legacy system improvements, projecting 40% performance enhancement."
-  },
-  {
-    period: "May 2020 - Aug 2020",
-    role: "Software Development Intern",
-    company: "Ram Aviation, Space, and Defense | St George, UT",
-    description: "Boosted worker productivity through GUI redesign and modernized legacy software interfaces, resulting in a 40% increase in user satisfaction."
-  }
+	{
+		period: "July 2023 - Present",
+		role: "AI & Cloud Senior Engineer",
+		company: "GE Healthcare | Seattle, WA",
+		description:
+			"Led development of a new database architecture and API for a Generative AI System, resulting in a 30% increase in engineering productivity. Orchestrated migration of over 3 billion Elasticsearch documents and optimized log collection systems, reducing processing time by 95%.",
+	},
+	{
+		period: "July 2022 - July 2023",
+		role: "Edison Engineering Development Program",
+		company: "GE Healthcare | Milwaukee, WI",
+		description:
+			"Completed intensive rotational program focusing on software engineering, cloud architecture, and AI/ML applications in healthcare. Contributed to critical healthcare software systems while developing broad technical expertise.",
+	},
+	{
+		period: "Aug 2021 - Present",
+		role: "Founder & Technical Consultant",
+		company: "Smiling Dev Consulting",
+		description:
+			"Founded and operating a successful tech consultancy focused on web development, AI integration, and cloud solutions. Delivering high-impact projects for clients across various industries while maintaining excellent client satisfaction.",
+	},
+	{
+		period: "Jun 2021 - May 2022",
+		role: "Cybersecurity Healthcare Consultant",
+		company: "University of Notre Dame | South Bend, IN",
+		description:
+			"Developed comprehensive cybersecurity strategies and conducted market analysis identifying a $10.5M Total Addressable Market. Innovated new product concepts enabling market expansion into emerging cybersecurity markets.",
+	},
+	{
+		period: "Aug 2021 - July 2022",
+		role: "Software and Manufacturing Consultant",
+		company: "Enfocus | South Bend, IN",
+		description:
+			"Facilitated bi-weekly software development meetings and conducted in-depth analyses of operations. Developed strategic proposals for legacy system improvements, projecting 40% performance enhancement.",
+	},
+	{
+		period: "May 2020 - Aug 2020",
+		role: "Software Development Intern",
+		company: "Ram Aviation, Space, and Defense | St George, UT",
+		description:
+			"Boosted worker productivity through GUI redesign and modernized legacy software interfaces, resulting in a 40% increase in user satisfaction.",
+	},
 ];
 ---
 

@@ -1,23 +1,23 @@
 ---
 import { getCollection, render } from "astro:content";
-import MainLayout from "../../layouts/main.astro";
 import SocialShare from "../../components/SocialShare.astro";
+import MainLayout from "../../layouts/main.astro";
 
 export async function getStaticPaths() {
-  const projects = await getCollection("projects");
-  return projects.map((project) => ({
-    params: { project: project.data.slug },
-    props: { project },
-  }));
+	const projects = await getCollection("projects");
+	return projects.map((project) => ({
+		params: { project: project.data.slug },
+		props: { project },
+	}));
 }
 
 const { project } = Astro.props;
 const { Content } = await render(project);
 
 const formattedDate = project.data.updateDate?.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
+	year: "numeric",
+	month: "long",
+	day: "numeric",
 });
 ---
 

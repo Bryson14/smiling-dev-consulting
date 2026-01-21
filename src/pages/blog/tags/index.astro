@@ -3,33 +3,33 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/main.astro";
 
 interface TagDict {
-    name: string;
-    count: number;
-    linkList: string[];
+	name: string;
+	count: number;
+	linkList: string[];
 }
 
 const tags: Record<string, TagDict> = {};
 const posts = await getCollection("blog");
 
 for (const post of posts) {
-    for (const tag of post.data.keywords) {
-        if (tags[tag]) {
-            tags[tag].count += 1;
-            tags[tag].linkList.push(post.data.slug);
-        } else {
-            tags[tag] = { count: 1, name: tag, linkList: [post.data.slug] };
-        }
-    }
+	for (const tag of post.data.keywords) {
+		if (tags[tag]) {
+			tags[tag].count += 1;
+			tags[tag].linkList.push(post.data.slug);
+		} else {
+			tags[tag] = { count: 1, name: tag, linkList: [post.data.slug] };
+		}
+	}
 }
 
 const sortedTags = Object.entries(tags)
-    .sort((a, b) => b[1].count - a[1].count)
-    .map(([name, data]) => ({ name, count: data.count }));
+	.sort((a, b) => b[1].count - a[1].count)
+	.map(([name, data]) => ({ name, count: data.count }));
 
 // Group tags by frequency for better visual organization
-const popularTags = sortedTags.filter(tag => tag.count >= 3);
-const regularTags = sortedTags.filter(tag => tag.count === 2);
-const rareTags = sortedTags.filter(tag => tag.count === 1);
+const popularTags = sortedTags.filter((tag) => tag.count >= 3);
+const regularTags = sortedTags.filter((tag) => tag.count === 2);
+const rareTags = sortedTags.filter((tag) => tag.count === 1);
 ---
 
 <Layout>

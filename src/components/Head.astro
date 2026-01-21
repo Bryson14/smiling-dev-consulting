@@ -1,21 +1,23 @@
 ---
 interface Props {
-  title: string;
-  description: string;
-  image?: string;
-  canonicalUrl?: string;
-  type?: 'website' | 'article';
+	title: string;
+	description: string;
+	image?: string;
+	canonicalUrl?: string;
+	type?: "website" | "article";
 }
 
 const {
-  title,
-  description,
-  image = "/smiling-dev-logo-small.png",
-  canonicalUrl = Astro.url.href,
-  type = 'website',
+	title,
+	description,
+	image = "/smiling-dev-logo-small.png",
+	canonicalUrl = Astro.url.href,
+	type = "website",
 } = Astro.props;
 
-const siteTitle = title.includes('Smiling Dev') ? title : `${title} - Smiling Dev Consulting`;
+const siteTitle = title.includes("Smiling Dev")
+	? title
+	: `${title} - Smiling Dev Consulting`;
 ---
 
 <!-- Global Metadata -->

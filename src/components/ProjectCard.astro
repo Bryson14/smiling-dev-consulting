@@ -1,12 +1,13 @@
 ---
 import { Picture } from "astro:assets";
+
 interface Props {
-  title: string;
-  description: string;
-  image: string;
-  link: string;
-  updated: Date;
-  technologies?: string[];
+	title: string;
+	description: string;
+	image: string;
+	link: string;
+	updated: Date;
+	technologies?: string[];
 }
 
 const { title, description, image, link, updated } = Astro.props;

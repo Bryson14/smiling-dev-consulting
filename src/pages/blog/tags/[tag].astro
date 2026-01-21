@@ -3,32 +3,37 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/main.astro";
 
 interface TagDict {
-    name: string;
-    count: number;
-    linkList: string[];
+	name: string;
+	count: number;
+	linkList: string[];
 }
 
 export async function getStaticPaths() {
-    const tags: Record<string, TagDict> = {};
-    const posts = await getCollection("blog");
+	const tags: Record<string, TagDict> = {};
+	const posts = await getCollection("blog");
 
-    for (const post of posts) {
-        for (const tag of post.data.keywords) {
-            if (tags[tag]) {
-                tags[tag].count += 1;
-                tags[tag].linkList.push(post.data.slug);
-            } else {
-                tags[tag] = { count: 1, name: tag, linkList: [post.data.slug] };
-            }
-        }
-    }
+	for (const post of posts) {
+		for (const tag of post.data.keywords) {
+			if (tags[tag]) {
+				tags[tag].count += 1;
+				tags[tag].linkList.push(post.data.slug);
+			} else {
+				tags[tag] = { count: 1, name: tag, linkList: [post.data.slug] };
+			}
+		}
+	}
 
-    return Object.entries(tags).map(([name, data]) => ({
-        params: { tag: name.toLowerCase() },
-        props: { tag: data, posts: posts.filter(post => 
-            post.data.keywords.some(keyword => keyword.toLowerCase() === name.toLowerCase())
-        )},
-    }));
+	return Object.entries(tags).map(([name, data]) => ({
+		params: { tag: name.toLowerCase() },
+		props: {
+			tag: data,
+			posts: posts.filter((post) =>
+				post.data.keywords.some(
+					(keyword) => keyword.toLowerCase() === name.toLowerCase(),
+				),
+			),
+		},
+	}));
 }
 
 const { tag, posts } = Astro.props;

@@ -1,47 +1,47 @@
 {
-  "name": "smiling-dev-consulting",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "zip": "cd dist && zip -r ../dist.zip . && cd ..",
-    "deploy": "pnpm run build && pnpm run upload",
-    "upload": "npx wrangler pages deploy dist --project-name=smiling-tech-consulting"
-  },
-  "dependencies": {
-    "@astrojs/mdx": "^4.2.4",
-    "@astrojs/react": "^4.2.4",
-    "@astrojs/rss": "^4.0.11",
-    "@astrojs/sitemap": "^3.4.1",
-    "@lucide/astro": "^0.515.0",
-    "@radix-ui/react-slot": "^1.2.0",
-    "@tailwindcss/vite": "^4.1.4",
-    "@types/canvas-confetti": "^1.9.0",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "astro": "^5.7.4",
-    "biome": "^0.3.3",
-    "canvas-confetti": "^1.9.3",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "sharp": "^0.34.2",
-    "tailwind-merge": "^3.2.0",
-    "tailwindcss": "^4.1.4"
-  },
-  "packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af",
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "core-js",
-      "esbuild",
-      "sharp"
-    ]
-  }
+	"name": "smiling-dev-consulting",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"zip": "cd dist && zip -r ../dist.zip . && cd ..",
+		"deploy": "pnpm run build && pnpm run upload",
+		"upload": "npx wrangler pages deploy dist --project-name=smiling-tech-consulting"
+	},
+	"dependencies": {
+		"@astrojs/mdx": "^4.3.13",
+		"@astrojs/react": "^4.4.2",
+		"@astrojs/rss": "^4.0.15",
+		"@astrojs/sitemap": "^3.7.0",
+		"@lucide/astro": "^0.515.0",
+		"@radix-ui/react-slot": "^1.2.0",
+		"@tailwindcss/vite": "^4.1.4",
+		"@types/canvas-confetti": "^1.9.0",
+		"@types/react": "^19.1.2",
+		"@types/react-dom": "^19.1.2",
+		"astro": "^5.16.12",
+		"biome": "^0.3.3",
+		"canvas-confetti": "^1.9.3",
+		"class-variance-authority": "^0.7.1",
+		"clsx": "^2.1.1",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"sharp": "^0.34.2",
+		"tailwind-merge": "^3.2.0",
+		"tailwindcss": "^4.1.4"
+	},
+	"packageManager": "pnpm@10.6.5+sha512.cdf928fca20832cd59ec53826492b7dc25dc524d4370b6b4adbf65803d32efaa6c1c88147c0ae4e8d579a6c9eec715757b50d4fa35eea179d868eada4ed043af",
+	"devDependencies": {
+		"@tailwindcss/typography": "^0.5.16"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"core-js",
+			"esbuild",
+			"sharp"
+		]
+	}
 }
