@@ -25,7 +25,7 @@ function formatDate(date: Date) {
   <div class="container mx-auto px-4 py-12">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold mb-4">Blog Posts</h1>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+      <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
         Thoughts, tutorials, and insights on web development, design, and
         technology.
       </p>
@@ -34,7 +34,7 @@ function formatDate(date: Date) {
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {
         sortedPosts.map((post) => (
-          <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
+          <article class="bg-background dark:bg-muted rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
             {post.data.image && (
               <div class="aspect-video overflow-hidden">
                 <Picture
@@ -49,34 +49,34 @@ function formatDate(date: Date) {
             )}
 
             <div class="p-6">
-              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-3">
+                <div class="flex items-center justify-between text-sm text-muted-foreground dark:text-muted-foreground mb-3">
                 <time datetime={post.data.pubDate.toISOString()}>
                   {formatDate(post.data.pubDate)}
                 </time>
-                <span class="text-teal-600 dark:text-teal-400 font-medium">
+                <span class="text-primary dark:text-primary font-medium">
                   {post.data.author}
                 </span>
               </div>
 
-              <h2 class="text-xl font-bold mb-3 group-hover:text-teal-600 transition-colors duration-200">
+              <h2 class="text-xl font-bold mb-3 group-hover:text-primary transition-colors duration-200">
                 <a href={`/blog/${post.id}`} class="stretched-link">
                   {post.data.title}
                 </a>
               </h2>
 
-              <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+              <p class="text-muted-foreground dark:text-muted-foreground mb-4 line-clamp-3">
                 {post.data.description}
               </p>
 
               {post.data.keywords && post.data.keywords.length > 0 && (
                 <div class="flex flex-wrap gap-2 mb-4">
                   {post.data.keywords.slice(0, 3).map((keyword) => (
-                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
+                    <span class="px-2 py-1 bg-muted dark:bg-muted text-foreground dark:text-foreground text-xs rounded-full">
                       {keyword}
                     </span>
                   ))}
                   {post.data.keywords.length > 3 && (
-                    <span class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs rounded-full">
+                    <span class="px-2 py-1 bg-muted dark:bg-muted text-muted-foreground dark:text-muted-foreground text-xs rounded-full">
                       +{post.data.keywords.length - 3} more
                     </span>
                   )}
@@ -84,7 +84,7 @@ function formatDate(date: Date) {
               )}
 
               <div class="flex items-center justify-between">
-                <span class="text-teal-600 dark:text-teal-400 font-medium text-sm group-hover:underline">
+                <span class="text-primary dark:text-primary font-medium text-sm group-hover:underline">
                   Read more →
                 </span>
                 {post.data.mediumLink && (
@@ -92,7 +92,7 @@ function formatDate(date: Date) {
                     href={post.data.mediumLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                    class="text-muted-foreground hover:text-foreground dark:hover:text-foreground transition-colors"
                     aria-label="Read on Medium"
                   >
                     <svg
@@ -125,7 +125,7 @@ function formatDate(date: Date) {
   <div class="container mx-auto px-4 py-8 text-center">
     <a
       href="/blog/tags"
-      class="text-teal-600 dark:text-teal-400 hover:underline"
+      class="text-primary dark:text-primary hover:underline"
     >
       <span class="font-semibold">Explore all tags</span>
     </a>

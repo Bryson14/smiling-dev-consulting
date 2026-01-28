@@ -89,13 +89,13 @@ const experience = [
       <div class="grid md:grid-cols-2 gap-12 items-start mb-16">
         <div>
           <h1 class="text-4xl font-bold mb-6">About Me</h1>
-          <p class="text-xl text-gray-600 mb-6">
+          <p class="text-xl text-muted-foreground mb-6">
             I'm Bryson Meiling, a tech consultant and full-stack developer passionate about creating impactful digital solutions that drive business growth.
           </p>
-          <p class="text-gray-600 mb-6">
+          <p class="text-muted-foreground mb-6">
             With over 8 years of experience in web development and technical consulting, I specialize in helping businesses leverage modern technology to achieve their goals. My approach combines technical expertise with business acumen to deliver solutions that not only work flawlessly but also provide real value.
           </p>
-          <p class="text-gray-600 mb-8">
+          <p class="text-muted-foreground mb-8">
             Whether it's building high-performance web applications, implementing AI solutions, or providing technical strategy, I'm committed to delivering excellence in every project.
           </p>
           <div class="flex gap-4">
@@ -112,7 +112,7 @@ const experience = [
             width="500"
             height="600"
           />
-          <div class="absolute -bottom-6 -right-6 bg-teal-600 text-white p-4 rounded-lg shadow-lg">
+          <div class="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-4 rounded-lg shadow-lg">
             <p class="font-semibold">8+ Years Experience</p>
             <p class="text-sm">50+ Projects Delivered</p>
           </div>
@@ -123,11 +123,11 @@ const experience = [
         <h2 class="text-3xl font-bold mb-8">Technical Expertise</h2>
         <div class="grid md:grid-cols-2 gap-8">
           {skills.map(({ category, technologies }) => (
-            <div class="bg-gray-50 p-6 rounded-lg">
+            <div class="bg-muted/30 p-6 rounded-lg">
               <h3 class="text-xl font-semibold mb-4">{category}</h3>
               <div class="flex flex-wrap gap-2">
                 {technologies.map(tech => (
-                  <span class="px-3 py-1 bg-white text-teal-600 rounded-full text-sm shadow-sm">
+                  <span class="px-3 py-1 bg-background text-primary rounded-full text-sm shadow-sm">
                     {tech}
                   </span>
                 ))}
@@ -141,12 +141,12 @@ const experience = [
         <h2 class="text-3xl font-bold mb-8">Professional Experience</h2>
         <div class="space-y-8">
           {experience.map(({ period, role, company, description }) => (
-            <div class="relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-teal-600">
-              <div class="absolute left-0 top-2 w-2 h-2 bg-teal-600 rounded-full -translate-x-[5px]"></div>
-              <p class="text-sm text-teal-600 font-medium">{period}</p>
+            <div class="relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-primary">
+              <div class="absolute left-0 top-2 w-2 h-2 bg-primary rounded-full -translate-x-[5px]"></div>
+              <p class="text-sm text-primary font-medium">{period}</p>
               <h3 class="text-xl font-semibold mt-1">{role}</h3>
-              <p class="text-gray-600 font-medium">{company}</p>
-              <p class="text-gray-600 mt-2">{description}</p>
+              <p class="text-muted-foreground font-medium">{company}</p>
+              <p class="text-muted-foreground mt-2">{description}</p>
             </div>
           ))}
         </div>

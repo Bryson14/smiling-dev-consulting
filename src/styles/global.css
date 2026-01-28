@@ -50,36 +50,6 @@ p {
 	margin-bottom: 1rem;
 }
 
-a:not(.btn):not([class*="inline-flex"]) {
-	color: #0d9488;
-	transition: color 0.2s;
-}
-
-a:not(.btn):not([class*="inline-flex"]):hover {
-	color: #0f766e;
-}
-
-a:hover {
-	color: #0f766e;
-}
-
-input,
-textarea,
-select {
-	background-color: var(--background);
-	border: 1px solid var(--border);
-	border-radius: 0.375rem;
-	padding: 0.5rem;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-	outline: none;
-	box-shadow: 0 0 0 2px var(--ring);
-	border-color: transparent;
-}
-
 .scroll-to-top {
 	position: fixed;
 	bottom: 2rem;

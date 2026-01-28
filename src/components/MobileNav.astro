@@ -6,7 +6,7 @@ import { Menu, X } from "@lucide/astro";
 <button
   id="mobile-menu-button"
   type="button"
-  class="md:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+  class="md:hidden p-2 rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
   aria-label="Open mobile menu"
 >
   <Menu size={24} />
@@ -16,11 +16,11 @@ import { Menu, X } from "@lucide/astro";
   id="mobile-menu-overlay"
   class="fixed inset-0 z-[60] md:hidden opacity-0 invisible transition-opacity duration-300 ease-in-out"
 >
-  <div class="absolute inset-0 bg-white dark:bg-gray-900 h-screen"></div>
+  <div class="absolute inset-0 bg-background dark:bg-background h-screen"></div>
 
   <div class="relative h-full flex flex-col">
     <div
-      class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800"
+      class="flex items-center justify-between p-4 border-b border-border dark:border-border"
     >
       <div class="flex items-center space-x-2">
         <Image
@@ -29,14 +29,14 @@ import { Menu, X } from "@lucide/astro";
           height={32}
           width={32}
         />
-        <span class="font-semibold text-xl text-teal-600 dark:text-teal-500">
+        <span class="font-semibold text-xl text-primary dark:text-primary">
           Smiling Dev
         </span>
       </div>
       <button
         id="mobile-menu-close"
         type="button"
-        class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        class="p-2 rounded-lg hover:bg-muted dark:hover:bg-muted transition-colors"
         aria-label="Close mobile menu"
       >
         <X size={24} />
@@ -48,7 +48,7 @@ import { Menu, X } from "@lucide/astro";
         <li>
           <a
             href="/"
-            class="block text-2xl font-medium text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors py-3"
+            class="block text-2xl font-medium text-foreground dark:text-foreground hover:text-primary dark:hover:text-primary transition-colors py-3"
           >
             Home
           </a>
@@ -56,7 +56,7 @@ import { Menu, X } from "@lucide/astro";
         <li>
           <a
             href="/about"
-            class="block text-2xl font-medium text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors py-3"
+            class="block text-2xl font-medium text-foreground dark:text-foreground hover:text-primary dark:hover:text-primary transition-colors py-3"
           >
             About
           </a>
@@ -64,7 +64,7 @@ import { Menu, X } from "@lucide/astro";
         <li>
           <a
             href="/projects"
-            class="block text-2xl font-medium text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors py-3"
+            class="block text-2xl font-medium text-foreground dark:text-foreground hover:text-primary dark:hover:text-primary transition-colors py-3"
           >
             Projects
           </a>
@@ -72,7 +72,7 @@ import { Menu, X } from "@lucide/astro";
         <li>
           <a
             href="/blog"
-            class="block text-2xl font-medium text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors py-3"
+            class="block text-2xl font-medium text-foreground dark:text-foreground hover:text-primary dark:hover:text-primary transition-colors py-3"
           >
             Blog
           </a>
@@ -80,7 +80,7 @@ import { Menu, X } from "@lucide/astro";
         <li>
           <a
             href="/contact"
-            class="block text-2xl font-medium text-gray-900 dark:text-gray-100 hover:text-teal-600 dark:hover:text-teal-500 transition-colors py-3"
+            class="block text-2xl font-medium text-foreground dark:text-foreground hover:text-primary dark:hover:text-primary transition-colors py-3"
           >
             Contact
           </a>

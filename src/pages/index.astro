@@ -22,9 +22,9 @@ projects = projects
         <div>
           <h1 class="text-4xl md:text-5xl font-bold mb-6">
             Transforming Ideas into
-            <span class="text-teal-600">Digital Solutions</span>
+            <span class="text-primary">Digital Solutions</span>
           </h1>
-          <p class="text-xl text-gray-600 mb-8">
+          <p class="text-xl text-muted-foreground mb-8">
             Hi, I'm Bryson Meiling. I help businesses and organizations build
             modern, efficient, and user-friendly digital experiences.
           </p>
@@ -47,7 +47,7 @@ projects = projects
     </div>
   </section>
 
-  <section class="py-20 bg-gray-50">
+  <section class="py-20 bg-muted/30">
     <div class="container mx-auto px-4">
       <h2 class="text-3xl font-bold text-center mb-12">Featured Projects</h2>
       <div class="flex flex-wrap justify-center gap-8">
@@ -55,7 +55,7 @@ projects = projects
           projects.map((project) => (
             <a
               href={`/projects/${project.data.slug}`}
-              class="group block lg:max-w-2xl bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
+              class="group block lg:max-w-2xl bg-background rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
             >
               {project.data.image && (
                 <div class="aspect-video overflow-hidden">
@@ -70,10 +70,10 @@ projects = projects
               )}
               <div class="p-6">
                 <h3 class="text-xl font-semibold mb-2">{project.data.title}</h3>
-                <p class="text-gray-600 mb-4">{project.data.description}</p>
+                <p class="text-muted-foreground mb-4">{project.data.description}</p>
                 <div class="flex flex-wrap gap-2">
                   {project.data.technologies.map((tech) => (
-                    <span class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-sm">
+                    <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
                       {tech}
                     </span>
                   ))}
@@ -89,7 +89,7 @@ projects = projects
   <section class="py-20">
     <div class="container mx-auto px-4 text-center">
       <h2 class="text-3xl font-bold mb-8">Stay Updated</h2>
-      <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+      <p class="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
         Subscribe to my newsletter for the latest tech insights, project
         updates, and industry best practices.
       </p>
@@ -97,7 +97,7 @@ projects = projects
         <input
           type="email"
           placeholder="Enter your email"
-          class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+          class="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
           required
         />
         <Button type="submit">Subscribe</Button>

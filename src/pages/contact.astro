@@ -37,7 +37,7 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
   <div class="container mx-auto px-4 py-12">
     <div class="max-w-3xl mx-auto">
       <h1 class="text-4xl font-bold mb-6">Get in Touch</h1>
-      <p class="text-xl text-gray-600 mb-8">
+      <p class="text-xl text-muted-foreground mb-8">
         Ready to discuss your project? I'm here to help transform your ideas into reality. 
         Fill out the form below or send me an email directly.
       </p>
@@ -45,8 +45,8 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
       <div class="grid md:grid-cols-2 gap-12 items-start">
         <div>
           <form id="contactForm" class="space-y-6">
-            <div id="formError" class="hidden p-4 bg-red-50 text-red-600 rounded-lg mb-4"></div>
-            <div id="formSuccess" class="hidden p-4 bg-green-50 text-green-600 rounded-lg mb-4"></div>
+            <div id="formError" class="hidden p-4 bg-destructive/10 text-destructive rounded-lg mb-4"></div>
+            <div id="formSuccess" class="hidden p-4 bg-emerald-50/50 text-emerald-600 rounded-lg mb-4"></div>
 
             <!-- Honeypot field -->
             <div class="hidden">
@@ -59,7 +59,7 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
             </div>
 
             <div>
-              <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+              <label for="name" class="block text-sm font-medium text-foreground mb-1">
                 Name
               </label>
               <input
@@ -68,13 +68,13 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
                 name="name"
                 minlength="2"
                 required
-                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
               />
-              <div class="text-sm text-red-600 mt-1 hidden" data-error="name"></div>
+              <div class="text-sm text-destructive mt-1 hidden" data-error="name"></div>
             </div>
 
             <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+              <label for="email" class="block text-sm font-medium text-foreground mb-1">
                 Email
               </label>
               <input
@@ -83,20 +83,20 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
                 name="email"
                 required
                 pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
               />
-              <div class="text-sm text-red-600 mt-1 hidden" data-error="email"></div>
+              <div class="text-sm text-destructive mt-1 hidden" data-error="email"></div>
             </div>
 
             <div>
-              <label for="project-type" class="block text-sm font-medium text-gray-700 mb-1">
+              <label for="project-type" class="block text-sm font-medium text-foreground mb-1">
                 Project Type
               </label>
               <select
                 id="project-type"
                 name="project-type"
                 required
-                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
               >
                 <option value="">Select a project type</option>
                 <option value="web-development">Web Development</option>
@@ -104,11 +104,11 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
                 <option value="cloud-development">Cloud Development</option>
                 <option value="seo-optimization">SEO Optimization</option>
               </select>
-              <div class="text-sm text-red-600 mt-1 hidden" data-error="project-type"></div>
+              <div class="text-sm text-destructive mt-1 hidden" data-error="project-type"></div>
             </div>
 
             <div>
-              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">
+              <label for="message" class="block text-sm font-medium text-foreground mb-1">
                 Project Details
               </label>
               <textarea
@@ -117,16 +117,16 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
                 rows="6"
                 required
                 minlength="20"
-                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
               ></textarea>
-              <div class="text-sm text-red-600 mt-1 hidden" data-error="message"></div>
+              <div class="text-sm text-destructive mt-1 hidden" data-error="message"></div>
             </div>
 
             <Button type="submit" id="submitButton">Send Message</Button>
           </form>
         </div>
 
-        <div class="bg-gray-50 p-8 rounded-lg">
+        <div class="bg-muted/30 p-8 rounded-lg">
           <h2 class="text-2xl font-semibold mb-6">Other Ways to Connect</h2>
           
           <div class="space-y-6">
@@ -134,7 +134,7 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
               <h3 class="font-medium mb-2">Email</h3>
               <a 
                 href="mailto:info@smiling.dev" 
-                class="text-teal-600 hover:text-teal-700"
+                class="text-primary hover:text-primary/80"
               >
                 info@smiling.dev
               </a>
@@ -142,12 +142,12 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
 
             <div>
               <h3 class="font-medium mb-2">Office Hours</h3>
-              <p class="text-gray-600">Monday - Friday<br />9:00 AM - 5:00 PM MT</p>
+              <p class="text-muted-foreground">Monday - Friday<br />9:00 AM - 5:00 PM MT</p>
             </div>
 
             <div>
               <h3 class="font-medium mb-2">Response Time</h3>
-              <p class="text-gray-600">
+              <p class="text-muted-foreground\">
                 I typically respond to inquiries within 24 business hours.
               </p>
             </div>

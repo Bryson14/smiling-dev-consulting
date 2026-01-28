@@ -43,24 +43,24 @@ const { tag, posts } = Astro.props;
     <div class="container mx-auto px-4 py-8 max-w-4xl">
         <!-- Header Section -->
         <div class="mb-8">
-            <nav class="text-sm text-gray-500 mb-4">
-                <a href="/blog" class="hover:text-teal-600 transition-colors">Blog</a>
+            <nav class="text-sm text-muted-foreground mb-4">
+                <a href="/blog" class="hover:text-primary transition-colors">Blog</a>
                 <span class="mx-2">→</span>
-                <a href="/blog/tags" class="hover:text-teal-600 transition-colors">Tags</a>
+                <a href="/blog/tags" class="hover:text-primary transition-colors">Tags</a>
                 <span class="mx-2">→</span>
-                <span class="text-gray-800 dark:text-gray-200 capitalize">{tag.name}</span>
+                <span class="text-foreground dark:text-foreground capitalize">{tag.name}</span>
             </nav>
             
             <div class="flex items-center gap-4 mb-4">
-                <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 capitalize">
+                <h1 class="text-4xl font-bold text-foreground dark:text-foreground capitalize">
                     {tag.name}
                 </h1>
-                <span class="bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 px-3 py-1 rounded-full text-sm font-medium">
+                <span class="bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary px-3 py-1 rounded-full text-sm font-medium">
                     {tag.count} {tag.count === 1 ? 'post' : 'posts'}
                 </span>
             </div>
             
-            <p class="text-gray-600 dark:text-gray-400 text-lg">
+            <p class="text-muted-foreground dark:text-muted-foreground text-lg">
                 Exploring all posts tagged with "{tag.name}"
             </p>
         </div>
@@ -68,27 +68,27 @@ const { tag, posts } = Astro.props;
         <!-- Posts Grid -->
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-1">
             {posts.map((post) => (
-                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-gray-200 dark:border-gray-700">
+                <article class="bg-background dark:bg-muted rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-border dark:border-border">
                     <div class="flex flex-col h-full">
                         <div class="flex-grow">
-                            <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3 leading-tight">
+                            <h2 class="text-xl font-semibold text-foreground dark:text-foreground mb-3 leading-tight">
                                 <a 
                                     href={`/blog/${post.data.slug}`}
-                                    class="hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+                                    class="hover:text-primary dark:hover:text-primary transition-colors"
                                 >
                                     {post.data.title}
                                 </a>
                             </h2>
                             
                             {post.data.description && (
-                                <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                                <p class="text-muted-foreground dark:text-muted-foreground mb-4 line-clamp-3">
                                     {post.data.description}
                                 </p>
                             )}
                         </div>
                         
-                        <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
-                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                        <div class="flex items-center justify-between pt-4 border-t border-border dark:border-border">
+                            <div class="flex items-center text-sm text-muted-foreground dark:text-muted-foreground">
                                 {post.data.pubDate && (
                                     <time datetime={post.data.pubDate.toISOString()}>
                                         {post.data.pubDate.toLocaleDateString('en-US', {
@@ -102,12 +102,12 @@ const { tag, posts } = Astro.props;
                             
                             <div class="flex flex-wrap gap-1">
                                 {post.data.keywords.slice(0, 3).map((keyword) => (
-                                    <span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs px-2 py-1 rounded">
+                                    <span class="inline-block bg-muted dark:bg-muted text-foreground dark:text-foreground text-xs px-2 py-1 rounded">
                                         {keyword}
                                     </span>
                                 ))}
                                 {post.data.keywords.length > 3 && (
-                                    <span class="text-xs text-gray-500 dark:text-gray-400 px-2 py-1">
+                                    <span class="text-xs text-muted-foreground dark:text-muted-foreground px-2 py-1">
                                         +{post.data.keywords.length - 3} more
                                     </span>
                                 )}
@@ -122,7 +122,7 @@ const { tag, posts } = Astro.props;
         <div class="mt-12 text-center">
             <a 
                 href="/blog/tags"
-                class="inline-flex items-center gap-2 text-teal-600 hover:text-teal-800 dark:hover:text-teal-400 transition-colors font-medium"
+                class="inline-flex items-center gap-2 text-primary hover:text-primary/80 dark:hover:text-primary/80 transition-colors font-medium"
             >
                 ← View all tags
             </a>

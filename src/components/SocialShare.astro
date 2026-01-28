@@ -38,14 +38,14 @@ const platforms = [
 ---
 
 <div class:list={["social-share flex items-center space-x-2", className]}>
-  <span class="text-sm text-gray-600 dark:text-gray-400">Share:</span>
+  <span class="text-sm text-muted-foreground">Share:</span>
   <div class="flex items-center space-x-2">
     {platforms.map(platform => (
       <a
         href={platform.url}
         target="_blank"
         rel="noopener noreferrer"
-        class="p-2 text-gray-600 hover:text-teal-600 dark:text-gray-400 dark:hover:text-teal-500 transition-colors"
+        class="p-2 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
         aria-label={`Share on ${platform.name}`}
         data-platform={platform.name.toLowerCase()}
       >
@@ -54,7 +54,7 @@ const platforms = [
     ))}
     <button
       id="copyLink"
-      class="p-2 text-gray-600 hover:text-teal-600 dark:text-gray-400 dark:hover:text-teal-500 transition-colors"
+      class="p-2 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
       aria-label="Copy link"
     >
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -74,7 +74,7 @@ copyButton?.addEventListener('click', async () => {
     // Show success tooltip
     const tooltip = document.createElement('div');
     tooltip.textContent = 'Link copied!';
-    tooltip.className = 'absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded opacity-0 transition-opacity';
+    tooltip.className = 'absolute -top-8 left-1/2 transform -translate-x-1/2 px-2 py-1 bg-foreground dark:bg-foreground text-background dark:text-background text-xs rounded opacity-0 transition-opacity';
     
     copyButton.style.position = 'relative';
     copyButton.appendChild(tooltip);

@@ -72,7 +72,7 @@ const articleStructuredData = {
               {post.data.keywords.map((tag) => (
                 <a
                   href={`/blog/tag/${tag.toLowerCase()}`}
-                  class="px-3 py-1 bg-teal-50 text-teal-600 rounded-full text-sm hover:bg-teal-100"
+                  class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20"
                 >
                   {tag}
                 </a>
@@ -83,7 +83,7 @@ const articleStructuredData = {
 
         <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
 
-        <div class="flex flex-wrap items-center gap-4 text-gray-600 mb-6">
+        <div class="flex flex-wrap items-center gap-4 text-muted-foreground mb-6">
           <span>{post.data.author}</span>
           <span>•</span>
           <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time
@@ -113,9 +113,9 @@ const articleStructuredData = {
         <Content />
       </div>
 
-      <div class="mt-16 pt-8 border-t">
+      <div class="mt-16 pt-8 border-t border-border">
         <div class="flex items-center justify-between">
-          <div class="text-sm text-gray-600">Share this article:</div>
+          <div class="text-sm text-muted-foreground">Share this article:</div>
           <SocialShare
             title={post.data.title}
             description={post.data.description}
