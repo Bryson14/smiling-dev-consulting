@@ -50,7 +50,11 @@ const { class: className = "" } = Astro.props;
   document
     .querySelectorAll(".theme-toggle")
     .forEach((button) => {
-      button.addEventListener("click", handleToggleClick);
+      // Prevent duplicate event listeners when component appears multiple times
+      if (!button.hasAttribute("data-theme-toggle-bound")) {
+        button.setAttribute("data-theme-toggle-bound", "true");
+        button.addEventListener("click", handleToggleClick);
+      }
     });
 
   // Watch for system theme changes
