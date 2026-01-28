@@ -9,10 +9,9 @@ const { class: className = "" } = Astro.props;
 ---
 
 <button
-  id="themeToggle"
   type="button"
   class:list={[
-    "p-2 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors",
+    "theme-toggle p-2 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors",
     className,
   ]}
   aria-label="Toggle dark mode"
@@ -49,8 +48,10 @@ const { class: className = "" } = Astro.props;
   };
 
   document
-    .getElementById("themeToggle")
-    ?.addEventListener("click", handleToggleClick);
+    .querySelectorAll(".theme-toggle")
+    .forEach((button) => {
+      button.addEventListener("click", handleToggleClick);
+    });
 
   // Watch for system theme changes
   window
