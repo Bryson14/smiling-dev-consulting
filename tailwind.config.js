@@ -4,6 +4,11 @@ export default {
 	darkMode: "class",
 	theme: {
 		extend: {
+			fontFamily: {
+				sans: ['DM Sans', 'sans-serif'],
+				serif: ['DM Sans', 'sans-serif'],
+				mono: ['Space Mono', 'monospace'],
+			},
 			colors: {
 				brand: {
 					DEFAULT: "#0D9488", // teal-600

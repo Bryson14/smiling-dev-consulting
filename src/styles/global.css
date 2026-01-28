@@ -24,30 +24,7 @@ body {
 	transition:
 		background-color 0.2s,
 		color 0.2s;
-	font-family: system-ui, -apple-system, sans-serif;
 	-webkit-font-smoothing: antialiased;
-}
-
-h1 {
-	font-size: 2.25rem;
-	font-weight: 700;
-	margin-bottom: 1.5rem;
-}
-
-h2 {
-	font-size: 1.875rem;
-	font-weight: 600;
-	margin-bottom: 1rem;
-}
-
-h3 {
-	font-size: 1.5rem;
-	font-weight: 600;
-	margin-bottom: 0.75rem;
-}
-
-p {
-	margin-bottom: 1rem;
 }
 
 .scroll-to-top {
