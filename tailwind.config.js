@@ -5,9 +5,9 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ['DM Sans', 'sans-serif'],
-				serif: ['DM Sans', 'sans-serif'],
-				mono: ['Space Mono', 'monospace'],
+				sans: ["DM Sans", "sans-serif"],
+				serif: ["DM Sans", "sans-serif"],
+				mono: ["Space Mono", "monospace"],
 			},
 			colors: {
 				brand: {
