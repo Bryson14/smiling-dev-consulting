@@ -1,0 +1,332 @@
+---
+import Button from "../components/Button.astro";
+import MainLayout from "../layouts/main.astro";
+import { Code, Zap, Database, BarChart3, Smartphone, Globe, Briefcase } from "@lucide/astro";
+
+const services = [
+	{
+		icon: Globe,
+		title: "Professional Business Websites",
+		description:
+			"High-class, professional websites designed for service businesses and agencies that need a strong online presence.",
+		features: [
+			"Modern, responsive design",
+			"SEO optimized",
+			"Fast performance",
+			"Mobile-friendly",
+			"Easy to maintain",
+		],
+		technologies: ["Astro", "React", "TailwindCSS"],
+	},
+	{
+		icon: Zap,
+		title: "Custom Web Applications",
+		description:
+			"Complex, feature-rich web applications with interactive dashboards, real-time data, and advanced functionality.",
+		features: [
+			"Database integration",
+			"User authentication",
+			"Real-time updates",
+			"Advanced analytics",
+			"Scalable architecture",
+		],
+		technologies: ["Next.js", "React", "Supabase", "TanStack"],
+	},
+    {
+		icon: Briefcase,
+		title: "Fractional CTO / Business Operations",
+		description:
+			"Complete CRM and business operations setup using Go High Level. Perfect for small to medium-sized businesses needing better-than-full-time, cheaper-than-part-time operational leadership.",
+		features: [
+			"Lead tracking and management",
+			"Booking and scheduling system",
+			"Invoicing and payments",
+			"Point of sale (POS) integration",
+			"Marketing campaign automation",
+			"Custom workflow setup",
+		],
+		technologies: ["Go High Level", "CRM", "Automation"],
+	},
+	{
+		icon: Database,
+		title: "Backend & Database Solutions",
+		description:
+			"Robust backend infrastructure with secure databases, APIs, and cloud deployment using modern technologies.",
+		features: [
+			"Supabase database setup",
+			"RESTful & GraphQL APIs",
+			"Authentication & authorization",
+			"Cloud deployment",
+			"Data security",
+		],
+		technologies: ["Node.js", "Supabase", "PostgreSQL", "AWS"],
+	},
+	{
+		icon: Smartphone,
+		title: "Full Stack Development",
+		description:
+			"End-to-end development from frontend to backend, creating complete solutions tailored to your needs.",
+		features: [
+			"Custom features",
+			"Full API integration",
+			"Admin dashboards",
+			"User management",
+			"Performance optimization",
+		],
+		technologies: ["Next.js", "React", "JavaScript", "TanStack"],
+	},
+	{
+		icon: BarChart3,
+		title: "Dashboard & Analytics",
+		description:
+			"Custom dashboards to visualize your data, track metrics, and make informed business decisions.",
+		features: [
+			"Real-time data visualization",
+			"Custom analytics",
+			"Data-driven insights",
+			"Export capabilities",
+			"Interactive reports",
+		],
+		technologies: ["React", "TanStack", "Next.js", "Supabase"],
+	},
+	{
+		icon: Code,
+		title: "Technical Consulting",
+		description:
+			"Expert guidance on technology choices, architecture decisions, and best practices for your project.",
+		features: [
+			"Technology recommendations",
+			"Architecture planning",
+			"Performance review",
+			"Code quality assessment",
+			"Strategic planning",
+		],
+		technologies: ["JavaScript", "React", "Node.js", "Cloud"],
+	}
+	
+];
+
+const techStack = [
+	{ name: "Astro", category: "Framework", description: "Fast static site generator" },
+	{ name: "React", category: "UI Library", description: "Interactive user interfaces" },
+	{ name: "Next.js", category: "Full Stack", description: "Production-ready applications" },
+	{ name: "JavaScript", category: "Language", description: "Core technology" },
+	{ name: "TypeScript", category: "Language", description: "Type-safe development" },
+	{ name: "TanStack", category: "Data Management", description: "Query & state management" },
+	{ name: "Supabase", category: "Database", description: "PostgreSQL with real-time" },
+	{ name: "TailwindCSS", category: "Styling", description: "Utility-first CSS" },
+];
+---
+
+<MainLayout
+	title="Services | Smiling Dev Consulting"
+	description="Professional web development services including business websites, web applications, backend solutions, and technical consulting."
+>
+	<div class="min-h-screen bg-background dark:bg-background">
+		<!-- Hero Section -->
+		<section class="container mx-auto px-4 py-20">
+			<div class="max-w-3xl mx-auto text-center mb-16">
+				<h1 class="text-5xl md:text-6xl font-bold mb-6 text-foreground dark:text-foreground">
+					Professional Web Development Services
+				</h1>
+				<p class="text-xl text-muted-foreground dark:text-muted-foreground mb-8">
+					From beautiful business websites to complex web applications with real-time data and dashboards. I build custom solutions tailored to your needs using modern technologies.
+				</p>
+				<Button href="/contact" variant="default">
+					Let's Start Your Project
+				</Button>
+			</div>
+		</section>
+
+		<!-- Service Cards Section -->
+		<section class="container mx-auto px-4 py-20">
+			<div class="max-w-6xl mx-auto mb-12">
+				<h2 class="text-4xl font-bold text-center mb-16 text-foreground dark:text-foreground">
+					What I Offer
+				</h2>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+					{
+						services.map((service) => {
+							const IconComponent = service.icon;
+							return (
+								<div class="p-6 rounded-lg border border-border dark:border-border bg-muted/20 dark:bg-muted/20 hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300">
+									<div class="flex items-center gap-3 mb-4">
+										<div class="p-2 rounded-lg bg-primary/10 dark:bg-primary/10">
+											<IconComponent class="w-6 h-6 text-primary dark:text-primary" />
+										</div>
+										<h3 class="text-xl font-semibold text-foreground dark:text-foreground">
+											{service.title}
+										</h3>
+									</div>
+									<p class="text-muted-foreground dark:text-muted-foreground mb-4">
+										{service.description}
+									</p>
+									<div class="mb-4">
+										<h4 class="text-sm font-semibold text-foreground dark:text-foreground mb-2">
+											Key Features:
+										</h4>
+										<ul class="space-y-1">
+											{service.features.map((feature) => (
+												<li class="text-sm text-muted-foreground dark:text-muted-foreground flex items-start gap-2">
+													<span class="text-primary dark:text-primary mt-1">✓</span>
+													<span>{feature}</span>
+												</li>
+											))}
+										</ul>
+									</div>
+									<div class="flex flex-wrap gap-1">
+										{service.technologies.map((tech) => (
+											<span class="inline-block px-2 py-1 text-xs rounded bg-primary/10 dark:bg-primary/10 text-primary dark:text-primary">
+												{tech}
+											</span>
+										))}
+									</div>
+								</div>
+							);
+						})
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- Service Tiers Section -->
+		<section class="container mx-auto px-4 py-20 bg-muted/20 dark:bg-muted/20 rounded-lg mb-20">
+			<div class="max-w-4xl mx-auto">
+				<h2 class="text-4xl font-bold text-center mb-16 text-foreground dark:text-foreground">
+					Two Approaches to Web Development
+				</h2>
+				<div class="grid md:grid-cols-2 gap-8">
+					<!-- Tier 1 -->
+					<div class="p-8 rounded-lg border-2 border-border dark:border-border bg-background dark:bg-background">
+						<h3 class="text-2xl font-bold mb-4 text-foreground dark:text-foreground">
+							Professional Websites
+						</h3>
+						<p class="text-muted-foreground dark:text-muted-foreground mb-6">
+							Perfect for service businesses, agencies, portfolios, and companies that need a strong online presence.
+						</p>
+						<ul class="space-y-3 mb-8">
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Beautiful, modern design</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">SEO optimized</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Lightning fast performance</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Mobile responsive</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Contact forms & integrations</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Easy to maintain</span>
+							</li>
+						</ul>
+						<Button href="/contact" variant="outline" class="w-full">
+							Get a Website
+						</Button>
+					</div>
+
+					<!-- Tier 2 -->
+					<div class="p-8 rounded-lg border-2 border-primary dark:border-primary bg-background dark:bg-background relative">
+						<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold">
+							Advanced
+						</div>
+						<h3 class="text-2xl font-bold mb-4 text-foreground dark:text-foreground">
+							Custom Web Applications
+						</h3>
+						<p class="text-muted-foreground dark:text-muted-foreground mb-6">
+							For complex projects needing real-time data, user management, dashboards, and advanced features.
+						</p>
+						<ul class="space-y-3 mb-8">
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Database integration (Supabase)</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">User authentication & authorization</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Real-time data updates</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Custom dashboards & analytics</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Third-party API integration</span>
+							</li>
+							<li class="flex items-start gap-3">
+								<span class="text-primary dark:text-primary font-bold">✓</span>
+								<span class="text-foreground dark:text-foreground">Scalable cloud deployment</span>
+							</li>
+						</ul>
+						<Button href="/contact" variant="default" class="w-full">
+							Start a Web App
+						</Button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Tech Stack Section -->
+		<section class="container mx-auto px-4 py-20">
+			<div class="max-w-4xl mx-auto">
+				<h2 class="text-4xl font-bold text-center mb-4 text-foreground dark:text-foreground">
+					Technologies I Use
+				</h2>
+				<p class="text-center text-muted-foreground dark:text-muted-foreground mb-12 text-lg">
+					A carefully selected stack of modern tools to build fast, scalable, and maintainable solutions.
+				</p>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+					{
+						techStack.map((tech) => (
+							<div class="p-4 rounded-lg border border-border dark:border-border bg-muted/10 dark:bg-muted/10 hover:border-primary/50 dark:hover:border-primary/50 transition-all">
+								<h4 class="font-semibold text-foreground dark:text-foreground mb-1">
+									{tech.name}
+								</h4>
+								<p class="text-xs text-primary dark:text-primary mb-2 font-medium">
+									{tech.category}
+								</p>
+								<p class="text-sm text-muted-foreground dark:text-muted-foreground">
+									{tech.description}
+								</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="container mx-auto px-4 py-20">
+			<div class="max-w-3xl mx-auto bg-primary/10 dark:bg-primary/5 rounded-lg p-8 md:p-12 text-center border border-primary/20 dark:border-primary/20">
+				<h2 class="text-3xl md:text-4xl font-bold mb-4 text-foreground dark:text-foreground">
+					Ready to Build Something Amazing?
+				</h2>
+				<p class="text-lg text-muted-foreground dark:text-muted-foreground mb-8">
+					Let's discuss your project and how I can help bring your vision to life with modern web technologies.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<Button href="/contact" variant="default">
+						Start a Project
+					</Button>
+					<Button href="/projects" variant="outline">
+						View My Work
+					</Button>
+				</div>
+			</div>
+		</section>
+	</div>
+</MainLayout>

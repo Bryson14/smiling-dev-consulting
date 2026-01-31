@@ -35,7 +35,7 @@ const projects = defineCollection({
 				),
 			title: z.string(),
 			description: z.string(),
-			status: z.enum(["Active", "Finished", "In-Progress"]),
+			status: z.enum(["Active", "Finished", "In-Progress", "Retired"]),
 			updateDate: z.date(),
 			keywords: z.array(z.string()),
 			technologies: z.array(z.string()),
