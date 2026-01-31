@@ -1,5 +1,4 @@
 ---
-import Button from "../components/Button.astro";
 import JsonLd from "../components/JsonLd.astro";
 import MainLayout from "../layouts/main.astro";
 
@@ -17,7 +16,7 @@ const contactStructuredData = {
 		url: "https://smiling.dev",
 		contactPoint: {
 			"@type": "ContactPoint",
-			telephone: "",
+			telephone: "+18019715786",
 			contactType: "customer service",
 			email: "info@smiling.dev",
 			availableLanguage: "English",
@@ -32,7 +31,7 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
   title="Contact - Smiling Dev Consulting" 
   description="Get in touch with Bryson Meiling for tech consulting, web development, and digital transformation projects."
 >
-  <JsonLd data={contactStructuredData} />
+  <JsonLd data={contactStructuredData}  />
 
   <div class="container mx-auto px-4 py-12">
     <div class="max-w-3xl mx-auto">
@@ -44,12 +43,16 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
 
       <div class="grid md:grid-cols-2 gap-12 items-start">
         <div>
-          <form id="contactForm" class="space-y-6">
-            <div id="formError" class="hidden p-4 bg-destructive/10 text-destructive rounded-lg mb-4"></div>
-            <div id="formSuccess" class="hidden p-4 bg-emerald-50/50 text-emerald-600 rounded-lg mb-4"></div>
+          <form 
+            id="contactForm"
+            action={formspreeApi}
+            method="POST" 
+            class="space-y-6"
+          >
+            <div id="formStatus" class="hidden"></div>
 
-            <!-- Honeypot field -->
-            <div class="hidden">
+            <!-- Honeypot field, formspree will reject when a name=_gotcha input is filled -->
+            <div class="hidden" style="display: none;">
               <input
                 type="text"
                 name="_gotcha"
@@ -66,11 +69,10 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
                 type="text"
                 id="name"
                 name="name"
-                minlength="2"
                 required
-                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                minlength="2"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
               />
-              <div class="text-sm text-destructive mt-1 hidden" data-error="name"></div>
             </div>
 
             <div>
@@ -82,10 +84,8 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
                 id="email"
                 name="email"
                 required
-                pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
               />
-              <div class="text-sm text-destructive mt-1 hidden" data-error="email"></div>
             </div>
 
             <div>
@@ -96,15 +96,14 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
                 id="project-type"
                 name="project-type"
                 required
-                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground [&>option]:bg-background [&>option]:text-foreground"
               >
-                <option value="">Select a project type</option>
-                <option value="web-development">Web Development</option>
-                <option value="technical-consulting">Technical Consulting</option>
-                <option value="cloud-development">Cloud Development</option>
-                <option value="seo-optimization">SEO Optimization</option>
+                <option value="" class="bg-background text-foreground">Select a project type</option>
+                <option value="web-development" class="bg-background text-foreground">Web Development</option>
+                <option value="technical-consulting" class="bg-background text-foreground">Technical Consulting</option>
+                <option value="cloud-development" class="bg-background text-foreground">Cloud Development</option>
+                <option value="seo-optimization" class="bg-background text-foreground">SEO Optimization</option>
               </select>
-              <div class="text-sm text-destructive mt-1 hidden" data-error="project-type"></div>
             </div>
 
             <div>
@@ -117,12 +116,17 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
                 rows="6"
                 required
                 minlength="20"
-                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
               ></textarea>
-              <div class="text-sm text-destructive mt-1 hidden" data-error="message"></div>
             </div>
 
-            <Button type="submit" id="submitButton">Send Message</Button>
+            <button 
+              type="submit"
+              id="submitButton"
+              class="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary bg-primary text-primary-foreground hover:bg-primary/90 dark:bg-primary dark:hover:bg-primary/90"
+            >
+              Send Message
+            </button>
           </form>
         </div>
 
@@ -157,169 +161,3 @@ const formspreeApi = "https://formspree.io/f/mdkogvoy";
     </div>
   </div>
 </MainLayout>
-
-<script>
-interface FormErrors {
-  [key: string]: string;
-}
-
-const form = document.getElementById('contactForm') as HTMLFormElement;
-const submitButton = document.getElementById('submitButton') as HTMLButtonElement;
-const errorDiv = document.getElementById('formError') as HTMLDivElement;
-const successDiv = document.getElementById('formSuccess') as HTMLDivElement;
-
-function showFieldError(fieldName: string, message: string) {
-  const errorElement = document.querySelector(`[data-error="${fieldName}"]`) as HTMLDivElement;
-  if (errorElement) {
-    errorElement.textContent = message;
-    errorElement.classList.remove('hidden');
-  }
-}
-
-function clearFieldErrors() {
-  document.querySelectorAll('[data-error]').forEach((el) => {
-    el.textContent = '';
-    el.classList.add('hidden');
-  });
-}
-
-function setLoading(loading: boolean) {
-  if (loading) {
-    submitButton.disabled = true;
-    submitButton.classList.add('opacity-70', 'cursor-not-allowed');
-    submitButton.innerHTML = `
-      <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-      </svg>
-      Sending...
-    `;
-  } else {
-    submitButton.disabled = false;
-    submitButton.classList.remove('opacity-70', 'cursor-not-allowed');
-    submitButton.textContent = 'Send Message';
-  }
-}
-
-function validateForm(): boolean {
-  let isValid = true;
-  const errors: FormErrors = {};
-
-  // Check honeypot
-  const honeypot = form.querySelector('input[name="_gotcha"]') as HTMLInputElement;
-  if (honeypot && honeypot.value) {
-    return false; // Silently fail if honeypot is filled
-  }
-
-  // Name validation
-  const name = (form.elements.namedItem('name') as HTMLInputElement).value;
-  if (!name || name.length < 2) {
-    errors.name = 'Name must be at least 2 characters long';
-    isValid = false;
-  }
-
-  // Email validation
-  const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email || !emailRegex.test(email)) {
-    errors.email = 'Please enter a valid email address';
-    isValid = false;
-  }
-
-  // Project type validation
-  const projectType = (form.elements.namedItem('project-type') as HTMLSelectElement).value;
-  if (!projectType) {
-    errors.projectType = 'Please select a project type';
-    isValid = false;
-  }
-
-  // Message validation
-  const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
-  if (!message || message.length < 20) {
-    errors.message = 'Message must be at least 20 characters long';
-    isValid = false;
-  }
-
-  // Display errors if any
-  if (!isValid) {
-    Object.entries(errors).forEach(([field, message]) => {
-      showFieldError(field, message);
-    });
-  }
-
-  return isValid;
-}
-
-form?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  // Reset messages and errors
-  errorDiv.classList.add('hidden');
-  successDiv.classList.add('hidden');
-  clearFieldErrors();
-  
-  // Validate form
-  if (!validateForm()) {
-    return;
-  }
-
-  // Send form data to Formspree
-  try {
-    setLoading(true);
-    const formData = new FormData(form);
-    const response = await fetch(formspreeApi, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-    
-    const data = await response.json();
-    
-    if (!response.ok) {
-      throw new Error(data.error || 'Failed to send message');
-    }
-    
-    // Show success message
-    successDiv.textContent = 'Thank you for your message! I will get back to you within 24 business hours.';
-    successDiv.classList.remove('hidden');
-    
-    // Reset form
-    form.reset();
-    
-  } catch (error) {
-    // Show error message
-    errorDiv.textContent = error instanceof Error ? error.message : 'An error occurred while sending your message';
-    errorDiv.classList.remove('hidden');
-    errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  } finally {
-    setLoading(false);
-  }
-});
-
-// Real-time validation remains the same
-form?.addEventListener('input', (e) => {
-  const target = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
-  if (!target.name) return;
-
-  const errorElement = document.querySelector(`[data-error="${target.name}"]`);
-  if (!errorElement) return;
-
-  if (target.validity.valid) {
-    errorElement.textContent = '';
-    errorElement.classList.add('hidden');
-  } else {
-    let message = '';
-    if (target.validity.valueMissing) {
-      message = 'This field is required';
-    } else if (target.validity.tooShort) {
-      message = `Must be at least ${target.minLength} characters`;
-    } else if (target.validity.typeMismatch || target.validity.patternMismatch) {
-      message = 'Please enter a valid value';
-    }
-    errorElement.textContent = message;
-    errorElement.classList.remove('hidden');
-  }
-});
-</script>
