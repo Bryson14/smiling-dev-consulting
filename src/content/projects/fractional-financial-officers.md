@@ -20,7 +20,7 @@ technologies:
   - React
   - Cloudflare Workers
 image: src/content/images/ffo-officers-landing-page.png
-featured: true
+featured: false
 websiteLink: https://ffofficers.com/
 ---
 ## Project Overview

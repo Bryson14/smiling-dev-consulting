@@ -3,7 +3,7 @@ slug: sorenson-legacy-foundation
 title: Sorenson Legacy Foundation
 description: Secure website migration and modernization for a non-profit organization.
 status: Finished
-updateDate: 2024-03-12
+updateDate: 2026-01-01
 keywords:
   - Marketing
   - Non Profit
