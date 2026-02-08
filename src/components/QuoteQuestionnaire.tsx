@@ -482,37 +482,39 @@ export default function QuoteQuestionnaire() {
 			)}
 
 			{/* Step 5: Results */}
-			{step === 5 && (
-				<div className="space-y-6 animate-fadeIn">
-					<div>
-						<h2 className="text-3xl font-bold mb-4">Your Custom Quote</h2>
-						<p className="text-lg text-muted-foreground mb-6">
-							Based on your needs, here's a rough estimate for your project:
-						</p>
-					</div>
-
-					<div className="bg-primary/5 border-2 border-primary rounded-lg p-6 space-y-6">
+			{step === 5 && (() => {
+				const pricing = calculatePrice();
+				return (
+					<div className="space-y-6 animate-fadeIn">
 						<div>
-							<h3 className="text-sm font-medium text-muted-foreground mb-2">
-								Initial Project Cost
-							</h3>
-							<div className="text-4xl font-bold text-primary">
-								${calculatePrice().basePrice.toLocaleString()}
-							</div>
+							<h2 className="text-3xl font-bold mb-4">Your Custom Quote</h2>
+							<p className="text-lg text-muted-foreground mb-6">
+								Based on your needs, here's a rough estimate for your project:
+							</p>
 						</div>
 
-						{calculatePrice().monthlyPrice > 0 && (
+						<div className="bg-primary/5 border-2 border-primary rounded-lg p-6 space-y-6">
 							<div>
 								<h3 className="text-sm font-medium text-muted-foreground mb-2">
-									Ongoing Monthly Services
+									Initial Project Cost
 								</h3>
 								<div className="text-4xl font-bold text-primary">
-									${calculatePrice().monthlyPrice.toLocaleString()}
-									<span className="text-lg">/month</span>
+									${pricing.basePrice.toLocaleString()}
 								</div>
 							</div>
-						)}
-					</div>
+
+							{pricing.monthlyPrice > 0 && (
+								<div>
+									<h3 className="text-sm font-medium text-muted-foreground mb-2">
+										Ongoing Monthly Services
+									</h3>
+									<div className="text-4xl font-bold text-primary">
+										${pricing.monthlyPrice.toLocaleString()}
+										<span className="text-lg">/month</span>
+									</div>
+								</div>
+							)}
+						</div>
 
 					<div className="bg-muted/30 rounded-lg p-6">
 						<h3 className="font-semibold mb-4">What's Included:</h3>
@@ -581,7 +583,7 @@ export default function QuoteQuestionnaire() {
 							</li>
 							<li className="flex items-start gap-2">
 								<span className="text-primary mt-1">✓</span>
-								<span>{calculatePrice().monthlyPrice > 0 ? "Hosting, maintenance, and updates" : "Deployment assistance"}</span>
+								<span>{pricing.monthlyPrice > 0 ? "Hosting, maintenance, and updates" : "Deployment assistance"}</span>
 							</li>
 							{formData.additionalServices.includes("branding") && (
 								<li className="flex items-start gap-2">
@@ -624,11 +626,12 @@ export default function QuoteQuestionnaire() {
 
 					<div className="text-center">
 						<p className="text-sm text-muted-foreground">
-							Quote sent to: <strong>{formData.email}</strong>
+							Your email: <strong>{formData.email}</strong>
 						</p>
 					</div>
 				</div>
-			)}
+			);
+			})()}
 		</div>
 	);
 }
