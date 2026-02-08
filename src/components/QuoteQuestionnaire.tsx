@@ -187,9 +187,12 @@ export default function QuoteQuestionnaire() {
 				break;
 		}
 
+		// Track branding separately so we can show it in the breakdown
+		const brandingCost = formData.additionalServices.includes("branding") ? 1000 : 0;
+		
 		// Add branding to base before urgent multiplier (matches pricing logic)
-		if (formData.additionalServices.includes("branding")) {
-			baseProjectPrice += 1000;
+		if (brandingCost > 0) {
+			baseProjectPrice += brandingCost;
 		}
 
 		// Apply urgent timeline multiplier if needed
@@ -198,35 +201,58 @@ export default function QuoteQuestionnaire() {
 		}
 
 		// Add base items based on project type
+		// Use arrays to handle multiple items and adjust last item for rounding
+		const addProportionalItems = (items: Array<{label: string, proportion: number}>) => {
+			let remainingPrice = baseProjectPrice;
+			items.forEach((item, index) => {
+				if (index === items.length - 1) {
+					// Last item gets the remaining amount to avoid rounding errors
+					breakdown.push({ item: item.label, price: Math.round(remainingPrice) });
+				} else {
+					const itemPrice = Math.round(baseProjectPrice * item.proportion);
+					breakdown.push({ item: item.label, price: itemPrice });
+					remainingPrice -= itemPrice;
+				}
+			});
+		};
+		
 		if (formData.projectType === "static") {
-			breakdown.push({ item: "Professional static website with modern design", price: baseProjectPrice });
+			breakdown.push({ item: "Professional static website with modern design", price: Math.round(baseProjectPrice) });
 		} else if (formData.projectType === "marketing") {
-			breakdown.push({ item: "Conversion-optimized marketing site", price: Math.round(baseProjectPrice * 0.7) });
-			breakdown.push({ item: "SEO best practices", price: Math.round(baseProjectPrice * 0.3) });
+			addProportionalItems([
+				{ label: "Conversion-optimized marketing site", proportion: 0.7 },
+				{ label: "SEO best practices", proportion: 0.3 }
+			]);
 		} else if (formData.projectType === "blog") {
-			breakdown.push({ item: "Modern blogging platform", price: Math.round(baseProjectPrice * 0.6) });
-			breakdown.push({ item: "Content management system", price: Math.round(baseProjectPrice * 0.4) });
+			addProportionalItems([
+				{ label: "Modern blogging platform", proportion: 0.6 },
+				{ label: "Content management system", proportion: 0.4 }
+			]);
 		} else if (formData.projectType === "crm") {
-			breakdown.push({ item: "Custom CRM solution", price: Math.round(baseProjectPrice * 0.65) });
-			breakdown.push({ item: "Business process automation", price: Math.round(baseProjectPrice * 0.35) });
+			addProportionalItems([
+				{ label: "Custom CRM solution", proportion: 0.65 },
+				{ label: "Business process automation", proportion: 0.35 }
+			]);
 		} else if (formData.projectType === "full-fledged") {
-			breakdown.push({ item: "Full user authentication and management", price: Math.round(baseProjectPrice * 0.4) });
-			breakdown.push({ item: "Database integration (Supabase or similar)", price: Math.round(baseProjectPrice * 0.35) });
-			breakdown.push({ item: "Scalable architecture", price: Math.round(baseProjectPrice * 0.25) });
+			addProportionalItems([
+				{ label: "Full user authentication and management", proportion: 0.4 },
+				{ label: "Database integration (Supabase or similar)", proportion: 0.35 },
+				{ label: "Scalable architecture", proportion: 0.25 }
+			]);
 		}
 
 		// Common items
 		breakdown.push({ item: "Responsive design (mobile, tablet, desktop)", price: 0 }); // Included in base
 
-		// Hosting/deployment - use project-specific base monthly price
-		const hasMonthlyServices = formData.projectType !== "";
-		if (hasMonthlyServices && baseMonthlyPrice > 0) {
-			breakdown.push({ item: "Hosting, maintenance, and updates", price: baseMonthlyPrice, isMonthly: true });
-		} else {
-			breakdown.push({ item: "Deployment assistance", price: 0 }); // Included in base
+		// Show branding as separate item if selected (already included in the proportional items above)
+		if (brandingCost > 0) {
+			breakdown.push({ item: "Brand identity and design system (included above)", price: 0 });
 		}
 
-		// Note: Branding is already included in base price calculation above
+		// Hosting/deployment - use project-specific base monthly price
+		if (formData.projectType !== "" && baseMonthlyPrice > 0) {
+			breakdown.push({ item: "Hosting, maintenance, and updates", price: baseMonthlyPrice, isMonthly: true });
+		}
 
 		// Advanced user tracking
 		if (formData.userTracking === "advanced") {
