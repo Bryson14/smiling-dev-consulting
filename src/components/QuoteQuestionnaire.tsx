@@ -624,6 +624,13 @@ export default function QuoteQuestionnaire() {
 						</div>
 					</div>
 
+					<div className="bg-muted/20 border border-muted rounded-lg p-6">
+						<h3 className="font-semibold mb-2">Important Disclaimer</h3>
+						<p className="text-sm text-muted-foreground">
+							All prices shown are <strong>not a commitment or contract</strong> and are <strong>just a rough estimate</strong> based on your answers. Everything is <strong>subject to change</strong> based on a detailed project discussion. For specific pricing and project details, please contact <strong>Bryson</strong> directly.
+						</p>
+					</div>
+
 					<div className="text-center">
 						<p className="text-sm text-muted-foreground">
 							Your email: <strong>{formData.email}</strong>
