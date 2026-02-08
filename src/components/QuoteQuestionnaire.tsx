@@ -24,6 +24,7 @@ export default function QuoteQuestionnaire() {
 		userTracking: "",
 		ctoServices: false,
 	});
+	const [isSubmitted, setIsSubmitted] = useState(false);
 
 	// Load from session storage on mount
 	useEffect(() => {
@@ -42,6 +43,46 @@ export default function QuoteQuestionnaire() {
 	useEffect(() => {
 		sessionStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 	}, [formData]);
+
+	// Submit to Formspree when reaching step 5
+	useEffect(() => {
+		const submitToFormspree = async () => {
+			if (step === 5 && !isSubmitted) {
+				try {
+					const pricing = calculatePrice();
+					const formspreeData = {
+						email: formData.email,
+						"Project Type": getProjectTypeLabel(formData.projectType),
+						Timeline: getTimelineLabel(formData.timeline),
+						"Additional Services": formData.additionalServices.includes("branding")
+							? "Branding & Design"
+							: "None",
+						"User Tracking": getUserTrackingLabel(formData.userTracking),
+						"CTO Services": formData.ctoServices ? "Yes" : "No",
+						"Estimated Initial Cost": `$${pricing.basePrice.toLocaleString()}`,
+						"Estimated Monthly Cost": pricing.monthlyPrice > 0
+							? `$${pricing.monthlyPrice.toLocaleString()}/month`
+							: "None",
+						"Form Type": "Quote Request",
+					};
+
+					await fetch("https://formspree.io/f/mdkogvoy", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify(formspreeData),
+					});
+
+					setIsSubmitted(true);
+				} catch (error) {
+					console.error("Failed to submit to Formspree:", error);
+				}
+			}
+		};
+
+		submitToFormspree();
+	}, [step, formData, isSubmitted]);
 
 	const handleNext = () => {
 		if (validateStep()) {
@@ -126,6 +167,35 @@ export default function QuoteQuestionnaire() {
 				? prev.additionalServices.filter((s) => s !== service)
 				: [...prev.additionalServices, service],
 		}));
+	};
+
+	const getProjectTypeLabel = (value: string) => {
+		const labels: Record<string, string> = {
+			static: "Basic Website",
+			marketing: "Marketing Site",
+			blog: "Blog / Content Site",
+			crm: "Business Tools / CRM",
+			"full-fledged": "Full-Featured Application",
+		};
+		return labels[value] || value;
+	};
+
+	const getTimelineLabel = (value: string) => {
+		const labels: Record<string, string> = {
+			flexible: "Flexible (3-4 months)",
+			standard: "Standard (6-8 weeks)",
+			urgent: "Urgent (2-4 weeks)",
+		};
+		return labels[value] || value;
+	};
+
+	const getUserTrackingLabel = (value: string) => {
+		const labels: Record<string, string> = {
+			none: "Not Needed",
+			basic: "Basic Analytics",
+			advanced: "Advanced User Management",
+		};
+		return labels[value] || value;
 	};
 
 	return (
@@ -639,6 +709,7 @@ export default function QuoteQuestionnaire() {
 							<Button
 								onClick={() => {
 									setStep(1);
+									setIsSubmitted(false);
 									window.scrollTo({ top: 0, behavior: "smooth" });
 								}}
 								variant="outline"
