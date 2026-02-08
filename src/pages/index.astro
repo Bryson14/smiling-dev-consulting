@@ -3,6 +3,7 @@ import { Image, Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import { Globe, Code, Briefcase } from "@lucide/astro";
 import Button from "../components/Button.astro";
+import TypewriterHero from "../components/TypewriterHero";
 import MainLayout from "../layouts/main.astro";
 
 let projects = await getCollection("projects");
@@ -21,12 +22,9 @@ projects = projects
     <div class="container mx-auto px-4">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">
-            Transforming Ideas into
-            <span class="text-primary">Digital Solutions</span>
-          </h1>
+          <TypewriterHero client:load />
           <p class="text-xl text-muted-foreground mb-8">
-            Hi, I'm Bryson Meiling. I help businesses and organizations build
+            Hi, I'm Bryson. I help businesses and organizations build
             modern, efficient, and user-friendly digital experiences.
           </p>
           <div class="flex gap-4">
