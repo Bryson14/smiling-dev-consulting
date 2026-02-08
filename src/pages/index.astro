@@ -1,6 +1,7 @@
 ---
 import { Image, Picture } from "astro:assets";
 import { getCollection } from "astro:content";
+import { Globe, Code, Briefcase } from "@lucide/astro";
 import Button from "../components/Button.astro";
 import MainLayout from "../layouts/main.astro";
 
@@ -44,6 +45,45 @@ projects = projects
             height="400"
           />
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">What I Offer</h2>
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="p-6 border rounded-lg hover:border-primary/50 transition-colors">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="text-xl font-semibold">Business Websites</h3>
+            <Globe class="w-6 h-6 text-primary flex-shrink-0" />
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Professional, SEO-optimized websites that establish your online presence and convert visitors.
+          </p>
+        </div>
+        <div class="p-6 border rounded-lg hover:border-primary/50 transition-colors">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="text-xl font-semibold">Web Applications</h3>
+            <Code class="w-6 h-6 text-primary flex-shrink-0" />
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Custom web apps with databases, user management, dashboards, and real-time data features.
+          </p>
+        </div>
+        <div class="p-6 border rounded-lg hover:border-primary/50 transition-colors">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="text-xl font-semibold">Technical Leadership</h3>
+            <Briefcase class="w-6 h-6 text-primary flex-shrink-0" />
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Fractional CTO services, consulting, and architectural guidance for your projects.
+          </p>
+        </div>
+      </div>
+      <div class="text-center">
+        <p class="text-muted-foreground mb-6">Want to know the cost? Try our quick quote estimator.</p>
+        <Button href="/quote" variant="outline">Get a Free Quote</Button>
       </div>
     </div>
   </section>
