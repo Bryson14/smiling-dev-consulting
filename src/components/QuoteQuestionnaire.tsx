@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { Check } from "lucide-react";
 
 interface QuestionnaireData {
 	email: string;
@@ -243,10 +244,11 @@ export default function QuoteQuestionnaire() {
 								onClick={() =>
 									setFormData({ ...formData, projectType: option.value })
 								}
+								aria-selected={formData.projectType === option.value}
 								className={cn(
-									"w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50",
+									"relative w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
 									formData.projectType === option.value
-										? "border-primary bg-primary/5"
+										? "border-primary bg-primary/10 shadow-lg ring-2 ring-primary/20"
 										: "border-border",
 								)}
 							>
@@ -254,6 +256,11 @@ export default function QuoteQuestionnaire() {
 								<div className="text-sm text-muted-foreground">
 									{option.description}
 								</div>
+								{formData.projectType === option.value && (
+									<div className="absolute top-3 right-3 bg-primary text-primary-foreground rounded-full p-1">
+										<Check className="w-4 h-4" />
+									</div>
+								)}
 							</button>
 						))}
 					</div>
@@ -312,10 +319,11 @@ export default function QuoteQuestionnaire() {
 									onClick={() =>
 										setFormData({ ...formData, timeline: option.value })
 									}
+									aria-selected={formData.timeline === option.value}
 									className={cn(
-										"w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50",
+										"relative w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
 										formData.timeline === option.value
-											? "border-primary bg-primary/5"
+											? "border-primary bg-primary/10 shadow-lg ring-2 ring-primary/20"
 											: "border-border",
 									)}
 								>
@@ -323,6 +331,11 @@ export default function QuoteQuestionnaire() {
 									<div className="text-sm text-muted-foreground">
 										{option.description}
 									</div>
+									{formData.timeline === option.value && (
+										<div className="absolute top-3 right-3 bg-primary text-primary-foreground rounded-full p-1">
+											<Check className="w-4 h-4" />
+										</div>
+									)}
 								</button>
 							))}
 						</div>
@@ -336,15 +349,16 @@ export default function QuoteQuestionnaire() {
 							<button
 								type="button"
 								onClick={() => toggleAdditionalService("branding")}
+								aria-selected={formData.additionalServices.includes("branding")}
 								className={cn(
-									"w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50",
+									"relative w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
 									formData.additionalServices.includes("branding")
-										? "border-primary bg-primary/5"
+										? "border-primary bg-primary/10 shadow-lg ring-2 ring-primary/20"
 										: "border-border",
 								)}
 							>
-								<div className="flex items-center justify-between">
-									<div>
+								<div className="flex items-start justify-between">
+									<div className="flex-1 pr-8">
 										<div className="font-semibold mb-1">
 											Branding & Design
 										</div>
@@ -352,10 +366,12 @@ export default function QuoteQuestionnaire() {
 											Logo design, color schemes, and brand guidelines
 										</div>
 									</div>
-									{formData.additionalServices.includes("branding") && (
-										<span className="text-primary text-xl">✓</span>
-									)}
 								</div>
+								{formData.additionalServices.includes("branding") && (
+									<div className="absolute top-3 right-3 bg-primary text-primary-foreground rounded-full p-1">
+										<Check className="w-4 h-4" />
+									</div>
+								)}
 							</button>
 						</div>
 					</div>
@@ -417,10 +433,11 @@ export default function QuoteQuestionnaire() {
 									onClick={() =>
 										setFormData({ ...formData, userTracking: option.value })
 									}
+									aria-selected={formData.userTracking === option.value}
 									className={cn(
-										"w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50",
+										"relative w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
 										formData.userTracking === option.value
-											? "border-primary bg-primary/5"
+											? "border-primary bg-primary/10 shadow-lg ring-2 ring-primary/20"
 											: "border-border",
 									)}
 								>
@@ -428,6 +445,11 @@ export default function QuoteQuestionnaire() {
 									<div className="text-sm text-muted-foreground">
 										{option.description}
 									</div>
+									{formData.userTracking === option.value && (
+										<div className="absolute top-3 right-3 bg-primary text-primary-foreground rounded-full p-1">
+											<Check className="w-4 h-4" />
+										</div>
+									)}
 								</button>
 							))}
 						</div>
@@ -442,15 +464,16 @@ export default function QuoteQuestionnaire() {
 							onClick={() =>
 								setFormData({ ...formData, ctoServices: !formData.ctoServices })
 							}
+							aria-selected={formData.ctoServices}
 							className={cn(
-								"w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50",
+								"relative w-full text-left p-4 border-2 rounded-lg transition-all hover:border-primary/50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
 								formData.ctoServices
-									? "border-primary bg-primary/5"
+									? "border-primary bg-primary/10 shadow-lg ring-2 ring-primary/20"
 									: "border-border",
 							)}
 						>
-							<div className="flex items-center justify-between">
-								<div>
+							<div className="flex items-start justify-between">
+								<div className="flex-1 pr-8">
 									<div className="font-semibold mb-1">
 										Fractional CTO Services
 									</div>
@@ -459,10 +482,12 @@ export default function QuoteQuestionnaire() {
 										leadership
 									</div>
 								</div>
-								{formData.ctoServices && (
-									<span className="text-primary text-xl">✓</span>
-								)}
 							</div>
+							{formData.ctoServices && (
+								<div className="absolute top-3 right-3 bg-primary text-primary-foreground rounded-full p-1">
+									<Check className="w-4 h-4" />
+								</div>
+							)}
 						</button>
 					</div>
 
