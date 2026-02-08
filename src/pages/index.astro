@@ -1,7 +1,9 @@
 ---
 import { Image, Picture } from "astro:assets";
 import { getCollection } from "astro:content";
+import { Globe, Code, Briefcase } from "@lucide/astro";
 import Button from "../components/Button.astro";
+import TypewriterHero from "../components/TypewriterHero";
 import MainLayout from "../layouts/main.astro";
 
 let projects = await getCollection("projects");
@@ -20,12 +22,9 @@ projects = projects
     <div class="container mx-auto px-4">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">
-            Transforming Ideas into
-            <span class="text-primary">Digital Solutions</span>
-          </h1>
+          <TypewriterHero client:load />
           <p class="text-xl text-muted-foreground mb-8">
-            Hi, I'm Bryson Meiling. I help businesses and organizations build
+            Hi, I'm Bryson. I help businesses and organizations build
             modern, efficient, and user-friendly digital experiences.
           </p>
           <div class="flex gap-4">
@@ -44,6 +43,45 @@ projects = projects
             height="400"
           />
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-12">What I Offer</h2>
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="p-6 border rounded-lg hover:border-primary/50 transition-colors">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="text-xl font-semibold">Business Websites</h3>
+            <Globe class="w-6 h-6 text-primary flex-shrink-0" />
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Professional, SEO-optimized websites that establish your online presence and convert visitors.
+          </p>
+        </div>
+        <div class="p-6 border rounded-lg hover:border-primary/50 transition-colors">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="text-xl font-semibold">Web Applications</h3>
+            <Code class="w-6 h-6 text-primary flex-shrink-0" />
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Custom web apps with databases, user management, dashboards, and real-time data features.
+          </p>
+        </div>
+        <div class="p-6 border rounded-lg hover:border-primary/50 transition-colors">
+          <div class="flex items-center gap-3 mb-3">
+            <h3 class="text-xl font-semibold">Technical Leadership</h3>
+            <Briefcase class="w-6 h-6 text-primary flex-shrink-0" />
+          </div>
+          <p class="text-muted-foreground mb-4">
+            Fractional CTO services, consulting, and architectural guidance for your projects.
+          </p>
+        </div>
+      </div>
+      <div class="text-center">
+        <p class="text-muted-foreground mb-6">Want to know the cost? Try our quick quote estimator.</p>
+        <Button href="/quote" variant="outline">Get a Free Quote</Button>
       </div>
     </div>
   </section>
