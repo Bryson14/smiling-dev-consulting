@@ -160,6 +160,114 @@ export default function QuoteQuestionnaire() {
 		return { basePrice: Math.round(basePrice), monthlyPrice: Math.round(monthlyPrice) };
 	};
 
+	const calculatePriceBreakdown = () => {
+		const breakdown: Array<{ item: string; price: number; isMonthly?: boolean }> = [];
+		
+		// Base project price (before timeline multiplier)
+		let baseProjectPrice = 0;
+		let baseMonthlyPrice = 0;
+		
+		switch (formData.projectType) {
+			case "static":
+				baseProjectPrice = 2500;
+				baseMonthlyPrice = 89;
+				break;
+			case "marketing":
+			case "blog":
+				baseProjectPrice = 3000;
+				baseMonthlyPrice = 89;
+				break;
+			case "crm":
+				baseProjectPrice = 3500;
+				baseMonthlyPrice = 89;
+				break;
+			case "full-fledged":
+				baseProjectPrice = 5000;
+				baseMonthlyPrice = 150;
+				break;
+		}
+
+		// Track branding separately so we can show it in the breakdown
+		const brandingCost = formData.additionalServices.includes("branding") ? 1000 : 0;
+		
+		// Add branding to base before urgent multiplier (matches pricing logic)
+		if (brandingCost > 0) {
+			baseProjectPrice += brandingCost;
+		}
+
+		// Apply urgent timeline multiplier if needed
+		if (formData.timeline === "urgent") {
+			baseProjectPrice *= 1.5;
+		}
+
+		// Add base items based on project type
+		// Use arrays to handle multiple items and adjust last item for rounding
+		const addProportionalItems = (items: Array<{label: string, proportion: number}>) => {
+			let remainingPrice = baseProjectPrice;
+			items.forEach((item, index) => {
+				if (index === items.length - 1) {
+					// Last item gets the remaining amount to avoid rounding errors
+					breakdown.push({ item: item.label, price: Math.round(remainingPrice) });
+				} else {
+					const itemPrice = Math.round(baseProjectPrice * item.proportion);
+					breakdown.push({ item: item.label, price: itemPrice });
+					remainingPrice -= itemPrice;
+				}
+			});
+		};
+		
+		if (formData.projectType === "static") {
+			breakdown.push({ item: "Professional static website with modern design", price: Math.round(baseProjectPrice) });
+		} else if (formData.projectType === "marketing") {
+			addProportionalItems([
+				{ label: "Conversion-optimized marketing site", proportion: 0.7 },
+				{ label: "SEO best practices", proportion: 0.3 }
+			]);
+		} else if (formData.projectType === "blog") {
+			addProportionalItems([
+				{ label: "Modern blogging platform", proportion: 0.6 },
+				{ label: "Content management system", proportion: 0.4 }
+			]);
+		} else if (formData.projectType === "crm") {
+			addProportionalItems([
+				{ label: "Custom CRM solution", proportion: 0.65 },
+				{ label: "Business process automation", proportion: 0.35 }
+			]);
+		} else if (formData.projectType === "full-fledged") {
+			addProportionalItems([
+				{ label: "Full user authentication and management", proportion: 0.4 },
+				{ label: "Database integration (Supabase or similar)", proportion: 0.35 },
+				{ label: "Scalable architecture", proportion: 0.25 }
+			]);
+		}
+
+		// Common items
+		breakdown.push({ item: "Responsive design (mobile, tablet, desktop)", price: 0 }); // Included in base
+
+		// Show branding as separate item if selected (already included in the proportional items above)
+		if (brandingCost > 0) {
+			breakdown.push({ item: "Brand identity and design system (included above)", price: 0 });
+		}
+
+		// Hosting/deployment - use project-specific base monthly price
+		if (formData.projectType !== "" && baseMonthlyPrice > 0) {
+			breakdown.push({ item: "Hosting, maintenance, and updates", price: baseMonthlyPrice, isMonthly: true });
+		}
+
+		// Advanced user tracking
+		if (formData.userTracking === "advanced") {
+			breakdown.push({ item: "Advanced user management", price: 2000 });
+			breakdown.push({ item: "User tracking monthly service", price: 50, isMonthly: true });
+		}
+
+		// CTO services
+		if (formData.ctoServices) {
+			breakdown.push({ item: "Monthly fractional CTO services", price: 2000, isMonthly: true });
+		}
+
+		return breakdown;
+	};
+
 	const toggleAdditionalService = (service: string) => {
 		setFormData((prev) => ({
 			...prev,
@@ -579,6 +687,10 @@ export default function QuoteQuestionnaire() {
 			{/* Step 5: Results */}
 			{step === 5 && (() => {
 				const pricing = calculatePrice();
+				const breakdown = calculatePriceBreakdown();
+				const oneTimeItems = breakdown.filter(item => !item.isMonthly);
+				const monthlyItems = breakdown.filter(item => item.isMonthly);
+				
 				return (
 					<div className="space-y-6 animate-fadeIn">
 						<div>
@@ -613,84 +725,44 @@ export default function QuoteQuestionnaire() {
 
 					<div className="bg-muted/30 rounded-lg p-6">
 						<h3 className="font-semibold mb-4">What's Included:</h3>
-						<ul className="space-y-2">
-							{formData.projectType === "static" && (
-								<li className="flex items-start gap-2">
-									<span className="text-primary mt-1">✓</span>
-									<span>Professional static website with modern design</span>
+						<ul className="space-y-3">
+							{oneTimeItems.map((item, index) => (
+								<li key={index} className="flex items-start justify-between gap-4">
+									<div className="flex items-start gap-2 flex-1">
+										<span className="text-primary mt-1">✓</span>
+										<span className="flex-1">{item.item}</span>
+									</div>
+									{item.price > 0 && (
+										<span className="font-semibold text-muted-foreground whitespace-nowrap">
+											${item.price.toLocaleString()}
+										</span>
+									)}
+									{item.price === 0 && (
+										<span className="text-xs text-muted-foreground whitespace-nowrap italic">
+											included
+										</span>
+									)}
 								</li>
-							)}
-							{formData.projectType === "marketing" && (
+							))}
+							{monthlyItems.length > 0 && (
 								<>
-									<li className="flex items-start gap-2">
-										<span className="text-primary mt-1">✓</span>
-										<span>Conversion-optimized marketing site</span>
+									<li className="border-t border-muted pt-3 mt-2">
+										<span className="text-sm font-medium text-muted-foreground">
+											Monthly Services:
+										</span>
 									</li>
-									<li className="flex items-start gap-2">
-										<span className="text-primary mt-1">✓</span>
-										<span>SEO best practices</span>
-									</li>
+									{monthlyItems.map((item, index) => (
+										<li key={`monthly-${index}`} className="flex items-start justify-between gap-4">
+											<div className="flex items-start gap-2 flex-1">
+												<span className="text-primary mt-1">✓</span>
+												<span className="flex-1">{item.item}</span>
+											</div>
+											<span className="font-semibold text-muted-foreground whitespace-nowrap">
+												${item.price.toLocaleString()}/mo
+											</span>
+										</li>
+									))}
 								</>
-							)}
-							{formData.projectType === "blog" && (
-								<>
-									<li className="flex items-start gap-2">
-										<span className="text-primary mt-1">✓</span>
-										<span>Modern blogging platform</span>
-									</li>
-									<li className="flex items-start gap-2">
-										<span className="text-primary mt-1">✓</span>
-										<span>Content management system</span>
-									</li>
-								</>
-							)}
-							{formData.projectType === "crm" && (
-								<>
-									<li className="flex items-start gap-2">
-										<span className="text-primary mt-1">✓</span>
-										<span>Custom CRM solution</span>
-									</li>
-									<li className="flex items-start gap-2">
-										<span className="text-primary mt-1">✓</span>
-										<span>Business process automation</span>
-									</li>
-								</>
-							)}
-							{formData.projectType === "full-fledged" && (
-								<>
-									<li className="flex items-start gap-2">
-										<span className="text-primary mt-1">✓</span>
-										<span>Full user authentication and management</span>
-									</li>
-									<li className="flex items-start gap-2">
-										<span className="text-primary mt-1">✓</span>
-										<span>Database integration (Supabase or similar)</span>
-									</li>
-									<li className="flex items-start gap-2">
-										<span className="text-primary mt-1">✓</span>
-										<span>Scalable architecture</span>
-									</li>
-								</>
-							)}
-							<li className="flex items-start gap-2">
-								<span className="text-primary mt-1">✓</span>
-								<span>Responsive design (mobile, tablet, desktop)</span>
-							</li>
-							<li className="flex items-start gap-2">
-								<span className="text-primary mt-1">✓</span>
-								<span>{pricing.monthlyPrice > 0 ? "Hosting, maintenance, and updates" : "Deployment assistance"}</span>
-							</li>
-							{formData.additionalServices.includes("branding") && (
-								<li className="flex items-start gap-2">
-									<span className="text-primary mt-1">✓</span>
-									<span>Brand identity and design system</span>
-								</li>
-							)}
-							{formData.ctoServices && (
-								<li className="flex items-start gap-2">
-									<span className="text-primary mt-1">✓</span>
-									<span>Monthly fractional CTO services</span>
-								</li>
 							)}
 						</ul>
 					</div>
