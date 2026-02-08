@@ -24,7 +24,8 @@ export default function QuoteQuestionnaire() {
 		userTracking: "",
 		ctoServices: false,
 	});
-	const [isSubmitted, setIsSubmitted] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submissionError, setSubmissionError] = useState<string | null>(null);
 
 	// Load from session storage on mount
 	useEffect(() => {
@@ -44,50 +45,54 @@ export default function QuoteQuestionnaire() {
 		sessionStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 	}, [formData]);
 
-	// Submit to Formspree when reaching step 5
-	useEffect(() => {
-		const submitToFormspree = async () => {
-			if (step === 5 && !isSubmitted) {
-				try {
-					const pricing = calculatePrice();
-					const formspreeData = {
-						email: formData.email,
-						"Project Type": getProjectTypeLabel(formData.projectType),
-						Timeline: getTimelineLabel(formData.timeline),
-						"Additional Services": formData.additionalServices.includes("branding")
-							? "Branding & Design"
-							: "None",
-						"User Tracking": getUserTrackingLabel(formData.userTracking),
-						"CTO Services": formData.ctoServices ? "Yes" : "No",
-						"Estimated Initial Cost": `$${pricing.basePrice.toLocaleString()}`,
-						"Estimated Monthly Cost": pricing.monthlyPrice > 0
-							? `$${pricing.monthlyPrice.toLocaleString()}/month`
-							: "None",
-						"Form Type": "Quote Request",
-					};
-
-					await fetch("https://formspree.io/f/mdkogvoy", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(formspreeData),
-					});
-
-					setIsSubmitted(true);
-				} catch (error) {
-					console.error("Failed to submit to Formspree:", error);
-				}
-			}
-		};
-
-		submitToFormspree();
-	}, [step, formData, isSubmitted]);
-
-	const handleNext = () => {
+	const handleNext = async () => {
 		if (validateStep()) {
+			// If moving to step 5 (results), submit to FormSpree
+			if (step === 4) {
+				await submitToFormSpree();
+			}
 			setStep(step + 1);
 			window.scrollTo({ top: 0, behavior: "smooth" });
+		}
+	};
+
+	const submitToFormSpree = async () => {
+		setIsSubmitting(true);
+		setSubmissionError(null);
+
+		try {
+			const pricing = calculatePrice();
+			
+			// Prepare the data to send to FormSpree
+			const submissionData = {
+				email: formData.email,
+				projectType: formData.projectType,
+				timeline: formData.timeline,
+				additionalServices: formData.additionalServices.join(", ") || "None",
+				userTracking: formData.userTracking,
+				ctoServices: formData.ctoServices ? "Yes" : "No",
+				estimatedBasePrice: `$${pricing.basePrice.toLocaleString()}`,
+				estimatedMonthlyPrice: `$${pricing.monthlyPrice.toLocaleString()}`,
+			};
+
+			const response = await fetch("https://formspree.io/f/mdkogvoy", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(submissionData),
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to submit form");
+			}
+		} catch (error) {
+			console.error("Error submitting to FormSpree:", error);
+			setSubmissionError(
+				"We encountered an issue saving your quote. Don't worry, you can still see your estimate below.",
+			);
+		} finally {
+			setIsSubmitting(false);
 		}
 	};
 
@@ -675,10 +680,10 @@ export default function QuoteQuestionnaire() {
 						</Button>
 						<Button
 							onClick={handleNext}
-							disabled={!validateStep()}
+							disabled={!validateStep() || isSubmitting}
 							className="flex-1"
 						>
-							See Your Quote →
+							{isSubmitting ? "Processing..." : "See Your Quote →"}
 						</Button>
 					</div>
 				</div>
@@ -693,6 +698,12 @@ export default function QuoteQuestionnaire() {
 				
 				return (
 					<div className="space-y-6 animate-fadeIn">
+						{submissionError && (
+							<div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-200 rounded-lg p-4">
+								<p className="text-sm">{submissionError}</p>
+							</div>
+						)}
+						
 						<div>
 							<h2 className="text-3xl font-bold mb-4">Your Custom Quote</h2>
 							<p className="text-lg text-muted-foreground mb-6">
