@@ -1,0 +1,115 @@
+---
+import Button from "../../components/Button.astro";
+import MainLayout from "../../layouts/main.astro";
+import { Search, TrendingUp, Link2, BarChart3 } from "@lucide/astro";
+
+---
+
+<MainLayout
+	title="SEO Services - Smiling Dev Consulting"
+	description="Search engine optimization services to improve your website's visibility and drive organic traffic."
+>
+	<div class="container mx-auto px-4 py-12 max-w-4xl">
+		<nav class="text-sm text-muted-foreground mb-8">
+			<a href="/services" class="hover:text-primary transition-colors">← Back to Services</a>
+		</nav>
+
+		<div class="mb-12">
+			<h1 class="text-4xl md:text-5xl font-bold mb-4 text-foreground">SEO Services</h1>
+			<p class="text-xl text-muted-foreground mb-8">
+				Improve your search engine rankings and drive organic traffic to your website.
+			</p>
+		</div>
+
+		<!-- Service Overview -->
+		<section class="mb-16">
+			<div class="bg-muted/30 rounded-lg p-8 mb-8">
+				<h2 class="text-2xl font-bold mb-4">What We Offer</h2>
+				<p class="text-muted-foreground mb-6">
+					Our SEO services are designed to increase your online visibility, attract qualified traffic, and improve your search engine rankings. We use proven strategies and best practices to deliver measurable results.
+				</p>
+				<div class="grid md:grid-cols-2 gap-6">
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<Search class="w-5 h-5 text-primary" />
+							Technical SEO
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Site structure, speed optimization, mobile responsiveness, and proper indexing for search engines.
+						</p>
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<TrendingUp class="w-5 h-5 text-primary" />
+							Content Strategy
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Keyword research, content optimization, and creation of SEO-friendly content that ranks.
+						</p>
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<Link2 class="w-5 h-5 text-primary" />
+							Link Building
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Strategic backlink acquisition to improve domain authority and search rankings.
+						</p>
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<BarChart3 class="w-5 h-5 text-primary" />
+							Analytics & Reporting
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Performance tracking, detailed reporting, and continuous optimization based on data.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- SEO Benefits -->
+		<section class="mb-16">
+			<h2 class="text-2xl font-bold mb-6">Why SEO Matters</h2>
+			<div class="space-y-4">
+				<div class="border-l-4 border-primary pl-4">
+					<h3 class="font-semibold mb-2">Increased Visibility</h3>
+					<p class="text-sm text-muted-foreground">
+						When your site ranks higher in search results, more people find you when looking for your services.
+					</p>
+				</div>
+				<div class="border-l-4 border-primary pl-4">
+					<h3 class="font-semibold mb-2">Qualified Traffic</h3>
+					<p class="text-sm text-muted-foreground">
+						Organic search brings visitors who are actively looking for what you offer, leading to better conversions.
+					</p>
+				</div>
+				<div class="border-l-4 border-primary pl-4">
+					<h3 class="font-semibold mb-2">Long-term Results</h3>
+					<p class="text-sm text-muted-foreground">
+						SEO is an investment that continues to deliver value over time, unlike paid advertising.
+					</p>
+				</div>
+				<div class="border-l-4 border-primary pl-4">
+					<h3 class="font-semibold mb-2">Credibility</h3>
+					<p class="text-sm text-muted-foreground">
+						High search rankings build trust and credibility with potential customers.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="bg-primary/10 rounded-lg p-8 text-center">
+			<h2 class="text-2xl font-bold mb-4">Boost Your Online Visibility</h2>
+			<p class="text-muted-foreground mb-6">
+				Let's work together to improve your search rankings and drive more qualified traffic to your website.
+			</p>
+			<div class="flex gap-4 justify-center">
+				<Button href="/contact" variant="default">Get in Touch</Button>
+				<Button href="/quote" variant="outline">Request a Quote</Button>
+			</div>
+		</section>
+	</div>
+</MainLayout>

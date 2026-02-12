@@ -1,0 +1,144 @@
+---
+import Button from "../../components/Button.astro";
+import MainLayout from "../../layouts/main.astro";
+import { Lightbulb, Users, TrendingUp, Code, Zap, BarChart3 } from "@lucide/astro";
+
+---
+
+<MainLayout
+	title="Tech Consulting Services - Smiling Dev Consulting"
+	description="Expert technical consulting to guide your technology decisions, architecture, and digital transformation."
+>
+	<div class="container mx-auto px-4 py-12 max-w-4xl">
+		<nav class="text-sm text-muted-foreground mb-8">
+			<a href="/services" class="hover:text-primary transition-colors">← Back to Services</a>
+		</nav>
+
+		<div class="mb-12">
+			<h1 class="text-4xl md:text-5xl font-bold mb-4 text-foreground">Technical Consulting Services</h1>
+			<p class="text-xl text-muted-foreground mb-8">
+				Expert guidance on technology choices, architecture decisions, and digital transformation strategies.
+			</p>
+		</div>
+
+		<!-- Service Overview -->
+		<section class="mb-16">
+			<div class="bg-muted/30 rounded-lg p-8 mb-8">
+				<h2 class="text-2xl font-bold mb-4">What We Offer</h2>
+				<p class="text-muted-foreground mb-6">
+					Navigating technology decisions can be complex. Our consulting services help you choose the right tools, architecture, and strategies to achieve your business goals efficiently and cost-effectively.
+				</p>
+				<div class="grid md:grid-cols-2 gap-6">
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<Lightbulb class="w-5 h-5 text-primary" />
+							Technology Strategy
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Align your technology choices with business objectives for maximum impact and ROI.
+						</p>
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<Code class="w-5 h-5 text-primary" />
+							Architecture Design
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Create scalable, maintainable system architectures that support growth and change.
+						</p>
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<TrendingUp class="w-5 h-5 text-primary" />
+							Performance Review
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Evaluate and optimize your existing systems for better performance and efficiency.
+						</p>
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<Users class="w-5 h-5 text-primary" />
+							Team Development
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Guide your team through technical best practices and modern development methodologies.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Consulting Areas -->
+		<section class="mb-16">
+			<h2 class="text-2xl font-bold mb-6">Our Expertise</h2>
+			<div class="grid md:grid-cols-2 gap-4">
+				<div class="border border-border rounded-lg p-6">
+					<h3 class="font-semibold mb-3 flex items-center gap-2">
+						<Zap class="w-5 h-5 text-primary" />
+						Full-Stack Development
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						Frontend, backend, database, and infrastructure decisions for complete applications.
+					</p>
+				</div>
+				<div class="border border-border rounded-lg p-6">
+					<h3 class="font-semibold mb-3 flex items-center gap-2">
+						<BarChart3 class="w-5 h-5 text-primary" />
+						Data & Analytics
+					</h3>
+					<p class="text-sm text-muted-foreground">
+						Database design, data pipelines, and analytics solutions for data-driven decisions.
+					</p>
+				</div>
+				<div class="border border-border rounded-lg p-6">
+					<h3 class="font-semibold mb-3">Cloud & DevOps</h3>
+					<p class="text-sm text-muted-foreground">
+						AWS, Cloudflare, Docker, CI/CD pipelines, and infrastructure automation strategies.
+					</p>
+				</div>
+				<div class="border border-border rounded-lg p-6">
+					<h3 class="font-semibold mb-3">AI & Automation</h3>
+					<p class="text-sm text-muted-foreground">
+						Integration of AI services, automation opportunities, and intelligent system design.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Why Choose Us -->
+		<section class="mb-16">
+			<h2 class="text-2xl font-bold mb-6">Why Work With Us</h2>
+			<ul class="space-y-3 text-muted-foreground">
+				<li class="flex items-start gap-3">
+					<span class="text-primary font-bold">✓</span>
+					<span><strong>Hands-on Experience</strong> - Years of real-world development across diverse industries and scales</span>
+				</li>
+				<li class="flex items-start gap-3">
+					<span class="text-primary font-bold">✓</span>
+					<span><strong>Practical Advice</strong> - Recommendations based on actual implementation experience, not just theory</span>
+				</li>
+				<li class="flex items-start gap-3">
+					<span class="text-primary font-bold">✓</span>
+					<span><strong>ROI Focused</strong> - We prioritize solutions that deliver real business value and measurable returns</span>
+				</li>
+				<li class="flex items-start gap-3">
+					<span class="text-primary font-bold">✓</span>
+					<span><strong>Modern Stack</strong> - Up-to-date knowledge of latest tools, frameworks, and best practices</span>
+				</li>
+			</ul>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="bg-primary/10 rounded-lg p-8 text-center">
+			<h2 class="text-2xl font-bold mb-4">Ready to Transform Your Technology?</h2>
+			<p class="text-muted-foreground mb-6">
+				Let's discuss your technology challenges and opportunities.
+			</p>
+			<div class="flex gap-4 justify-center">
+				<Button href="/contact" variant="default">Get in Touch</Button>
+				<Button href="/quote" variant="outline">Request a Quote</Button>
+			</div>
+		</section>
+	</div>
+</MainLayout>

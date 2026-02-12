@@ -1,0 +1,111 @@
+---
+import Button from "../../components/Button.astro";
+import MainLayout from "../../layouts/main.astro";
+import { Code, Globe, Smartphone, Zap } from "@lucide/astro";
+
+---
+
+<MainLayout
+	title="Web Development Services - Smiling Dev Consulting"
+	description="Professional web development services including modern websites, web applications, and full-stack solutions."
+>
+	<div class="container mx-auto px-4 py-12 max-w-4xl">
+		<nav class="text-sm text-muted-foreground mb-8">
+			<a href="/services" class="hover:text-primary transition-colors">← Back to Services</a>
+		</nav>
+
+		<div class="mb-12">
+			<h1 class="text-4xl md:text-5xl font-bold mb-4 text-foreground">Web Development Services</h1>
+			<p class="text-xl text-muted-foreground mb-8">
+				Build modern, responsive, and performant web applications that your users will love.
+			</p>
+		</div>
+
+		<!-- Service Overview -->
+		<section class="mb-16">
+			<div class="bg-muted/30 rounded-lg p-8 mb-8">
+				<h2 class="text-2xl font-bold mb-4">What We Offer</h2>
+				<p class="text-muted-foreground mb-6">
+					From beautiful static websites to complex interactive applications, we create web solutions tailored to your needs using the latest technologies and best practices.
+				</p>
+				<div class="grid md:grid-cols-2 gap-6">
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<Globe class="w-5 h-5 text-primary" />
+							Professional Websites
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							High-performance, SEO-optimized websites built with Astro for maximum speed and functionality.
+						</p>
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<Code class="w-5 h-5 text-primary" />
+							Custom Web Applications
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Complex, interactive applications with databases, authentication, and real-time features.
+						</p>
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<Smartphone class="w-5 h-5 text-primary" />
+							Responsive Design
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Mobile-first design that works perfectly on all devices and screen sizes.
+						</p>
+					</div>
+					<div>
+						<h3 class="font-semibold text-lg mb-2 flex items-center gap-2">
+							<Zap class="w-5 h-5 text-primary" />
+							Performance Optimization
+						</h3>
+						<p class="text-sm text-muted-foreground">
+							Lightning-fast page loads and smooth user interactions for better conversions.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Technology Stack -->
+		<section class="mb-16">
+			<h2 class="text-2xl font-bold mb-6">Technologies We Use</h2>
+			<div class="grid md:grid-cols-2 gap-4">
+				<div class="border border-border rounded-lg p-6">
+					<h3 class="font-semibold mb-3">Frontend</h3>
+					<ul class="text-sm text-muted-foreground space-y-2">
+						<li>• React - Interactive user interfaces</li>
+						<li>• Next.js - Full-stack applications</li>
+						<li>• Astro - Fast static sites</li>
+						<li>• TypeScript - Type-safe code</li>
+						<li>• TailwindCSS - Modern styling</li>
+					</ul>
+				</div>
+				<div class="border border-border rounded-lg p-6">
+					<h3 class="font-semibold mb-3">Backend & Infrastructure</h3>
+					<ul class="text-sm text-muted-foreground space-y-2">
+						<li>• Node.js - Server runtime</li>
+						<li>• Supabase - Database & auth</li>
+						<li>• PostgreSQL - Relational data</li>
+						<li>• AWS - Cloud infrastructure</li>
+						<li>• Cloudflare - Performance & security</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="bg-primary/10 rounded-lg p-8 text-center">
+			<h2 class="text-2xl font-bold mb-4">Ready to Build Your Web Solution?</h2>
+			<p class="text-muted-foreground mb-6">
+				Let's discuss your project requirements and create something amazing together.
+			</p>
+			<div class="flex gap-4 justify-center">
+				<Button href="/contact" variant="default">Get in Touch</Button>
+				<Button href="/quote" variant="outline">Request a Quote</Button>
+			</div>
+		</section>
+	</div>
+</MainLayout>
