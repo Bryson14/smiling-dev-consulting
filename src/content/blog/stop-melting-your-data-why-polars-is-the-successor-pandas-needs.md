@@ -8,7 +8,7 @@ description: Something that impressed me this last week is the buzz surrounding
 author: Bryson Meiling
 pubDate: 2026-02-11
 updateDate: 2026-02-12
-mediumLink: https://medium.com
+mediumLink: https://medium.com/@BryMei/stop-melting-your-data-why-polars-is-the-successor-pandas-needs-e8ada732cc87
 keywords:
   - uv
   - marimo
@@ -111,7 +111,7 @@ The result? Beautiful, instantly updated dashboards that are actually presentabl
 
 So I'm convinced that going forward my go to data stack is polars, uv, and marimo. If I was actually cunching some large data, and not just a pet project for personal finances, I'd start reaching also for DuckDB as a way to reach and store my data in memory or as another alternative to polars.
 
-### Other Links I fonud about Polars from the community:  
+### Other Links I fonud about Polars from the community:
 
 *   [https://towardsdatascience.com/modern-dataframes-in-python-a-hands-on-tutorial-with-polars-and-duckdb/](https://towardsdatascience.com/modern-dataframes-in-python-a-hands-on-tutorial-with-polars-and-duckdb/)
     
