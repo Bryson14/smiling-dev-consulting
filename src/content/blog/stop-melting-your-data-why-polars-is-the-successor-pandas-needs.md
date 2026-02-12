@@ -40,9 +40,7 @@ I especially appreciated the renamed APIs. For example, while the `melt` API fro
 
 My approach was to read in the CSV, filter out aggregations or stray cells with random text, and extract the raw data. The original spreadsheet was in a "wide" format—months along the X-axis and account names down the Y-axis. Using a mix of filtering and regex parsing, I converted it into a "narrow" format that data processing systems prefer.
 
-Python
-
-```
+```python
 df = pl.read_csv(csv_file)
 df = df.filter(pl.col('Type').is_not_null() & pl.col('Account').is_not_null())
 
