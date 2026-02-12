@@ -20,9 +20,41 @@ function formatDate(date: Date) {
 		day: "numeric",
 	}).format(date);
 }
+
+// Build JSON-LD for the blog
+const blogJsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Blog",
+	"name": "Smiling Dev Consulting Blog",
+	"description": "Thoughts, tutorials, and insights on web development, design, and technology.",
+	"url": `${Astro.url.origin}/blog`,
+	"mainEntity": {
+		"@type": "ItemList",
+		"itemListElement": sortedPosts.map((post, index) => ({
+			"@type": "ListItem",
+			"position": index + 1,
+			"item": {
+				"@type": "BlogPosting",
+				"headline": post.data.title,
+				"description": post.data.description,
+				"image": post.data.image?.src ?? undefined,
+				"datePublished": post.data.pubDate.toISOString(),
+				"author": {
+					"@type": "Person",
+					"name": post.data.author || "Bryson Meiling"
+				},
+				"url": `${Astro.url.origin}/blog/${post.id}`,
+			},
+		})),
+	},
+};
 ---
 
-<Layout>
+<Layout
+  title="Blog | Smiling Dev Consulting"
+  description="Thoughts, tutorials, and insights on web development, design, and technology."
+  jsonld={blogJsonLd}
+>
   <div class="container mx-auto px-4 py-12">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold mb-4">Blog Posts</h1>

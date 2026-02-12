@@ -4,6 +4,7 @@ import Head from "../components/Head.astro";
 import MobileNav from "../components/MobileNav.astro";
 import NewsletterForm from "../components/NewsletterForm.astro";
 import ScrollToTop from "../components/ScrollToTop.astro";
+import JsonLd from "../components/JsonLd.astro";
 import "@/styles/global.css";
 import "@/styles/shadcn.css";
 import { Image } from "astro:assets";
@@ -15,6 +16,7 @@ interface Props {
 	image?: string;
 	type?: "website" | "article";
 	canonicalUrl?: string;
+	jsonld?: Record<string, any>;
 }
 
 const {
@@ -23,7 +25,35 @@ const {
 	image,
 	type = "website",
 	canonicalUrl = Astro.url.href,
+	jsonld,
 } = Astro.props;
+
+// Default organization schema
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "ProfessionalService",
+	"@id": "https://smiling.dev/#organization",
+	"name": "Smiling Dev Consulting",
+	"url": "https://smiling.dev",
+	"logo": "https://smiling.dev/smiling-dev-logo-small.png",
+	"description": "Expert tech consulting services specializing in web development, AI integration, and digital transformation.",
+	"sameAs": [
+		"https://github.com",
+		"https://linkedin.com",
+		"https://facebook.com"
+	],
+	"contactPoint": {
+		"@type": "ContactPoint",
+		"telephone": "+1-801-971-5786",
+		"contactType": "Customer Service",
+		"email": "info@smiling.dev",
+		"availableLanguage": "English"
+	},
+	"address": {
+		"@type": "PostalAddress",
+		"addressCountry": "US"
+	}
+};
 ---
 
 <!doctype html>
@@ -36,6 +66,8 @@ const {
 			type={type}
 			canonicalUrl={canonicalUrl}
 		/>
+		<JsonLd data={organizationSchema} />
+		{jsonld && <JsonLd data={jsonld} />}
 		<script>
 			// Prevent flash of wrong theme
 			const theme = (() => {

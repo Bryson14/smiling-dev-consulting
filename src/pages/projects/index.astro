@@ -10,11 +10,30 @@ projects = projects.sort((a, b) => {
 		new Date(a.data.updateDate).getTime()
 	);
 });
+
+// Build JSON-LD for the projects list
+const projectsJsonLd = {
+	"@context": "https://schema.org",
+	"@type": "ItemList",
+	"name": "Project Portfolio",
+	"description": "A list of recent projects completed by Smiling Dev Consulting",
+	"itemListElement": projects.map((project, index) => ({
+		"@type": "ListItem",
+		"position": index + 1,
+		"item": {
+			"@type": "CreativeWork",
+			"name": project.data.title,
+			"description": project.data.description,
+			"url": `${Astro.url.origin}/projects/${project.data.slug}`,
+		},
+	})),
+};
 ---
 
 <Layout
   title="Projects | Smiling Dev Consulting"
   description="View our portfolio of web development and consulting projects"
+  jsonld={projectsJsonLd}
 >
   <main class="container mx-auto px-4 py-12">
     <h1
