@@ -5,7 +5,7 @@ description: Being intentional about the sources of media, articles,
   entertainment with my time has been helping me reflect on the current state of
   technology and social media apps. I'm wary of the amount of time I use it and
   the image that I present to kids.
-author: Bryson Meiling
+author: Bryson
 pubDate: 2025-09-23
 updateDate: 2025-09-23
 mediumLink: https://medium.com

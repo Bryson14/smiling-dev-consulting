@@ -2,7 +2,7 @@
 slug: after-3-years-of-aws-amplify-is-it-the-best-backend-as-a-service
 title: After 3 years of AWS Amplify, is it the Best Backend as a Service?
 description: As a one-person team managing backend services for a few businesses, finding a reliable and efficient Backend as a Service (BaaS) is crucial. For the past three years, AWS Amplify has been that service for me. 
-author: Bryson Meiling
+author: Bryson
 pubDate: 2025-05-12
 mediumLink: https://medium.com/@BryMei/after-3-years-of-aws-amplify-is-it-the-best-backend-as-a-service-4f12bed21511
 keywords: ["Backend as a Service", "AWS"]

@@ -5,7 +5,7 @@ description: Something that impressed me this last week is the buzz surrounding
   a new Python framework called Polars. It has been touted as the successor to
   Pandas, boasting a better API and significantly faster performance. Plus, it’s
   written in Rust, which always draws attention nowadays
-author: Bryson Meiling
+author: Bryson
 pubDate: 2026-02-11
 updateDate: 2026-02-12
 mediumLink: https://medium.com/@BryMei/stop-melting-your-data-why-polars-is-the-successor-pandas-needs-e8ada732cc87

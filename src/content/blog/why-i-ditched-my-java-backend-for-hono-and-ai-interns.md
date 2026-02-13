@@ -2,7 +2,7 @@
 slug: why-i-ditched-my-java-backend-for-hono-and-ai-interns
 title: Why I Ditched My Java Backend for Hono and AI Interns.
 description: A practical look at using AI agents to rewrite a Java Spring Boot backend service into a TypeScript Hono serverless application, achieving better performance with less maintenance overhead.
-author: Bryson Meiling
+author: Bryson
 pubDate: 2026-01-21
 mediumLink: https://medium.com/@BryMei/why-i-ditched-my-java-backend-for-hono-and-ai-interns-7eb8327fce64
 keywords:
