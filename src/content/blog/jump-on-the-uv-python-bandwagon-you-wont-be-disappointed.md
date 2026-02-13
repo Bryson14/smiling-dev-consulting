@@ -5,7 +5,7 @@ description: UV fixes a lot of common headaches for Python developers. It helps
   you ditch old habits like requirements.txt (which was never really meant to be
   a standard) and the hassle of activating virtual environments. With UV, your
   projects become cleaner, more reliable, and a lot more fun to work with.
-author: Bryson Meiling
+author: Bryson
 pubDate: 2025-07-01
 updateDate: 2025-07-01
 mediumLink: https://medium.com/@BryMei/jump-on-the-uv-python-bandwagon-you-wont-be-disappointed-fe86cb9875d5

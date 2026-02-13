@@ -2,7 +2,7 @@
 slug: stop-making-your-python-projects-like-it-was-15-years-ago-
 title: Stop making your python projects like it was 15 years ago…
 description: I have a few things I’ve seen across companies and projects that I’ve seen working with Python that are annoying, hard to maintain, and are antiquated. Lets jump right in
-author: Bryson Meiling
+author: Bryson
 pubDate: 2024-09-28
 mediumLink: https://medium.com/gitconnected/stop-making-your-python-projects-like-it-was-15-years-ago-125436b470a5
 keywords: ["Software Development", "Python" , "Software Engineering"]

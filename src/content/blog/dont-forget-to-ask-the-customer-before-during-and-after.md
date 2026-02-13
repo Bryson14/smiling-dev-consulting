@@ -9,7 +9,7 @@ description: >-
   Seems stupid to say this until your realize how easy it is for a project at
   work to carry on 6 month ( or even years!!! ) without getting substantial and
   valid criticism and feedback.
-author: Bryson Meiling
+author: Bryson
 pubDate: 2024-10-31
 mediumLink: https://medium.com/gitconnected/dont-forget-to-ask-the-customer-before-during-and-after-997dc7310c08
 keywords:

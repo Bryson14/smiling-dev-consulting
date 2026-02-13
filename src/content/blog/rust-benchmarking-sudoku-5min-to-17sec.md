@@ -6,7 +6,7 @@ description: I'll take you through the process of optimizing a Sudoku solver
   series of optimizations that will take the time to solve 100,000 puzzles from
   over 5 minutes down to just 33 seconds, and 20,000 of the hardest puzzles from
   over 2 minutes down to just 17 seconds.
-author: Bryson Meiling
+author: Bryson
 pubDate: 2025-10-01
 updateDate: 2025-10-01
 mediumLink: https://medium.com/p/bf166c594d3c/edit

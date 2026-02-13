@@ -4,7 +4,7 @@ title: Postgres and Supabase beat AWS Amplify 9 times out of 10
 description: Don’t try to bring disjointed technologies and a half made
   developer experience into your next business. Use reliable tools and well
   designed products
-author: Bryson Meiling
+author: Bryson
 pubDate: 2025-08-18
 updateDate: 2025-08-18
 mediumLink: https://medium.com

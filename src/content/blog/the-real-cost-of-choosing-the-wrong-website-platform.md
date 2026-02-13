@@ -5,7 +5,7 @@ description: >-
   Comparing WordPress, Squarespace, and professional Astro websites. While DIY
   platforms seem cheaper upfront, the long-term costs in performance, flexibility,
   and opportunity might surprise you.
-author: Bryson Meiling
+author: Bryson
 pubDate: 2026-02-06
 keywords:
   - Web Development

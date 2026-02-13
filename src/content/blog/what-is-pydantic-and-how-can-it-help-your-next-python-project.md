@@ -2,7 +2,7 @@
 slug: what-is-pydantic-and-how-can-it-help-your-next-python-project
 title: What is Pydantic and how can it help your next python project?
 description: For anyone that has been either living under a programming rock or honestly has stuff to do outside of python development, you may not have heard about Pydantic.
-author: Bryson Meiling
+author: Bryson
 pubDate: 2024-10-06
 mediumLink: https://medium.com/python-in-plain-english/what-is-pydantic-and-how-can-it-help-your-next-python-project-a2d1bc01c91b
 keywords: ["Software Development", "Python" , "Software Engineering"]

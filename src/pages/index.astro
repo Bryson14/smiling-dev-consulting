@@ -24,7 +24,7 @@ projects = projects
         <div>
           <TypewriterHero client:load />
           <p class="text-xl text-muted-foreground mb-8">
-            Hi, I'm Bryson. I help businesses and organizations build
+            Hi, I'm Bryson. We help businesses and organizations build
             modern, efficient, and user-friendly digital experiences.
           </p>
           <div class="flex gap-4 justify-center lg:justify-start">
@@ -32,16 +32,13 @@ projects = projects
             <Button href="/projects" variant="outline">View Projects</Button>
           </div>
         </div>
-        <div class="relative">
-          <Picture
-            src="/bryson-smiling-lake.webp"
-            alt="Bryson Meiling"
-            formats={["avif", "webp"]}
-            class="rounded-lg shadow-xl"
-            quality="80"
-            width="600"
-            height="400"
-          />
+        <div class="relative hidden lg:block">
+          <div class="w-full h-96 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg shadow-xl flex items-center justify-center">
+            <div class="text-center p-8">
+              <h3 class="text-4xl font-bold text-primary mb-4">Smiling Dev</h3>
+              <p class="text-xl text-muted-foreground">Building Digital Solutions</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
