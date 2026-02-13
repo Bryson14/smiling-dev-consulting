@@ -27,6 +27,7 @@ export default defineConfig({
 		service: {
 			entrypoint: "astro/assets/services/sharp",
 		},
+		layout: "constrained"
 	},
 
 	compressHTML: true,

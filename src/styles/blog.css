@@ -71,3 +71,63 @@ ol li::before {
 	font-weight: 600;
 	min-width: 1.5rem;
 }
+
+/* ── Tables ── */
+.blog-content {
+	overflow-x: auto;
+}
+
+table {
+	width: 100%;
+	min-width: 500px;
+	border-collapse: collapse;
+	margin-bottom: 1.5rem;
+	font-size: 0.925rem;
+	border: 1px solid var(--border) !important;
+	border-radius: 0.5rem;
+}
+
+/* Hide empty header rows generated from markdown tables with no header text */
+thead tr:has(th:empty) {
+	display: none;
+}
+
+thead {
+	border-bottom: 2px solid var(--primary);
+}
+
+th {
+	font-weight: 700;
+	text-align: left;
+	padding: 0.75rem 1rem;
+	color: hsl(var(--foreground));
+	background-color: hsl(var(--primary) / 0.08);
+	border: 1px solid var(--border) !important;
+}
+
+td {
+	padding: 0.75rem 1rem;
+	color: hsl(var(--foreground) / 0.85);
+	border: 1px solid var(--border) !important;
+}
+
+/* Style the first row of tbody as header when thead is empty */
+thead:has(th:empty) + tbody tr:first-child {
+	background-color: hsl(var(--primary) / 0.08);
+	border-bottom: 2px solid var(--primary);
+}
+
+thead:has(th:empty) + tbody tr:first-child td {
+	font-weight: 700;
+	color: hsl(var(--foreground));
+}
+
+tbody tr:hover {
+	background-color: hsl(var(--primary) / 0.04);
+}
+
+/* Bold text inside table cells (markdown **bold**) */
+td strong,
+th strong {
+	color: hsl(var(--foreground));
+}

@@ -4,6 +4,7 @@ import { getCollection } from "astro:content";
 import { Globe, Code, Briefcase } from "@lucide/astro";
 import Button from "../components/Button.astro";
 import TypewriterHero from "../components/TypewriterHero";
+import HeroImage from "@/content/images/isomorphic-business-icons.png"
 import MainLayout from "../layouts/main.astro";
 
 let projects = await getCollection("projects");
@@ -17,30 +18,40 @@ projects = projects
 	});
 ---
 
+
+
 <MainLayout>
-  <section class="py-16">
-    <div class="container mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
+  <section class="relative overflow-hidden min-h-[90vh] flex items-center justify-center">
+    <div class="absolute inset-0 opacity-30">
+      <Picture
+        src={HeroImage}
+        alt="Hero background"
+        class="w-full h-full object-cover aspect-square"
+        quality={70}
+        formats={["avif", "webp", "jpg"]}
+        widths={[200, 400, 800, 1600]}
+      />
+    </div>
+    <div class="relative container mx-auto px-4 flex items-center justify-center">
+      <div class="max-w-2xl text-center">
+        <div class="mb-6">
           <TypewriterHero client:load />
-          <p class="text-xl text-muted-foreground mb-8">
-            Hi, I'm Bryson. I help businesses and organizations build
-            modern, efficient, and user-friendly digital experiences.
-          </p>
-          <div class="flex gap-4 justify-center lg:justify-start">
-            <Button href="/contact" class="text-white">Get in Touch</Button>
-            <Button href="/projects" variant="outline">View Projects</Button>
-          </div>
         </div>
-        <div class="relative hidden lg:block">
-          <div class="w-full h-96 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg shadow-xl flex items-center justify-center">
-            <div class="text-center p-8">
-              <h3 class="text-4xl font-bold text-primary mb-4">Smiling Dev</h3>
-              <p class="text-xl text-muted-foreground">Building Digital Solutions</p>
-            </div>
-          </div>
+        <p class="text-xl text-muted-foreground mb-8">
+          Hi, I'm Bryson. I help businesses and organizations build
+          modern, efficient, and user-friendly digital experiences.
+        </p>
+        <div class="flex gap-4 justify-center">
+          <Button href="/contact" class="text-white">Get in Touch</Button>
+          <Button href="/projects" variant="outline">View Projects</Button>
         </div>
       </div>
+    </div>
+    <!-- Cloud divider -->
+    <div class="absolute bottom-0 left-0 w-full leading-[0]">
+      <svg class="block w-full h-[50px] md:h-[100px]" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,120 L0,100 C20,100 40,70 80,60 C120,50 140,80 200,70 C260,60 280,25 340,20 C400,15 420,55 480,50 C540,45 570,15 630,10 C690,5 710,45 770,50 C830,55 860,20 920,25 C980,30 1000,65 1060,60 C1120,55 1140,80 1200,100 L1200,120 Z" fill="var(--background)" />
+      </svg>
     </div>
   </section>
 
