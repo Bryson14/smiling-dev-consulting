@@ -21,11 +21,16 @@ const formattedDate = project.data.updateDate?.toLocaleDateString("en-US", {
 	month: "long",
 	day: "numeric",
 });
+
+// Get the image URL for OpenGraph/JSON-LD
+const imageUrl = project.data.image ? new URL(project.data.image.src, Astro.url.origin).href : undefined;
 ---
 
 <MainLayout 
   title={`${project.data.title} | Project | Smiling Dev Consulting`} 
   description={project.data.description}
+  image={imageUrl}
+  type="article"
 >
   <article class="container mx-auto px-4 py-12 max-w-3xl">
     <nav class="mb-8 text-sm text-muted-foreground">

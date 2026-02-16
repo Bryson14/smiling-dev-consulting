@@ -48,9 +48,14 @@ projects = projects
       </div>
     </div>
     <!-- Cloud divider -->
-    <div class="absolute bottom-0 left-0 w-full leading-[0]">
-      <svg class="block w-full h-[50px] md:h-[100px]" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,120 L0,100 C20,100 40,70 80,60 C120,50 140,80 200,70 C260,60 280,25 340,20 C400,15 420,55 480,50 C540,45 570,15 630,10 C690,5 710,45 770,50 C830,55 860,20 920,25 C980,30 1000,65 1060,60 C1120,55 1140,80 1200,100 L1200,120 Z" fill="var(--background)" />
+    <div class="absolute bottom-0 left-0 w-full leading-[0] border-t-green-500">
+      <svg class="block w-full h-[50px] md:h-[100px] mb-[-1px]" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Fill shape without stroke -->
+        <path d="M0,120 L0,100 C20,100 40,70 80,60 C120,50 140,80 200,70 C260,60 280,25 340,20 C400,15 420,55 480,50 C540,45 570,15 630,10 C690,5 710,45 770,50 C830,55 860,20 920,25 C980,30 1000,65 1060,60 C1120,55 1140,80 1200,100 L1200,120 Z" 
+        fill="var(--background)" stroke="none" />
+        <!-- Wavy line with stroke only -->
+        <path d="M0,100 C20,100 40,70 80,60 C120,50 140,80 200,70 C260,60 280,25 340,20 C400,15 420,55 480,50 C540,45 570,15 630,10 C690,5 710,45 770,50 C830,55 860,20 920,25 C980,30 1000,65 1060,60 C1120,55 1140,80 1200,100" 
+        fill="none" stroke="var(--primary)" stroke-width="5" />
       </svg>
     </div>
   </section>
@@ -102,7 +107,7 @@ projects = projects
           projects.map((project) => (
             <a
               href={`/projects/${project.data.slug}`}
-              class="group block lg:max-w-2xl bg-background rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
+              class="group block lg:max-w-2xl bg-background border-secondary border-1 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
             >
               {project.data.image && (
                 <div class="aspect-video overflow-hidden">
