@@ -11,5 +11,11 @@
   },
   "observability": {
     "enabled": true
-  }
+  },
+  "routes": [
+    {
+        "pattern": "smiling.dev",
+        "custom_domain": true
+    }
+  ]
 }
