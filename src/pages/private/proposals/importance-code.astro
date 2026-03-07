@@ -1,8 +1,46 @@
 ---
 export const prerender = false;
-import ImportanceCodeProposal from "@/components/ImportanceCodeProposal";
+import ImportanceCodeProposalContent from "@/components/ImportanceCodeProposalContent.astro";
 import "@/styles/global.css";
 import "@/styles/shadcn.css";
+
+// Get credentials from environment variables
+const VALID_USERNAME = import.meta.env.PROPOSAL_IMPORTANCE_CODE_USERNAME || "client";
+const VALID_PASSWORD = import.meta.env.PROPOSAL_IMPORTANCE_CODE_PASSWORD || "phase3";
+
+let isAuthenticated = false;
+let error = "";
+
+// Handle login form submission
+if (Astro.request.method === "POST") {
+  try {
+    const formData = await Astro.request.formData();
+    const username = formData.get("username")?.toString();
+    const password = formData.get("password")?.toString();
+
+    if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+      // Set a secure, httpOnly cookie that expires in 24 hours
+      Astro.cookies.set("proposal_auth", "authenticated", {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 60 * 60 * 24, // 24 hours
+        path: "/private/proposals",
+      });
+      isAuthenticated = true;
+    } else {
+      error = "Invalid username or password";
+    }
+  } catch (e) {
+    error = "An error occurred. Please try again.";
+  }
+}
+
+// Check if user is already authenticated via cookie
+if (!isAuthenticated) {
+  const authCookie = Astro.cookies.get("proposal_auth");
+  isAuthenticated = authCookie?.value === "authenticated";
+}
 ---
 
 <!doctype html>
@@ -14,6 +52,87 @@ import "@/styles/shadcn.css";
     <title>Private Proposal</title>
   </head>
   <body>
-    <ImportanceCodeProposal client:only="react" />
+    {!isAuthenticated ? (
+      <!-- Login Form -->
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 w-full max-w-sm mx-4 border border-gray-200 dark:border-gray-700">
+          <div class="mb-6 text-center">
+            <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 mb-4">
+              <svg
+                class="w-7 h-7 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                ></path>
+              </svg>
+            </div>
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white">
+              Private Document
+            </h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              Please enter your credentials to continue.
+            </p>
+          </div>
+
+          <form method="POST" class="space-y-4">
+            <div>
+              <label
+                for="username"
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
+                Username
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autocomplete="username"
+                class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                required
+              />
+            </div>
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                class="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+                required
+              />
+            </div>
+
+            {error && (
+              <p class="text-sm text-red-600 dark:text-red-400">
+                {error}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              class="w-full py-2 px-4 bg-primary text-primary-foreground rounded-lg font-medium text-sm hover:bg-primary/90 transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              View Document
+            </button>
+          </form>
+        </div>
+      </div>
+    ) : (
+      <!-- Proposal Content -->
+      <ImportanceCodeProposalContent />
+    )}
   </body>
 </html>
