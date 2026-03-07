@@ -1,33 +1,136 @@
 ---
 // Proposal content component - displayed only after authentication
+
+const mermaidArchitecture = `graph TD
+    Start_Paid((Paid Ads/Social)) --> CF_Landing[ClickFunnels Landing Page]
+    Start_Seminar((Live Seminar)) --> QR_Code[QR Code / Direct Link]
+    Start_Invite((Group Invite)) --> Invite_Link[Group Invite Link]
+
+    subgraph Importance_Code_App [Importance Code App / Portal]
+        Auth_Check{Has Account?}
+        Diagnostic[Personality Diagnostic Test]
+        Results_Internal[Internal Results Dashboard]
+        Admin_Dashboard[Team/Admin Dashboard]
+    end
+
+    subgraph Backend_Services [Backend and Marketing]
+        Supabase[(Supabase DB and Auth)]
+        SMTP_RESEND[Resend Email Service]
+        CF_Sales[ClickFunnels Sales/Results Page]
+        FB_Pixel[[Facebook Pixel / Conversion API]]
+    end
+
+    CF_Landing -- "Pass Email via URL" --> Auth_Check
+    QR_Code --> Diagnostic
+    Invite_Link --> Diagnostic
+
+    Diagnostic -- "1. Save Results" --> Supabase
+    Diagnostic -- "2. Redirect with Params" --> CF_Sales
+
+    CF_Sales -- "3. Fire Conversion" --> FB_Pixel
+
+    Supabase -- "Trigger Confirmation/Results" --> SMTP_RESEND
+
+    Auth_Check -- No --> Diagnostic
+    Auth_Check -- Yes --> Results_Internal
+
+    Results_Internal -- "Standard User" --> Results_Internal
+    Results_Internal -- "Manager/Admin" --> Admin_Dashboard`;
+
+const mermaidSignupBranching = `flowchart TD
+    A[User clicks invite link] --> B{Are seats available?}
+    B -- No --> C["Show 'Group is full' message"]
+    C --> C1[Notify owner to add seats]
+    B -- Yes --> D[User enters email on signup form]
+    D --> E{Email in database?}
+
+    E -- "Not found (new user)" --> F[Show full signup: name, email, phone, password]
+    F --> G["Create account with role: group_member"]
+    G --> H["Add to group — decrement available seats"]
+    H --> I["Redirect to test — tagged as group test"]
+    I --> J["Post-test: show result + group type-spread"]
+
+    E -- "Found (existing user)" --> K["Welcome back! You already have an account."]
+    K --> L["Prompt login — password or magic link"]
+    L --> M["Add to group — decrement available seats"]
+    M --> N["Prompt: Take the test for Group Name"]
+    N --> O["New test instance — context: corporate_group"]
+    O --> P[Prior individual tests remain separate]
+    P --> J`;
+
+const mermaidFunnel = `flowchart TD
+    Entry((Ad Click or Organic CTA)) --> P1
+
+    P1["Page 1: Opt-In — email capture"]
+    P1 -. "Pixel: PageView, Lead" .-> Pixels[[Meta/Google Pixels]]
+    P1 --> Nurture["Email added to nurture list"]
+    P1 --> P2
+
+    P2["Page 2: Value Page — video, testimonials, social proof"]
+    P2 -. "Pixel: ViewContent" .-> Pixels
+    P2 --> P3
+
+    P3["Page 3: Offer + Stripe Checkout"]
+    P3 -. "Pixel: InitiateCheckout" .-> Pixels
+    P3 --> PayCheck{Payment outcome?}
+
+    PayCheck -- Success --> Purchase_Pixel["Pixel: Purchase with $ value"]
+    Purchase_Pixel --> Webhook["Stripe webhook — auto-create account"]
+    Webhook --> P4["Page 4: Thank You — Take your test now"]
+    P4 --> Test[Importance Code Test]
+    P4 --> P5["Page 5: One-Time Upsell — annual plan, group plan"]
+
+    PayCheck -- Abandoned --> Drip1["1h: You left something behind email"]
+    Drip1 --> Drip2["24h: Social proof + reminder"]
+    Drip2 --> Drip3["72h: Urgency/scarcity offer"]
+    Drip3 --> Retarget["Retargeting: InitiateCheckout NOT Purchase"]`;
+
+const mermaidStripe = `graph TD
+    Ads((Paid Ads)) --> CF_Sales[ClickFunnels Sales Page]
+    Portal_Upgrade["App: Upgrade Button"] --> Stripe_Session[Stripe Checkout Session]
+
+    CF_Sales -- "Stripe Checkout" --> Stripe_Internal[Stripe Processing]
+    Stripe_Session -- "Stripe Checkout" --> Stripe_Internal
+
+    Stripe_Internal -- "Webhook: Payment Success" --> App_Webhook["App: /api/stripe-webhook"]
+
+    subgraph Backend
+        App_Webhook -- "Update User Profile" --> Supabase[(Supabase DB)]
+        Supabase -- "Grant Access" --> Auth_Logic{Check Permissions}
+    end
+
+    Auth_Logic -- Free --> Basic_Dashboard[Basic Results]
+    Auth_Logic -- Premium --> Premium_Dashboard[Advanced Analytics / Team Data]
+
+    Stripe_Internal -- "Redirect Back" --> Portal_Success["portal.importancecode.com/success"]`;
 ---
 
 <!-- Mobile Menu Toggle Button -->
 <button
   id="mobile-menu-toggle"
-  class="fixed top-4 left-4 z-50 lg:hidden bg-white dark:bg-gray-900 p-2 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+  class="fixed top-4 left-4 z-50 lg:hidden bg-card p-2 rounded-lg shadow-lg border border-border hover:bg-accent/20 transition-colors"
   aria-label="Toggle navigation menu"
 >
-  <svg class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg class="w-6 h-6 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
   </svg>
 </button>
 
-<div class="min-h-screen bg-gray-50 dark:bg-gray-950">
+<div class="min-h-screen bg-background">
   <!-- Sidebar Navigation -->
   <aside
     id="sidebar-nav"
-    class="fixed top-0 left-0 z-40 w-72 h-screen bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto"
+    class="fixed top-0 left-0 z-40 w-72 h-screen bg-card border-r border-border transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto"
   >
     <div class="p-6">
       <div class="mb-8">
         <p class="text-xs font-semibold text-primary uppercase tracking-widest mb-2">
           Client Proposal
         </p>
-        <h2 class="text-lg font-bold text-gray-900 dark:text-white">
+        <h2 class="text-lg font-bold text-foreground">
           The Importance Code
         </h2>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+        <p class="text-sm text-muted-foreground mt-1">
           Phase 3 Proposal
         </p>
       </div>
@@ -35,55 +138,73 @@
       <nav class="space-y-1">
         <a
           href="#executive-summary"
-          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
         >
           📋 Executive Summary
         </a>
         <a
-          href="#business-dashboards"
-          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+          href="#user-acquisition-flows"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
         >
-          📊 Business Dashboards
+          🚪 User Acquisition Flows
+        </a>
+        <a
+          href="#b2b-group-onboarding"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
+        >
+          🏢 B2B Group Onboarding
         </a>
         <a
           href="#role-based-auth"
-          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
         >
           🔐 Role-Based Auth
         </a>
         <a
+          href="#business-dashboards"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
+        >
+          📊 Business Dashboards
+        </a>
+        <a
           href="#staff-analytics"
-          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
         >
           🔍 Staff Analytics
         </a>
         <a
           href="#clickfunnels"
-          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
         >
-          🚀 ClickFunnels Integration
+          🚀 ClickFunnels & B2C Funnel
         </a>
         <a
           href="#stripe"
-          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
         >
           💳 Stripe Integration
         </a>
         <a
           href="#pixel-tracking"
-          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
         >
-          📡 Pixel Tracking
+          📡 Pixel & Attribution
+        </a>
+        <a
+          href="#retention"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
+        >
+          🔄 Retention & Gamification
         </a>
         <a
           href="#timeline"
-          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
         >
           📅 Timeline
         </a>
         <a
           href="#next-steps"
-          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+          class="nav-link block px-3 py-2 text-sm rounded-lg hover:bg-accent/20 transition-colors text-foreground"
         >
           ✅ Next Steps
         </a>
@@ -99,343 +220,761 @@
 
   <!-- Main Content -->
   <main class="lg:ml-72 py-12 px-4 lg:px-8">
+
+    <!-- mermaid charts -->
+    <script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+
     <div class="max-w-4xl mx-auto">
       <!-- Header -->
-      <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-8">
+      <div class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-8">
         <div class="flex items-start justify-between flex-wrap gap-4">
         <div>
           <p class="text-sm font-semibold text-primary uppercase tracking-widest mb-2">
             Client Proposal prepared for Christoph Merrill at Habit Freaks
           </p>
-          <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+          <h1 class="text-3xl md:text-4xl font-bold text-foreground">
             The Importance Code
           </h1>
-          <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">
+          <p class="text-xl text-muted-foreground mt-2">
             Phase 3 — Platform Growth & Business Intelligence
           </p>
         </div>
-        <div class="text-right text-sm text-gray-500 dark:text-gray-400">
+        <div class="text-right text-sm text-muted-foreground">
           <p>Prepared by</p>
-          <p class="font-semibold text-gray-700 dark:text-gray-300">
+          <p class="font-semibold text-foreground">
             Smiling Dev Consulting
           </p>
           <p class="mt-1">smiling.dev</p>
         </div>
       </div>
 
-      <hr class="my-6 border-gray-200 dark:border-gray-700" />
+      <hr class="my-6 border-border" />
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
         <div>
-          <p class="text-gray-500 dark:text-gray-400">Project</p>
-          <p class="font-semibold text-gray-800 dark:text-gray-200">
+          <p class="text-muted-foreground">Project</p>
+          <p class="font-semibold text-foreground">
             The Importance Code
           </p>
         </div>
         <div>
-          <p class="text-gray-500 dark:text-gray-400">Phase</p>
-          <p class="font-semibold text-gray-800 dark:text-gray-200">3</p>
+          <p class="text-muted-foreground">Phase</p>
+          <p class="font-semibold text-foreground">3</p>
         </div>
         <div>
-          <p class="text-gray-500 dark:text-gray-400">Type</p>
-          <p class="font-semibold text-gray-800 dark:text-gray-200">
+          <p class="text-muted-foreground">Type</p>
+          <p class="font-semibold text-foreground">
             Feature Expansion
           </p>
         </div>
         <div>
-          <p class="text-gray-500 dark:text-gray-400">Status</p>
+          <p class="text-muted-foreground">Status</p>
           <p class="font-semibold text-primary">Proposal</p>
         </div>
         </div>
       </div>
 
+      <!-- Architecture User Flow Chart -->
+      <div class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-8">
+        <h3 class="text-lg font-bold text-foreground mb-2">Platform Architecture — User Flow Overview</h3>
+        <p class="text-sm text-muted-foreground mb-4">How users from every acquisition channel flow through the platform, backend services, and marketing stack.</p>
+        <pre class="mermaid" set:html={mermaidArchitecture} />
+      </div>
+
       <!-- Executive Summary -->
-      <section id="executive-summary" class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-6 scroll-mt-20">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+      <section id="executive-summary" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
         <span class="text-2xl">📋</span>
         <span>Executive Summary</span>
       </h2>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+      <p class="text-foreground leading-relaxed mb-4">
         Phase 3 of The Importance Code builds on the solid foundation
-        established in Phases 1 and 2. This phase focuses on transforming
-        the platform into a fully-featured business intelligence hub with
-        role-based access controls, advanced analytics, and a high-conversion
-        marketing funnel. The primary goals are to empower business owners
-        with actionable data, lock down sensitive group information behind
-        proper permission layers, and create a scalable customer acquisition
-        pipeline integrated with ClickFunnels, Stripe, and major ad platforms.
-        </p>
+        established in Phases 1 and 2. This phase focuses on three strategic priorities:
+      </p>
+      <ol class="list-decimal list-inside space-y-2 text-foreground leading-relaxed mb-4">
+        <li><strong>Capture:</strong> Define and build every user acquisition path — organic search, conference QR codes, B2B group invites, and family invites — so that every touchpoint funnels toward a completed test.</li>
+        <li><strong>Convert:</strong> Integrate ClickFunnels, Stripe, and pixel tracking into a tight B2C funnel while building a self-serve B2B onboarding workflow that handles 10-to-1,000+ seat groups with per-head billing.</li>
+        <li><strong>Retain:</strong> Lock in users through nurturing sequences, gamification, and group-context engagement — turning one-time test-takers into recurring platform participants.</li>
+      </ol>
+      <p class="text-foreground leading-relaxed mb-4">
+        Critically, the current platform has a permissions gap: group members can see all the data that an admin can see. Phase 3 introduces a full RBAC system to close this, restricts member visibility to only their own results and high-level group stats, and gives admins the analytics they need to justify their per-seat spend.
+      </p>
+      <p class="text-foreground leading-relaxed">
+        This document details each user journey from first touch to ongoing engagement, the exact branching logic for edge cases (existing accounts, minors, returning users), and the technical implementation behind every flow.
+      </p>
       </section>
 
-      <!-- Feature 1: Business Dashboards -->
-      <section id="business-dashboards" class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-6 scroll-mt-20">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
-        <span class="text-2xl">📊</span>
-        <span>1. Enhanced Business Dashboards & Analytics</span>
-      </h2>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        Business owners will gain access to a dedicated dashboard suite that
-        surfaces the metrics that matter most. The dashboards will be
-        built with real-time data updates, customizable date ranges, and
-        exportable reports.
-      </p>
-      <ul class="space-y-2">
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
-          <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Revenue overview with month-over-month and year-over-year comparisons
-        </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
-          <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Active member counts, churn rates, and retention metrics
-        </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
-          <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Group performance summaries — engagement, activity, and growth trends
-        </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
-          <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Top-performing content and resource downloads
-        </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
-          <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Revenue attribution by acquisition channel (organic, paid, referral)
-        </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
-          <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Exportable CSV/PDF reports for board-level presentations
-        </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
-          <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Mobile-responsive dashboard so owners can check stats on the go
-        </li>
-      </ul>
+      <!-- User Acquisition Flows -->
+      <section id="user-acquisition-flows" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
+          <span class="text-2xl">🚪</span>
+          <span>1. User Acquisition Flows</span>
+        </h2>
+        <p class="text-foreground leading-relaxed mb-4">
+          There are five distinct paths a user can take to arrive on the platform and complete the Importance Code test. Each path has different context, urgency, and conversion considerations. These flows are referenced throughout this proposal as the canonical user journeys.
+        </p>
+
+        <!-- Flow A: Organic Front Door -->
+        <div class="bg-accent/10 rounded-xl p-6 mb-5 border border-border">
+          <h3 class="font-semibold text-foreground mb-3 flex items-center gap-2">
+            <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">FLOW A</span>
+            Organic Front Door (B2C Individual)
+          </h3>
+          <p class="text-sm text-muted-foreground mb-3">User finds the platform via search, social media, or word of mouth.</p>
+          <div class="space-y-2 text-sm text-foreground">
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">1.</span>
+              <span>User lands on the marketing site or a blog post. Pixel fires: <code class="bg-muted px-1 rounded text-xs">PageView</code>.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">2.</span>
+              <span>CTA directs to ClickFunnels landing page or direct signup page.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">3.</span>
+              <span>User enters email, name, phone → account created. Pixel fires: <code class="bg-muted px-1 rounded text-xs">Lead</code>.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">4.</span>
+              <span>Stripe checkout for individual subscription. Pixel fires: <code class="bg-muted px-1 rounded text-xs">Purchase</code>.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">5.</span>
+              <span>Redirect to the test. Test result is stored as an <strong>individual test</strong> (no group context).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">6.</span>
+              <span>Post-test: results page → upsell to share with friends, nurture email sequence begins.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flow B: Conference QR Code -->
+        <div class="bg-accent/10 rounded-xl p-6 mb-5 border border-border">
+          <h3 class="font-semibold text-foreground mb-3 flex items-center gap-2">
+            <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">FLOW B</span>
+            Conference QR Quick-Take → Conversion
+          </h3>
+          <p class="text-sm text-muted-foreground mb-3">User scans a QR code at a live event. Priority: minimize friction, capture the lead, convert later.</p>
+          <div class="space-y-2 text-sm text-foreground">
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">1.</span>
+              <span>User scans QR code → lands on a <strong>lightweight capture page</strong> (not the full funnel). UTM params encode conference name + booth ID for attribution.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">2.</span>
+              <span>Minimal form: name + email only (phone is optional — conference context is high-trust, low-patience).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">3.</span>
+              <span>Account is created in a <strong>free/trial tier</strong>. No payment wall — they take the test immediately.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">4.</span>
+              <span>Test result stored as an individual test. Results displayed instantly on-screen.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">5.</span>
+              <span>Post-test CTA: "Unlock your full report — upgrade now" with Stripe checkout.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">6.</span>
+              <span><strong>If they don't convert on-site:</strong> Drip sequence starts within 1 hour. Email 1: "Here are your results from [Conference Name]." Email 2 (24h): deeper breakdown teaser. Email 3 (72h): limited-time offer.</span>
+            </div>
+          </div>
+          <div class="mt-3 p-3 bg-amber-50 dark:bg-amber-950/30 rounded-lg border border-amber-200 dark:border-amber-800">
+            <p class="text-xs text-amber-800 dark:text-amber-400">
+              <strong>Edge case — existing account:</strong> If the email matches an existing account, skip account creation. Log them in (or send a magic link), add the conference UTM tag for attribution, and direct them to retake the test. The new result is tagged as a distinct test instance so their history is preserved.
+            </p>
+          </div>
+        </div>
+
+        <!-- Flow C: B2B Group Invite (Corporate) -->
+        <div class="bg-accent/10 rounded-xl p-6 mb-5 border border-border">
+          <h3 class="font-semibold text-foreground mb-3 flex items-center gap-2">
+            <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">FLOW C</span>
+            B2B Group Invite — Corporate / Organization
+          </h3>
+          <p class="text-sm text-muted-foreground mb-3">A business owner purchases seats (10–1,000+) and invites their employees to take the test.</p>
+          <div class="space-y-2 text-sm text-foreground">
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">1.</span>
+              <span>Business owner creates a group from their admin dashboard. Selects seat count. Stripe charges per-head pricing.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">2.</span>
+              <span>Owner receives a unique <strong>invite link</strong> (and optionally bulk-uploads a CSV of employee emails to trigger invite emails).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">3.</span>
+              <span>Employee clicks invite link → lands on a <strong>group-specific signup page</strong> showing the org name and context.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">4.</span>
+              <span><strong>If new user:</strong> Signup form collects name, email, phone → account created with role <code class="bg-muted px-1 rounded text-xs">group_member</code> → user is added to the group → redirected to take the test. This test is tagged as a <strong>group test</strong> under this organization.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">5.</span>
+              <span><strong>If existing user:</strong> System detects the email, prompts login (or sends magic link) → user is added to the group → prompted to take the test <em>again</em>. This new test is stored as a distinct <strong>group test</strong>, separate from any prior individual tests.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">6.</span>
+              <span>Test completes → member sees their own result. <strong>They do NOT see</strong> other members' results, the admin dashboard, or the full group analytics. They see: their result, the general type-spread of the group (e.g., "34% Connector, 22% Achiever…"), and a list of groups they belong to.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">7.</span>
+              <span>Admin/owner sees: full roster, per-member results, aggregated analytics, and trend data over time.</span>
+            </div>
+          </div>
+          <div class="mt-3 p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
+            <p class="text-xs text-blue-800 dark:text-blue-400">
+              <strong>Seat limit enforcement:</strong> If the invite link is used after all purchased seats are filled, the user sees a message: "This group's seats are full. Contact your administrator." The owner gets a notification with an upsell prompt to purchase more seats.
+            </p>
+          </div>
+        </div>
+
+        <!-- Flow D: Family Group Invite -->
+        <div class="bg-accent/10 rounded-xl p-6 mb-5 border border-border">
+          <h3 class="font-semibold text-foreground mb-3 flex items-center gap-2">
+            <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">FLOW D</span>
+            Family Group Invite
+          </h3>
+          <p class="text-sm text-muted-foreground mb-3">A parent or family organizer invites family members, including the edge case of minors.</p>
+          <div class="space-y-2 text-sm text-foreground">
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">1.</span>
+              <span>Family organizer creates a family group from their dashboard. Pricing: per-head (same Stripe model as B2B, but with a "Family" group type).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">2.</span>
+              <span>Organizer shares the invite link via text/email to family members.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">3.</span>
+              <span>Adult family members follow the same new-user / existing-user flow as Flow C (sign up or log in → join group → take test).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">4.</span>
+              <span><strong>Minor (under 13):</strong> Signup form includes a date-of-birth field. If age &lt; 13, the system requires the organizer (parent) to create the account on their behalf. The parent enters the minor's name, and the account is linked to the parent's account. No independent email or phone is collected from the minor (COPPA compliance). The parent initiates the test for the minor from their own dashboard.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">5.</span>
+              <span><strong>Minor (13–17):</strong> The minor can create their own account, but the signup flow includes a parental consent checkbox. The parent/organizer receives a confirmation email they must approve before the minor's account is fully activated. Once approved, the minor takes the test.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">6.</span>
+              <span>Family organizer sees all family members' results. Members see their own result and the family type-spread — same visibility rules as B2B members.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flow E: Paid Ad → ClickFunnels -->
+        <div class="bg-accent/10 rounded-xl p-6 mb-5 border border-border">
+          <h3 class="font-semibold text-foreground mb-3 flex items-center gap-2">
+            <span class="bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded">FLOW E</span>
+            Paid Ad → ClickFunnels Conversion (B2C)
+          </h3>
+          <p class="text-sm text-muted-foreground mb-3">User clicks a Facebook, Instagram, or Google ad and enters the ClickFunnels funnel.</p>
+          <div class="space-y-2 text-sm text-foreground">
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">1.</span>
+              <span>Ad click → ClickFunnels landing page. UTM params encode campaign, ad set, and creative ID. Pixel fires: <code class="bg-muted px-1 rounded text-xs">PageView</code>, <code class="bg-muted px-1 rounded text-xs">ViewContent</code>.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">2.</span>
+              <span>ClickFunnels opt-in page: email capture. Pixel fires: <code class="bg-muted px-1 rounded text-xs">Lead</code>. Lead is added to the email list even if they abandon before checkout.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">3.</span>
+              <span>Offer page with video/testimonial → Stripe checkout. Pixel fires: <code class="bg-muted px-1 rounded text-xs">InitiateCheckout</code> on page load.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">4.</span>
+              <span>Payment completes → Stripe webhook fires → account auto-provisioned → Pixel fires: <code class="bg-muted px-1 rounded text-xs">Purchase</code> (with revenue value for ROAS calculation).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">5.</span>
+              <span>Thank-you page with immediate redirect: "Take your Importance Code test now." Test stored as individual.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-mono text-xs mt-0.5 shrink-0">6.</span>
+              <span><strong>Abandoned checkout:</strong> If the user captured their email on the opt-in but didn't pay → abandoned cart email sequence (1h, 24h, 72h) with personalized CTA. Retargeting pixel audience: "InitiateCheckout but not Purchase."</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Test Instance Data Model -->
+        <div class="bg-secondary/10 rounded-xl p-6 border border-border">
+          <h3 class="font-semibold text-foreground mb-3">Test Instance Data Model</h3>
+          <p class="text-sm text-foreground mb-3">
+            Every test a user takes is stored as a separate <strong>test instance</strong> with the following metadata. This is how we distinguish individual vs. group tests and power the analytics over time.
+          </p>
+          <div class="overflow-x-auto rounded-lg border border-border">
+            <table class="w-full text-sm">
+              <thead class="bg-muted">
+                <tr>
+                  <th class="text-left px-4 py-2 font-semibold text-foreground">Field</th>
+                  <th class="text-left px-4 py-2 font-semibold text-foreground">Purpose</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr><td class="px-4 py-2 font-mono text-xs">test_id</td><td class="px-4 py-2">Unique identifier for this test instance</td></tr>
+                <tr><td class="px-4 py-2 font-mono text-xs">user_id</td><td class="px-4 py-2">The user who took the test</td></tr>
+                <tr><td class="px-4 py-2 font-mono text-xs">group_id</td><td class="px-4 py-2"><code class="bg-muted px-1 rounded text-xs">null</code> for individual tests, populated for group tests</td></tr>
+                <tr><td class="px-4 py-2 font-mono text-xs">context</td><td class="px-4 py-2"><code class="bg-muted px-1 rounded text-xs">individual</code>, <code class="bg-muted px-1 rounded text-xs">corporate_group</code>, <code class="bg-muted px-1 rounded text-xs">family_group</code>, or <code class="bg-muted px-1 rounded text-xs">conference</code></td></tr>
+                <tr><td class="px-4 py-2 font-mono text-xs">taken_at</td><td class="px-4 py-2">Timestamp — enables trend graphs over time</td></tr>
+                <tr><td class="px-4 py-2 font-mono text-xs">results</td><td class="px-4 py-2">The full test result payload</td></tr>
+                <tr><td class="px-4 py-2 font-mono text-xs">utm_source</td><td class="px-4 py-2">Attribution: organic, facebook, google, conference_name, invite</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs text-muted-foreground mt-3">
+            When a user views their dashboard, they see <strong>all their test instances</strong> in chronological order, each labeled with its context (e.g., "Individual — Mar 2026", "Acme Corp Group — Apr 2026"). They can compare results across time and context. Group admins see aggregated data across all members' group-context tests only — never an individual's personal tests.
+          </p>
+        </div>
+      </section>
+
+      <!-- B2B Group Onboarding -->
+      <section id="b2b-group-onboarding" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
+          <span class="text-2xl">🏢</span>
+          <span>2. B2B Group Onboarding — Step-by-Step Logic</span>
+        </h2>
+        <p class="text-foreground leading-relaxed mb-4">
+          This section details the exact flow for onboarding a business group — from the owner's first purchase to the last employee completing their test. This is the highest-revenue flow on the platform and needs to be frictionless for both the admin and the invited members.
+        </p>
+
+        <!-- Owner Setup -->
+        <h3 class="font-semibold text-foreground mb-3 text-base">Owner Creates & Pays for a Group</h3>
+        <div class="space-y-2 text-sm text-foreground mb-5">
+          <div class="flex items-start gap-2">
+            <span class="text-primary font-mono text-xs mt-0.5 shrink-0">1.</span>
+            <span>Owner logs into their dashboard → clicks <strong>"Create Group"</strong>.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-primary font-mono text-xs mt-0.5 shrink-0">2.</span>
+            <span>Form: Group name, estimated seat count (can be adjusted later), billing email.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-primary font-mono text-xs mt-0.5 shrink-0">3.</span>
+            <span>Stripe Checkout session created for <strong>[seat_count] × [per_head_price]</strong>. Subscription is recurring (monthly or annual) with pro-rated seat additions.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-primary font-mono text-xs mt-0.5 shrink-0">4.</span>
+            <span>Payment success → group is created in the database. Owner is assigned role <code class="bg-muted px-1 rounded text-xs">group_owner</code>. Group status: <code class="bg-muted px-1 rounded text-xs">active</code>.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-primary font-mono text-xs mt-0.5 shrink-0">5.</span>
+            <span>Owner lands on the group management page with two invite options: <strong>share a link</strong> or <strong>upload a CSV of emails</strong>.</span>
+          </div>
+        </div>
+
+        <!-- Invite Distribution -->
+        <h3 class="font-semibold text-foreground mb-3 text-base">Invite Distribution</h3>
+        <div class="grid md:grid-cols-2 gap-4 mb-5">
+          <div class="bg-accent/10 rounded-lg p-4 border border-border">
+            <h4 class="text-sm font-semibold text-foreground mb-2">Option A: Share Link</h4>
+            <ul class="space-y-1 text-xs text-muted-foreground">
+              <li>• Owner copies a unique invite URL from the dashboard</li>
+              <li>• Distributes via company Slack, email, all-hands, etc.</li>
+              <li>• Link encodes the <code class="bg-muted px-0.5 rounded">group_id</code> — anyone with the link can join until seats are full</li>
+              <li>• Owner can regenerate the link (invalidating the old one) at any time</li>
+            </ul>
+          </div>
+          <div class="bg-accent/10 rounded-lg p-4 border border-border">
+            <h4 class="text-sm font-semibold text-foreground mb-2">Option B: CSV Bulk Invite</h4>
+            <ul class="space-y-1 text-xs text-muted-foreground">
+              <li>• Owner uploads a CSV with columns: <code class="bg-muted px-0.5 rounded">email</code>, <code class="bg-muted px-0.5 rounded">first_name</code> (optional)</li>
+              <li>• System sends a personalized invite email to each address</li>
+              <li>• Dashboard shows invite status: sent, opened, signed up, test completed</li>
+              <li>• Owner can resend to users who haven't signed up after X days</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Member Signup Branching -->
+        <h3 class="font-semibold text-foreground mb-3 text-base">Member Signup — Branching Logic</h3>
+        <p class="text-sm text-muted-foreground mb-3">When a user clicks the invite link, the system checks their email against the database and branches accordingly:</p>
+        <div class="mb-5">
+          <pre class="mermaid" set:html={mermaidSignupBranching} />
+        </div>
+
+        <!-- What Members See vs Don't See -->
+        <h3 class="font-semibold text-foreground mb-3 text-base">Member Visibility — What They See vs. What's Hidden</h3>
+        <p class="text-sm text-muted-foreground mb-3">This is a critical fix. Currently, group members can see everything the admin sees. Phase 3 locks this down:</p>
+        <div class="grid md:grid-cols-2 gap-4 mb-5">
+          <div class="bg-green-50 dark:bg-green-950/30 rounded-lg p-4 border border-green-200 dark:border-green-800">
+            <h4 class="text-sm font-semibold text-green-800 dark:text-green-300 mb-2">✅ Member CAN See</h4>
+            <ul class="space-y-1 text-xs text-green-900 dark:text-green-300">
+              <li>• Their own test results (all instances, labeled by context)</li>
+              <li>• Their personal trend over time (graph of results across tests)</li>
+              <li>• General group type-spread (e.g., "34% Connector, 22% Achiever")</li>
+              <li>• List of groups they belong to</li>
+              <li>• Their own profile and account settings</li>
+            </ul>
+          </div>
+          <div class="bg-red-50 dark:bg-red-950/30 rounded-lg p-4 border border-red-200 dark:border-red-800">
+            <h4 class="text-sm font-semibold text-red-800 dark:text-red-300 mb-2">❌ Member CANNOT See</h4>
+            <ul class="space-y-1 text-xs text-red-900 dark:text-red-300">
+              <li>• Other members' names, results, or profiles</li>
+              <li>• The full member roster or headcount</li>
+              <li>• Admin analytics or dashboards</li>
+              <li>• Group billing, seat counts, or payment info</li>
+              <li>• Invite links or invite management</li>
+              <li>• Any data outside their own user scope</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Seat Management -->
+        <h3 class="font-semibold text-foreground mb-3 text-base">Ongoing Seat Management</h3>
+        <div class="overflow-x-auto rounded-lg border border-border">
+          <table class="w-full text-sm">
+            <thead class="bg-muted">
+              <tr>
+                <th class="text-left px-4 py-3 font-semibold text-foreground">Action</th>
+                <th class="text-left px-4 py-3 font-semibold text-foreground">What Happens</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border text-sm text-foreground">
+              <tr>
+                <td class="px-4 py-3 font-medium">Owner adds seats</td>
+                <td class="px-4 py-3">Stripe subscription updated with pro-rated charge for the additional seats. New invite capacity opens immediately.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium">Owner removes a member</td>
+                <td class="px-4 py-3">Member loses group access. Their group test data remains (owned by the group for analytics). The user retains their individual account and personal tests. Seat is freed for a new invite.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium">Owner reduces seat count</td>
+                <td class="px-4 py-3">Only allowed if active members ≤ new seat count. Stripe subscription updated at next billing cycle.</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium">Owner cancels the group</td>
+                <td class="px-4 py-3">All members lose group access at the end of the billing period. Individual accounts remain active. Group analytics are archived and available to the platform admin.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- Feature 2: Role-Based Authentication -->
-      <section id="role-based-auth" class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-6 scroll-mt-20">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+      <section id="role-based-auth" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
         <span class="text-2xl">🔐</span>
-        <span>2. Role-Based Authentication & Permissions</span>
+        <span>3. Role-Based Authentication & Permissions</span>
       </h2>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        The current platform needs a granular permissions layer to ensure that
-        group members only see what they are entitled to see. Phase 3 will
-        introduce a full Role-Based Access Control (RBAC) system.
+      <p class="text-foreground leading-relaxed mb-4">
+        <strong>Current problem:</strong> Group members can currently see all the information that an admin can see — including other members' results, full analytics, and group management controls. This is a blocker for enterprise sales. Phase 3 introduces a full RBAC system that controls every API endpoint and UI element based on the user's role.
       </p>
 
-      <div class="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700 mb-4">
+      <div class="overflow-x-auto rounded-lg border border-border mb-4">
         <table class="w-full text-sm">
-          <thead class="bg-gray-50 dark:bg-gray-800">
+          <thead class="bg-muted">
             <tr>
-              <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
+              <th class="text-left px-4 py-3 font-semibold text-foreground">
                 Role
               </th>
-              <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
+              <th class="text-left px-4 py-3 font-semibold text-foreground">
                 Access Level
               </th>
-              <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
+              <th class="text-left px-4 py-3 font-semibold text-foreground">
                 Group Details
               </th>
-              <th class="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300">
+              <th class="text-left px-4 py-3 font-semibold text-foreground">
                 Analytics
               </th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-            <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-              <td class="px-4 py-3 font-medium text-gray-800 dark:text-gray-200">Platform Admin</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Full</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">✅ All groups</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">✅ All data</td>
+          <tbody class="divide-y divide-border">
+            <tr class="hover:bg-accent/20 transition-colors">
+              <td class="px-4 py-3 font-medium text-foreground">Platform Admin</td>
+              <td class="px-4 py-3 text-muted-foreground">Full</td>
+              <td class="px-4 py-3 text-muted-foreground">✅ All groups</td>
+              <td class="px-4 py-3 text-muted-foreground">✅ All data</td>
             </tr>
-            <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-              <td class="px-4 py-3 font-medium text-gray-800 dark:text-gray-200">Business Owner</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Organization-wide</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">✅ Own org groups</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">✅ Org data</td>
+            <tr class="hover:bg-accent/20 transition-colors">
+              <td class="px-4 py-3 font-medium text-foreground">Business Owner</td>
+              <td class="px-4 py-3 text-muted-foreground">Organization-wide</td>
+              <td class="px-4 py-3 text-muted-foreground">✅ Own org groups</td>
+              <td class="px-4 py-3 text-muted-foreground">✅ Org data</td>
             </tr>
-            <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-              <td class="px-4 py-3 font-medium text-gray-800 dark:text-gray-200">Group Admin</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Group-level</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">✅ Own group only</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">✅ Group data</td>
+            <tr class="hover:bg-accent/20 transition-colors">
+              <td class="px-4 py-3 font-medium text-foreground">Group Admin</td>
+              <td class="px-4 py-3 text-muted-foreground">Group-level</td>
+              <td class="px-4 py-3 text-muted-foreground">✅ Own group only</td>
+              <td class="px-4 py-3 text-muted-foreground">✅ Group data</td>
             </tr>
-            <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-              <td class="px-4 py-3 font-medium text-gray-800 dark:text-gray-200">Group Owner</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Group-level</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">✅ Own group only</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">✅ Group data</td>
+            <tr class="hover:bg-accent/20 transition-colors">
+              <td class="px-4 py-3 font-medium text-foreground">Group Owner</td>
+              <td class="px-4 py-3 text-muted-foreground">Group-level</td>
+              <td class="px-4 py-3 text-muted-foreground">✅ Own group only</td>
+              <td class="px-4 py-3 text-muted-foreground">✅ Group data</td>
             </tr>
-            <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-              <td class="px-4 py-3 font-medium text-gray-800 dark:text-gray-200">Group Member</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">Member</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">❌ Hidden details</td>
-              <td class="px-4 py-3 text-gray-600 dark:text-gray-400">❌ No access</td>
+            <tr class="hover:bg-accent/20 transition-colors">
+              <td class="px-4 py-3 font-medium text-foreground">Group Member</td>
+              <td class="px-4 py-3 text-muted-foreground">Member</td>
+              <td class="px-4 py-3 text-muted-foreground">❌ Hidden details</td>
+              <td class="px-4 py-3 text-muted-foreground">❌ No access</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <ul class="space-y-2">
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Group members cannot view the list of other members in their group
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Group owners and admins can manage membership, view rosters, and edit group settings
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Invitation-based onboarding with role assignment at the point of invite
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Audit log of permission changes for compliance and accountability
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Fine-grained content visibility controls (hide specific resources from members)
         </li>
       </ul>
       </section>
 
-      <!-- Feature 3: Staff Analytics -->
-      <section id="staff-analytics" class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-6 scroll-mt-20">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
-        <span class="text-2xl">🔍</span>
-        <span>3. Staff Analytics & Data Drill-Down</span>
+      <!-- Business Dashboards -->
+      <section id="business-dashboards" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
+        <span class="text-2xl">📊</span>
+        <span>4. Enhanced Business Dashboards & Analytics</span>
       </h2>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+      <p class="text-foreground leading-relaxed mb-4">
+        Business owners and group admins will gain access to a dedicated dashboard suite scoped to their permission level. The dashboards surface the metrics that matter most and are enforced by the RBAC system defined above.
+      </p>
+
+      <h3 class="font-semibold text-foreground mb-3 text-base">Owner / Admin Dashboard</h3>
+      <ul class="space-y-2 mb-5">
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Group roster with per-member test completion status and latest result type
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Aggregated type-spread across the group (e.g., percentage breakdown of each Importance Code type)
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Invite funnel: sent → opened → signed up → test completed (conversion tracking)
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Revenue and seat utilization metrics (seats purchased vs. seats filled)
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Trend data: how the group's type-spread changes over time as members retake
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Exportable CSV/PDF reports for board-level presentations
+        </li>
+      </ul>
+
+      <h3 class="font-semibold text-foreground mb-3 text-base">Platform Admin Dashboard (Christoph)</h3>
+      <ul class="space-y-2 mb-5">
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Revenue overview with month-over-month and year-over-year comparisons
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Active member counts, churn rates, and retention metrics across all groups
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Revenue attribution by acquisition channel (organic, paid, conference, group invite)
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Group performance summaries — engagement, activity, and growth trends
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          User acquisition funnel: visitors → leads → paid → test completed, by source
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Mobile-responsive so stats can be checked on the go
+        </li>
+      </ul>
+      </section>
+
+      <!-- Staff Analytics -->
+      <section id="staff-analytics" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
+        <span class="text-2xl">🔍</span>
+        <span>5. Staff Analytics & Data Drill-Down</span>
+      </h2>
+      <p class="text-foreground leading-relaxed mb-4">
         Platform administrators and business owners will be able to drill into
         individual staff performance metrics, identify coaching opportunities,
         and monitor engagement patterns across the platform.
       </p>
       <ul class="space-y-2">
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Per-staff activity timelines — logins, content published, interactions
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Group facilitation scores based on member engagement and retention
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Leaderboards and comparison views (opt-in with staff consent settings)
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Drill-down from organization → group → individual for root-cause analysis
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Automated anomaly detection: flag unusually low/high activity periods
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Scheduled email digests with key staff metrics sent to owners
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Data export for integration with external HR or payroll systems
         </li>
       </ul>
       </section>
 
-      <!-- Feature 4: ClickFunnels Integration -->
-      <section id="clickfunnels" class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-6 scroll-mt-20">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+      <!-- ClickFunnels & B2C Funnel -->
+      <section id="clickfunnels" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
         <span class="text-2xl">🚀</span>
-        <span>4. ClickFunnels Marketing Funnel Integration</span>
+        <span>6. ClickFunnels & B2C Conversion Funnel</span>
       </h2>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        To drive new subscriber growth, Phase 3 will integrate a ClickFunnels
-        high-pressure marketing funnel that captures leads and converts them
-        into paying subscribers through a seamless checkout experience.
+      <p class="text-foreground leading-relaxed mb-4">
+        The B2C funnel is the primary revenue driver for individual users (Flows A and E above). Phase 3 pushes harder on funneling all paid ad traffic through ClickFunnels, optimizing every step for conversion, and wiring pixel events at each stage so ad spend can be measured down to the dollar.
       </p>
+
+      <h3 class="font-semibold text-foreground mb-3 text-base">Funnel Architecture</h3>
+      <div class="mb-5">
+        <pre class="mermaid" set:html={mermaidFunnel} />
+      </div>
+
+      <h3 class="font-semibold text-foreground mb-3 text-base">Implementation Details</h3>
       <ul class="space-y-2">
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
-          ClickFunnels landing page designed for high-conversion opt-in campaigns
+          ClickFunnels landing page per campaign (separate pages for Facebook vs. Google allow ad-specific messaging)
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Lead capture forms synced directly to the platform's subscriber database
+          Lead capture synced to platform database via ClickFunnels webhook — user record created at opt-in (before payment) for nurturing
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Upsell and downsell flow to maximize average order value
+          Stripe checkout embedded on the ClickFunnels offer page — single page, no redirect friction
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Funnel visitor tracked with UTM parameters for attribution reporting
+          UTM parameters pass through the entire funnel and are stored on the user record for lifetime attribution
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Webhook integration between ClickFunnels and the platform for instant account provisioning
+          A/B testing on headline, hero image, and CTA button text — winner auto-selected after statistical significance
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
-          A/B testing support for headline, copy, and CTA variations
+          Conference QR landing page (Flow B) built as a separate ClickFunnels page — same backend, different copy, no payment wall
         </li>
       </ul>
       </section>
 
-      <!-- Feature 5: Stripe Integration -->
-      <section id="stripe" class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-6 scroll-mt-20">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+      <!-- Stripe Integration -->
+      <section id="stripe" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
         <span class="text-2xl">💳</span>
-        <span>5. Stripe Subscription & Payment Integration</span>
+        <span>7. Stripe Subscription & Payment Integration</span>
       </h2>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        After a prospect completes the ClickFunnels funnel, they will be
-        directed to a Stripe-hosted checkout to complete their subscription.
-        Once payment is confirmed, their account will be automatically
-        provisioned on the platform.
+      <p class="text-foreground leading-relaxed mb-4">
+        Stripe powers both the B2C individual checkout (via ClickFunnels) and the B2B per-head group billing. Both flows converge on the same Stripe account with unified reporting.
       </p>
-      <ul class="space-y-2">
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+
+      <!-- Stripe Payment Flow Chart -->
+      <div class="mb-5">
+        <pre class="mermaid" set:html={mermaidStripe} />
+      </div>
+
+      <h3 class="font-semibold text-foreground mb-3 text-base">B2C Individual Checkout</h3>
+      <ul class="space-y-2 mb-5">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Stripe Checkout for secure, PCI-compliant payment collection
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Subscription tiers (monthly / annual) with pro-rated upgrade/downgrade support
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Webhook listener to handle payment success, failure, and cancellation events
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Automatic account creation and role assignment upon successful payment
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Customer portal for subscribers to manage billing, update cards, and cancel
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
-          <span class="text-primary mt-0.5 shrink-0">✓</span>
-          Revenue reporting integrated into the business owner dashboard
-        </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Dunning management: automated retry logic and failed payment notifications
         </li>
       </ul>
+
+      <h3 class="font-semibold text-foreground mb-3 text-base">B2B Per-Head Group Billing</h3>
+      <ul class="space-y-2 mb-5">
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Stripe subscription with <code class="bg-muted px-1 rounded text-xs">quantity</code> = seat count. Owner pays [price] × [seats] per billing cycle.
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Seat additions trigger a pro-rated Stripe subscription update via API — no manual invoicing.
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Seat removals reduce quantity at the next billing cycle (no mid-cycle refunds unless configured).
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Group cancellation: Stripe cancels at period end. Members retain access until then.
+        </li>
+        <li class="flex items-start gap-3 text-sm text-foreground">
+          <span class="text-primary mt-0.5 shrink-0">✓</span>
+          Revenue reporting: B2C vs. B2B revenue split displayed in the platform admin dashboard.
+        </li>
+      </ul>
       </section>
 
-      <!-- Feature 6: Pixel Tracking -->
-      <section id="pixel-tracking" class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-6 scroll-mt-20">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+      <!-- Pixel & Attribution -->
+      <section id="pixel-tracking" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
         <span class="text-2xl">📡</span>
-        <span>6. Facebook & Google Pixel Integration</span>
+        <span>8. Pixel Tracking & Attribution Intelligence</span>
       </h2>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        To maximize the return on ad spend and build high-quality retargeting
-        audiences, Phase 3 will set up proper pixel and conversion tracking
-        across the entire funnel.
+      <p class="text-foreground leading-relaxed mb-4">
+        Getting smarter about advertising pixels is a Phase 3 priority. Every user acquisition flow (A–E) must fire the right pixel events at the right time so we can calculate true cost-per-acquisition by channel and build retargeting audiences that actually convert.
       </p>
 
       <div class="grid md:grid-cols-2 gap-6 mb-4">
@@ -443,7 +982,7 @@
           <h4 class="font-semibold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-2">
             <span>📘</span> Meta (Facebook) Pixel
           </h4>
-          <ul class="space-y-2 text-sm text-blue-900 dark:text-blue-200">
+          <ul class="space-y-2 text-sm text-blue-900 dark:text-blue-300">
             <li class="flex items-start gap-2">
               <span class="text-blue-500 mt-0.5">•</span>
               Meta Pixel installed on all funnel and platform pages
@@ -471,7 +1010,7 @@
           <h4 class="font-semibold text-green-800 dark:text-green-300 mb-3 flex items-center gap-2">
             <span>🔍</span> Google Ads & Analytics
           </h4>
-          <ul class="space-y-2 text-sm text-green-900 dark:text-green-200">
+          <ul class="space-y-2 text-sm text-green-900 dark:text-green-300">
             <li class="flex items-start gap-2">
               <span class="text-green-500 mt-0.5">•</span>
               Google Tag Manager for centralized script management
@@ -497,91 +1036,263 @@
       </div>
 
       <ul class="space-y-2">
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Unified event naming convention across Meta and Google for consistent reporting
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Data layer implementation to push events from Stripe webhooks to both pixels
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Quarterly pixel audit to ensure data accuracy and fix any tracking gaps
         </li>
       </ul>
+
+      <h3 class="font-semibold text-foreground mb-3 mt-5 text-base">Pixel Event Map by User Flow</h3>
+      <div class="overflow-x-auto rounded-lg border border-border">
+        <table class="w-full text-xs">
+          <thead class="bg-muted">
+            <tr>
+              <th class="text-left px-3 py-2 font-semibold text-foreground">Event</th>
+              <th class="text-left px-3 py-2 font-semibold text-foreground">Flow A (Organic)</th>
+              <th class="text-left px-3 py-2 font-semibold text-foreground">Flow B (Conference)</th>
+              <th class="text-left px-3 py-2 font-semibold text-foreground">Flow C/D (Group Invite)</th>
+              <th class="text-left px-3 py-2 font-semibold text-foreground">Flow E (Paid Ad)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-border text-foreground">
+            <tr><td class="px-3 py-2 font-medium">PageView</td><td class="px-3 py-2">✅</td><td class="px-3 py-2">✅</td><td class="px-3 py-2">✅</td><td class="px-3 py-2">✅</td></tr>
+            <tr><td class="px-3 py-2 font-medium">Lead</td><td class="px-3 py-2">✅ Signup</td><td class="px-3 py-2">✅ Email capture</td><td class="px-3 py-2">✅ Invite accepted</td><td class="px-3 py-2">✅ Opt-in</td></tr>
+            <tr><td class="px-3 py-2 font-medium">InitiateCheckout</td><td class="px-3 py-2">✅</td><td class="px-3 py-2">— (no paywall)</td><td class="px-3 py-2">— (owner pays)</td><td class="px-3 py-2">✅</td></tr>
+            <tr><td class="px-3 py-2 font-medium">Purchase</td><td class="px-3 py-2">✅ with $</td><td class="px-3 py-2">✅ (on later upgrade)</td><td class="px-3 py-2">✅ (owner checkout)</td><td class="px-3 py-2">✅ with $</td></tr>
+            <tr><td class="px-3 py-2 font-medium">CompleteTest</td><td class="px-3 py-2">✅ custom event</td><td class="px-3 py-2">✅ custom event</td><td class="px-3 py-2">✅ custom event</td><td class="px-3 py-2">✅ custom event</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-xs text-muted-foreground mt-2">
+        The <code class="bg-muted px-1 rounded">CompleteTest</code> custom event is critical — it fires server-side via CAPI when a user finishes the Importance Code test. This lets us build a "highest-value" lookalike audience: people who didn't just pay, but actually engaged with the product.
+      </p>
+      </section>
+
+      <!-- Retention & Gamification -->
+      <section id="retention" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
+          <span class="text-2xl">🔄</span>
+          <span>9. Retention & Gamification</span>
+        </h2>
+        <p class="text-foreground leading-relaxed mb-4">
+          Acquisition without retention is a leaky bucket. Each user segment requires a different retention strategy based on how they arrived and what keeps them engaged. This section details the specific mechanisms for each.
+        </p>
+
+        <!-- Segment 1: Organic / Paid B2C Individuals -->
+        <div class="bg-muted/50 rounded-xl p-6 mb-5 border border-border">
+          <h3 class="font-semibold text-foreground mb-3">Organic & Paid Ad Individuals (Flows A, B, E)</h3>
+          <p class="text-sm text-muted-foreground mb-3">These users have no group context holding them to the platform. Retention depends on ongoing value delivery and re-engagement.</p>
+          <div class="space-y-3 text-sm text-foreground">
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">NURTURE</span>
+              <span><strong>Post-test email sequence (7 emails over 30 days):</strong> (1) Full result breakdown, (2) "What your type means in relationships," (3) "What your type means at work," (4) "How to grow based on your type," (5) "Share with a friend" referral CTA, (6) "Retake the test — see how you've changed," (7) Community/group upsell.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">RETAKE</span>
+              <span><strong>Quarterly retake prompt:</strong> Email + in-app notification every 90 days inviting users to retake the test. New result is stored as a new individual test instance. Trend graph shows "You shifted from X to Y" with visual comparison.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">SOCIAL</span>
+              <span><strong>Shareable result cards:</strong> After each test, users get a branded image of their result they can share on social media. Each card includes a referral link — new signups from shared cards are attributed to the sharer.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">WIN-BACK</span>
+              <span><strong>Churn prevention:</strong> If a user hasn't logged in for 60 days, trigger a win-back email with their original result and a "what's changed?" CTA to retake. If subscription cancellation is initiated, show a pause option (skip 1 month) before full cancel.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Segment 2: Corporate Groups -->
+        <div class="bg-muted/50 rounded-xl p-6 mb-5 border border-border">
+          <h3 class="font-semibold text-foreground mb-3">Corporate Group Members (Flow C)</h3>
+          <p class="text-sm text-muted-foreground mb-3">Group members have a built-in reason to stay: their employer is paying. The retention goal is engagement, not churn prevention — keeping members active so the admin sees ROI and renews.</p>
+          <div class="space-y-3 text-sm text-foreground">
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">ONBOARD</span>
+              <span><strong>Group welcome sequence:</strong> After taking the group test, the member receives a 3-email series: (1) "Here's what your result means for your team," (2) "How your type works with other types — team dynamics primer," (3) "Your group's type-spread — where you fit."</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">ENGAGE</span>
+              <span><strong>Completion nudges to admin:</strong> If fewer than 80% of invited members have completed the test after 7 days, the admin gets a reminder email with a "Send nudge to incomplete members" one-click action. Members who haven't taken the test receive a reminder from the platform.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">GAMIFY</span>
+              <span><strong>Group leaderboard (opt-in):</strong> Groups can enable a lightweight leaderboard showing engagement metrics — not test results, but activity: who has retaken, who has explored content, who has shared. Badges for "Explorer" (viewed all type descriptions), "Connector" (shared with 3+ people), "Evolving" (retook and shifted types).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">RENEW</span>
+              <span><strong>Admin renewal prep:</strong> 30 days before subscription renewal, the admin receives a "Group Impact Report" PDF — total tests taken, type distribution, engagement rate, trend data. This gives the admin ammunition to justify the renewal to their leadership.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Segment 3: Family Groups -->
+        <div class="bg-muted/50 rounded-xl p-6 mb-5 border border-border">
+          <h3 class="font-semibold text-foreground mb-3">Family Group Members (Flow D)</h3>
+          <p class="text-sm text-muted-foreground mb-3">Families are smaller groups with emotional engagement as the driver. Retention leans on relationship insights and milestone moments.</p>
+          <div class="space-y-3 text-sm text-foreground">
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">INSIGHT</span>
+              <span><strong>Family dynamics content:</strong> After all members complete the test, the organizer receives a "Family Dynamics Report" — how the types in the family interact, potential friction points, and communication tips tailored to the specific mix.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">MILESTONE</span>
+              <span><strong>Annual retake prompt:</strong> Every year on the anniversary of the family group creation, all members are invited to retake. "It's been a year — let's see how your family has grown." Especially powerful for families with teens whose types may shift.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-primary font-bold text-xs mt-0.5 shrink-0">EXPAND</span>
+              <span><strong>Invite expansion:</strong> After completing the test, prompt the organizer: "Want to include extended family? Add seats to your group." One-click Stripe seat addition.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gamification Summary -->
+        <h3 class="font-semibold text-foreground mb-3 text-base">Platform-Wide Gamification Elements</h3>
+        <div class="overflow-x-auto rounded-lg border border-border">
+          <table class="w-full text-sm">
+            <thead class="bg-muted">
+              <tr>
+                <th class="text-left px-4 py-3 font-semibold text-foreground">Element</th>
+                <th class="text-left px-4 py-3 font-semibold text-foreground">Trigger</th>
+                <th class="text-left px-4 py-3 font-semibold text-foreground">Retention Impact</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border text-sm text-foreground">
+              <tr>
+                <td class="px-4 py-3 font-medium">Personal trend graph</td>
+                <td class="px-4 py-3">2+ tests completed</td>
+                <td class="px-4 py-3">Gives users a reason to retake — they want to see change</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium">Achievement badges</td>
+                <td class="px-4 py-3">Content viewed, tests retaken, shares, group joins</td>
+                <td class="px-4 py-3">Low-friction engagement loop that rewards exploration</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium">Group type-spread widget</td>
+                <td class="px-4 py-3">Available to all group members</td>
+                <td class="px-4 py-3">Creates social context — users come back to see how the group evolves</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium">Referral program</td>
+                <td class="px-4 py-3">Shareable link after test completion</td>
+                <td class="px-4 py-3">Turns retained users into acquisition channels</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-medium">"Type of the month" content</td>
+                <td class="px-4 py-3">Monthly email/push to all active users</td>
+                <td class="px-4 py-3">Keeps the platform top-of-mind with fresh, relevant content</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- Timeline -->
-      <section id="timeline" class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-6 scroll-mt-20">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+      <section id="timeline" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
         <span class="text-2xl">📅</span>
         <span>Proposed Timeline</span>
       </h2>
       <div class="space-y-3">
-        <div class="flex gap-4 p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="flex gap-4 p-4 bg-card rounded-xl border border-border">
           <div class="w-40 shrink-0">
             <p class="text-sm font-semibold text-primary">Sprint 1 (Weeks 1–3)</p>
           </div>
-          <p class="text-sm text-gray-700 dark:text-gray-300">RBAC system design, database schema updates, role assignment UI</p>
+          <div class="text-sm text-foreground">
+            <p class="font-medium">RBAC & Test Instance Data Model</p>
+            <p class="text-xs text-muted-foreground mt-1">Database schema: roles, permissions, test_instances table (with group_id, context, utm_source). API middleware for role-based access control. Lock down member visibility. Fix the current bug where members see admin data.</p>
+          </div>
         </div>
-        <div class="flex gap-4 p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="flex gap-4 p-4 bg-card rounded-xl border border-border">
           <div class="w-40 shrink-0">
             <p class="text-sm font-semibold text-primary">Sprint 2 (Weeks 4–6)</p>
           </div>
-          <p class="text-sm text-gray-700 dark:text-gray-300">Business owner dashboards, analytics data pipeline setup</p>
+          <div class="text-sm text-foreground">
+            <p class="font-medium">B2B Group Onboarding & Invite System</p>
+            <p class="text-xs text-muted-foreground mt-1">Group creation flow, invite link generation, CSV bulk upload, seat management, Stripe per-head billing. Existing-user detection + magic link flow. Member signup branching logic (new vs. existing). Minor/family edge cases.</p>
+          </div>
         </div>
-        <div class="flex gap-4 p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="flex gap-4 p-4 bg-card rounded-xl border border-border">
           <div class="w-40 shrink-0">
             <p class="text-sm font-semibold text-primary">Sprint 3 (Weeks 7–9)</p>
           </div>
-          <p class="text-sm text-gray-700 dark:text-gray-300">Staff analytics drill-down, scheduled reports, anomaly detection</p>
+          <div class="text-sm text-foreground">
+            <p class="font-medium">Dashboards & Analytics</p>
+            <p class="text-xs text-muted-foreground mt-1">Owner/admin dashboard: roster, invite funnel, type-spread, trend data. Platform admin dashboard: revenue, attribution, acquisition funnel. Member dashboard: personal trend graph, group type-spread (limited view). Staff analytics drill-down.</p>
+          </div>
         </div>
-        <div class="flex gap-4 p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="flex gap-4 p-4 bg-card rounded-xl border border-border">
           <div class="w-40 shrink-0">
             <p class="text-sm font-semibold text-primary">Sprint 4 (Weeks 10–12)</p>
           </div>
-          <p class="text-sm text-gray-700 dark:text-gray-300">ClickFunnels funnel build, Stripe integration, webhook handlers</p>
+          <div class="text-sm text-foreground">
+            <p class="font-medium">ClickFunnels B2C Funnel & Stripe</p>
+            <p class="text-xs text-muted-foreground mt-1">ClickFunnels landing pages (ad-specific + conference QR). Stripe checkout embedded in funnel. Webhook handlers for auto-provisioning. Abandoned cart email sequences. UTM passthrough and storage.</p>
+          </div>
         </div>
-        <div class="flex gap-4 p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
+        <div class="flex gap-4 p-4 bg-card rounded-xl border border-border">
           <div class="w-40 shrink-0">
             <p class="text-sm font-semibold text-primary">Sprint 5 (Weeks 13–14)</p>
           </div>
-          <p class="text-sm text-gray-700 dark:text-gray-300">Meta Pixel + Google Pixel setup, GTM configuration, CAPI</p>
-        </div>
-        <div class="flex gap-4 p-4 bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
-          <div class="w-40 shrink-0">
-            <p class="text-sm font-semibold text-primary">Sprint 6 (Week 15)</p>
+          <div class="text-sm text-foreground">
+            <p class="font-medium">Pixel Tracking & Attribution</p>
+            <p class="text-xs text-muted-foreground mt-1">Meta Pixel + CAPI. Google Tag Manager + GA4. Custom CompleteTest event. Pixel event map across all 5 flows. Retargeting audience setup. Lookalike audience from highest-LTV users.</p>
           </div>
-          <p class="text-sm text-gray-700 dark:text-gray-300">QA, load testing, security audit, launch prep</p>
+        </div>
+        <div class="flex gap-4 p-4 bg-card rounded-xl border border-border">
+          <div class="w-40 shrink-0">
+            <p class="text-sm font-semibold text-primary">Sprint 6 (Weeks 15–17)</p>
+          </div>
+          <div class="text-sm text-foreground">
+            <p class="font-medium">Retention, Gamification & Nurture</p>
+            <p class="text-xs text-muted-foreground mt-1">Post-test email sequences (B2C + B2B). Quarterly retake prompts. Shareable result cards. Group leaderboard. Achievement badges. Win-back sequences. Admin renewal report. Family dynamics report.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 p-4 bg-card rounded-xl border border-border">
+          <div class="w-40 shrink-0">
+            <p class="text-sm font-semibold text-primary">Sprint 7 (Weeks 18–19)</p>
+          </div>
+          <div class="text-sm text-foreground">
+            <p class="font-medium">QA, Security & Launch</p>
+            <p class="text-xs text-muted-foreground mt-1">End-to-end testing of all 5 user flows. RBAC permission audit (verify members can't access admin data). Load testing for 1,000+ seat groups. Pixel verification. Staging → production deployment.</p>
+          </div>
         </div>
       </div>
       </section>
 
       <!-- Next Steps -->
-      <section id="next-steps" class="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 p-8 mb-6 scroll-mt-20">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
+      <section id="next-steps" class="bg-card rounded-2xl shadow-sm border border-border p-8 mb-6 scroll-mt-20">
+        <h2 class="text-xl font-bold text-foreground mb-4 flex items-center gap-3">
         <span class="text-2xl">✅</span>
         <span>Next Steps</span>
       </h2>
       <ul class="space-y-2">
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Review this proposal and provide feedback or questions
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Schedule a kick-off call to align on priorities and sprint sequencing
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Sign the Phase 3 Statement of Work (SOW)
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Provision staging environment access for development team
         </li>
-        <li class="flex items-start gap-3 text-sm text-gray-700 dark:text-gray-300">
+        <li class="flex items-start gap-3 text-sm text-foreground">
           <span class="text-primary mt-0.5 shrink-0">✓</span>
           Begin Sprint 1 discovery and technical specification
         </li>
@@ -589,7 +1300,7 @@
       </section>
 
       <!-- Footer -->
-      <div class="mt-8 text-center text-sm text-gray-400 dark:text-gray-600">
+      <div class="mt-8 text-center text-sm text-muted-foreground">
         <p>
           This document is confidential and intended solely for the named
           client. © Smiling Dev Consulting — smiling.dev
@@ -634,6 +1345,8 @@
           behavior: 'smooth',
           block: 'start'
         });
+        // Update URL bar
+        window.history.pushState(null, '', href);
       }
     });
   });
@@ -661,6 +1374,13 @@
   }, observerOptions);
 
   sections.forEach(section => observer.observe(section));
+</script>
+
+<script is:inline>
+  // Initialize Mermaid diagrams after content is loaded
+  if (typeof mermaid !== 'undefined') {
+    mermaid.contentLoaded();
+  }
 </script>
 
 <style>
