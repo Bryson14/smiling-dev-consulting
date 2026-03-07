@@ -36,6 +36,8 @@ export default defineConfig({
 		layout: "constrained"
 	},
 
+	output: "static",
+
 	compressHTML: true,
 
 	build: {
