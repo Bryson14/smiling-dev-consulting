@@ -10,7 +10,13 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
 	site: "https://smiling.dev",
 
-	integrations: [react(), mdx(), sitemap()],
+	integrations: [
+		react(),
+		mdx(),
+		sitemap({
+			filter: (page) => !page.includes("/private/"),
+		}),
+	],
 	markdown: {
 		shikiConfig: {
 			themes: {
