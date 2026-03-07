@@ -2,6 +2,7 @@
     "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "smiling-development-consulting",
   "main": "./dist/_worker.js/index.js",
+  "account_id": "4cb2ba2c46032a15d574024f631bba64",
   "compatibility_date": "2026-03-06",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {

@@ -6,45 +6,49 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 
+import cloudflare from "@astrojs/cloudflare";
+
 // https://astro.build/config
 export default defineConfig({
-	site: "https://smiling.dev",
+  site: "https://smiling.dev",
 
-	integrations: [
-		react(),
-		mdx(),
-		sitemap({
-			filter: (page) => !page.includes("/private/"),
-		}),
+  integrations: [
+      react(),
+      mdx(),
+      sitemap({
+          filter: (page) => !page.includes("/private/"),
+      }),
 	],
-	markdown: {
-		shikiConfig: {
-			themes: {
-				light: "github-light",
-				dark: "github-dark",
-			},
-		},
-		syntaxHighlight: {
-			excludeLangs: ["mermaid", "math"],
-		},
+
+  markdown: {
+      shikiConfig: {
+          themes: {
+              light: "github-light",
+              dark: "github-dark",
+          },
+      },
+      syntaxHighlight: {
+          excludeLangs: ["mermaid", "math"],
+      },
 	},
 
-	image: {
-		service: {
-			entrypoint: "astro/assets/services/sharp",
-		},
-		layout: "constrained"
+  image: {
+      service: {
+          entrypoint: "astro/assets/services/sharp",
+      },
+      layout: "constrained"
 	},
 
-	output: "static",
+  output: "static",
+  compressHTML: true,
 
-	compressHTML: true,
-
-	build: {
-		inlineStylesheets: "auto",
+  build: {
+      inlineStylesheets: "auto",
 	},
 
-	vite: {
-		plugins: [tailwindcss()],
+  vite: {
+      plugins: [tailwindcss()],
 	},
+
+  adapter: cloudflare(),
 });
