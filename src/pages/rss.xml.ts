@@ -1,14 +1,17 @@
 import { getCollection } from "astro:content";
 import rss, { type RSSFeedItem } from "@astrojs/rss";
+import type { APIContext } from 'astro';
 
-export async function GET(context: any) {
+export const prerender = true;
+
+export async function GET(context: APIContext) {
 	const blog = await getCollection("blog");
 	const projects = await getCollection("projects");
 	const blogPosts = blog.map((post) => {
 		return {
 			title: post.data.title,
 			description: post.data.description,
-			pubData: post.data.pubDate.toISOString(),
+			pubDate: post.data.pubDate,
 			link: new URL(`/blog/${post.data.slug}`, context.site).href,
 		};
 	});
@@ -17,20 +20,20 @@ export async function GET(context: any) {
 		return {
 			title: post.data.title,
 			description: post.data.description,
-			pubData: post.data.updateDate.toISOString(),
+			pubDate: post.data.updateDate,
 			link: new URL(`/projects/${post.data.slug}`, context.site).href,
 		};
 	});
 
 	const allPosts: RSSFeedItem[] = [...blogPosts, ...projectsPosts].sort(
-		(a, b) => new Date(b.pubData).getTime() - new Date(a.pubData).getTime(),
+		(a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(),
 	);
 
 	return rss({
 		title: "Smiling Dev Consulting RSS Feed",
 		description:
 			"Project Tech Consulting, Technical insights, tutorials, and industry best practices from Bryson Meiling.",
-		site: context.site,
+		site: context.site || "https://smiling.dev",
 		items: allPosts.map((post) => ({
 			...post,
 		})),
