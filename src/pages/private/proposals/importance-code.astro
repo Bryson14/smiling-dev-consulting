@@ -1,8 +1,7 @@
 ---
 export const prerender = false;
+import MainLayout from "@/layouts/main.astro";
 import ImportanceCodeProposalContent from "@/components/ImportanceCodeProposalContent.astro";
-import "@/styles/global.css";
-import "@/styles/shadcn.css";
 
 // Get credentials from environment variables
 const VALID_USERNAME = import.meta.env.PROPOSAL_IMPORTANCE_CODE_USERNAME || "client";
@@ -43,15 +42,8 @@ if (!isAuthenticated) {
 }
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Private Proposal</title>
-  </head>
-  <body>
+<MainLayout title="Private Proposal - Importance Code" description="Private proposal document">
+  <meta name="robots" content="noindex, nofollow" slot="head" />
     {!isAuthenticated ? (
       <!-- Login Form -->
       <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
@@ -134,5 +126,4 @@ if (!isAuthenticated) {
       <!-- Proposal Content -->
       <ImportanceCodeProposalContent />
     )}
-  </body>
-</html>
+</MainLayout>
