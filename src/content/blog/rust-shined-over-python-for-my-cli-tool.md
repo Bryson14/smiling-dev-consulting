@@ -1,5 +1,5 @@
 ---
-slug: Rust-shined-over-python-for-my-cli-tool
+slug: rust-shined-over-python-for-my-cli-tool
 title: Rust Shined Over Python for My CLI Tool
 description: I rewrote a 12,000 line python CLI in rust in a week. But the real
   advantage wasn’t speed or performance, it was confidence!
