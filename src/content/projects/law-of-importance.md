@@ -1,9 +1,9 @@
 ---
 slug: law-of-importance
 title: The Law of Importance
-description: A modern personality assessment platform with secure user authentication, real-time scoring, and group collaboration features built on TanStack Start and Supabase.
+description: An intensive, security-first personality assessment platform with secure user authentication, real-time scoring, and group collaboration features. Built on TanStack Start and Supabase with enterprise-grade architecture and zero-trust security implementation.
 status: In-Progress
-updateDate: 2026-01-30
+updateDate: 2026-03-15
 keywords:
     - full-stack
     - security-first

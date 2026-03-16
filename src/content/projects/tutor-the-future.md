@@ -16,7 +16,7 @@ technologies:
   - aws lambda
   - aws s3
 image: src/content/images/ttf-landing-stats.webp
-featured: true
+featured: false
 ---
 ## Project Overview
 

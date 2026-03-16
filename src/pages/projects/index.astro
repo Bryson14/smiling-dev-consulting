@@ -43,6 +43,23 @@ const projectsJsonLd = {
       Our Projects
     </h1>
 
+    <div class="max-w-2xl mx-auto mb-16 pb-12 border-b border-muted-foreground/20">
+      <div class="grid grid-cols-3 gap-8 text-center">
+        <div class="space-y-2">
+          <div class="text-4xl font-light text-primary">{projects.length}</div>
+          <p class="text-xs text-muted-foreground uppercase tracking-wide">Completed Projects</p>
+        </div>
+        <div class="space-y-2">
+          <div class="text-4xl font-light text-primary">100%</div>
+          <p class="text-xs text-muted-foreground uppercase tracking-wide">Client Satisfaction</p>
+        </div>
+        <div class="space-y-2">
+          <div class="text-4xl font-light text-primary">$0</div>
+          <p class="text-xs text-muted-foreground uppercase tracking-wide">Hidden Fees</p>
+        </div>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {
         projects.map((project) => (
