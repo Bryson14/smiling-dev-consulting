@@ -6,5 +6,10 @@ author: Bryson M
 pubDate: 2026-03-20
 mediumLink: https://medium.com
 image: src/content/images/jump-on-uv-bandwagon-fast-slow.webp
+keywords:
+    - wix
+    - dns
+    - cloudflare
+    - insider-secret
 ---
 There are two ways to do it. Either you move yourself to an intermediary, or you contact Support and you get them to change the name servers yourself.
