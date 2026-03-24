@@ -1,10 +1,10 @@
 ---
 slug: migrate-wix-dns-to-cloudflare
-title: How to migrate DNS on WIX two cloud
+title: How to migrate DNS from WIX to Cloudflare
 description: Two ways to point your Wix domain to Cloudflare, including the insider secret about contacting Wix support directly and how to avoid the DNSSEC blocker.
 author: Bryson M
 pubDate: 2026-03-20
-mediumLink: https://medium.com
+mediumLink: https://medium.com/@BryMei
 image: src/content/images/dns-from-wix-cloudflare.png
 keywords:
     - wix
