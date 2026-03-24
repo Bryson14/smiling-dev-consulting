@@ -24,11 +24,11 @@ Here's why this is the standard recommendation: Wix doesn't allow you to change 
 1. Unlock your domain in Wix
 2. Get your authorization code from Wix
 3. Initiate the transfer at your chosen registrar (GoDaddy, Namecheap, Porkbun, etc.)
-4. Complete the transfer process
+4. Complete the transfer process after 5-7 days of waiting.
 5. Log into your new registrar and point your nameservers to Cloudflare's nameservers
 6. Set up your DNS records in Cloudflare
 
-This approach is straightforward and gives you complete control over your domain going forward.
+This approach is straightforward and gives you complete control over your domain going forward. This is the default and recommended way to move off Wix.
 
 ## Method 2: Have Wix Support Change Your Nameservers (The Workaround)
 

@@ -13,7 +13,7 @@ keywords:
   - Social Media
   - Information
   - AI
-image: src/content/images/what-is-pydantic-and-how-can-it-help-your-next-python-project.webp
+image: src/content/images/man-using-mobile-phone.jpg
 ---
 Its a weird world we live in. I can know about everything that is happening in the world and yet I feel like I trust so little. I'm sure it is happening to everyone. I see podcasts, video shorts, long form videos, coworker conversations all pointing to that we are getting so much information but we hold on to so little.
 
