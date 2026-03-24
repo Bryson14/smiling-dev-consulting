@@ -34,7 +34,7 @@ This approach is straightforward and gives you complete control over your domain
 
 But here's something most people don't know: **Wix support can technically change your nameservers for you.** I discovered this the hard way, and while it's more tedious than transferring, it can work if you don't want to move your domain off Wix.
 
-![DNS settings showing nameserver configuration between Wix and Cloudflare](/src/content/images/dns-from-wix-cloudflare.png)
+![DNS settings showing nameserver configuration between Wix and Cloudflare](src/content/images/dns-from-wix-cloudflare.png)
 
 ### The Process
 
@@ -60,7 +60,7 @@ So in total, the timeline is roughly:
 
 Here's something that will mess with your head: **the Wix DNS interface will never show the new nameservers.** It will always display your old records and old nameservers. This is confusing as hell because you'll think nothing changed.
 
-![Wix DNS showing old nameserver records that won't update](/src/content/images/wix-does-not-show-other-nameservers.png)
+![Wix DNS showing old nameserver records that won't update](src/content/images/wix-does-not-show-other-nameservers.png)
 
 But don't worry. The change *is* happening. You can verify it's working by using third-party DNS propagation tools online. You'll start to see the new Cloudflare nameservers show up gradually.
 
@@ -68,7 +68,7 @@ But don't worry. The change *is* happening. You can verify it's working by using
 
 Here's where I got stuck: I had **DNSSEC enabled on my Wix domain**, and it was preventing Cloudflare from completing the domain migration. Cloudflare kept failing to detect that the nameserver change had taken effect.
 
-![Warning about different nameservers being configured at the domain registrar](/src/content/images/wix-domains-different-nameservers-warning.png)
+![Warning about different nameservers being configured at the domain registrar](src/content/images/wix-domains-different-nameservers-warning.png)
 
 The fix was to **disable DNSSEC in Wix** before initiating the nameserver change. Once I turned that off and waited a few more hours, Cloudflare finally recognized the change and the migration completed successfully.
 
