@@ -44,6 +44,9 @@ importers:
       astro:
         specifier: ^5.16.12
         version: 5.16.12(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.0)(typescript@5.8.3)
+      astro-gtm-lite:
+        specifier: ^1.0.1
+        version: 1.0.1(astro@5.16.12(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.0)(typescript@5.8.3))
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
@@ -1603,6 +1606,11 @@ packages:
   astring@1.9.0:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
+
+  astro-gtm-lite@1.0.1:
+    resolution: {integrity: sha512-jEZrZJ50dj7hhJdcVO423jmY1u8OvbwyfITlO8GoUeD+RBB/AB2a3w36PL+4LdJ5xyR291twwjqLf/iQECh/gg==}
+    peerDependencies:
+      astro: ^4.0.0 || ^5.0.0 || ^6.0.0
 
   astro@5.16.12:
     resolution: {integrity: sha512-R2LH1GW4JexpSMWffbpzkeZDAwbdZwI5BclXEwi+vIUPxQI+7Y9ZogJ5u4ukdYFGrcrie/0z+Od4i3MlR0nELQ==}
@@ -4245,6 +4253,10 @@ snapshots:
   array-iterate@2.0.1: {}
 
   astring@1.9.0: {}
+
+  astro-gtm-lite@1.0.1(astro@5.16.12(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.0)(typescript@5.8.3)):
+    dependencies:
+      astro: 5.16.12(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.0)(typescript@5.8.3)
 
   astro@5.16.12(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.0)(typescript@5.8.3):
     dependencies:

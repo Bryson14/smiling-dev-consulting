@@ -21,7 +21,7 @@ technologies:
     - row-level security
 featured: true
 image: src/content/images/law-of-importance-hero.png
-websiteLink: https://portal.thelawofimportance.com
+websiteLink: https://thelawofimportance.com
 ---
 
 ## Project Overview
