@@ -8,54 +8,78 @@ import MainLayout from "@/layouts/main.astro";
 import "@/styles/blog.css";
 
 const MEDIUM_IMG =
-	"https://upload.wikimedia.org/wikipedia/commons/0/0d/Medium_%28website%29_logo.svg";
+  "https://upload.wikimedia.org/wikipedia/commons/0/0d/Medium_%28website%29_logo.svg";
 
 export async function getStaticPaths() {
-	const posts = await getCollection("blog");
-	return posts.map((post) => ({
-		params: { slug: post.data.slug },
-		props: { post },
-	}));
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+
+const filteredHeadings = headings.filter((h) => h.depth === 1 || h.depth === 2);
 
 const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
-	year: "numeric",
-	month: "long",
-	day: "numeric",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
 });
 
 const articleStructuredData = {
-	"@context": "https://schema.org",
-	"@type": "BlogPosting",
-	headline: post.data.title,
-	description: post.data.description,
-	// "image": image ? new URL(image, Astro.url) : undefined,
-	datePublished: post.data.pubDate.toISOString(),
-	dateModified: post.data.updateDate
-		? post.data.updateDate.toISOString()
-		: post.data.pubDate.toISOString(),
-	author: {
-		"@type": "Person",
-		name: post.data.author,
-		url: "https://smiling.dev/about",
-	},
-	publisher: {
-		"@type": "Organization",
-		name: "Smiling Dev Consulting",
-		logo: {
-			"@type": "ImageObject",
-			url: new URL("/smiling-dev-logo-small.png", Astro.url),
-		},
-	},
-	keywords: post.data.keywords.join(", "),
-	url: Astro.url.href,
-	mainEntityOfPage: {
-		"@type": "WebPage",
-		"@id": Astro.url.href,
-	},
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  // "image": image ? new URL(image, Astro.url) : undefined,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: post.data.updateDate
+    ? post.data.updateDate.toISOString()
+    : post.data.pubDate.toISOString(),
+  author: {
+    "@type": "Person",
+    name: post.data.author,
+    url: "https://smiling.dev/about",
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Smiling Dev Consulting",
+    logo: {
+      "@type": "ImageObject",
+      url: new URL("/smiling-dev-logo-small.png", Astro.url),
+    },
+  },
+  keywords: post.data.keywords.join(", "),
+  url: Astro.url.href,
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": Astro.url.href,
+  },
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": Astro.url.href,
+      "url": Astro.url.href,
+      "name": post.data.title,
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": new URL("/", Astro.url).href,
+        "url": new URL("/", Astro.url).href,
+        "name": "Smiling Dev Blog",
+      },
+      "hasPart": [
+        filteredHeadings.map((h) => ({
+           "@type": "WebPageElement",
+           "@id": `${Astro.url.href}#${h.slug}`,
+           "name": h.text,
+           "cssSelector": `#${h.slug}`
+        })),
+      ]
+    }
+  ]
 };
 ---
 
@@ -63,68 +87,102 @@ const articleStructuredData = {
   title={`${post.data.title} - Smiling Dev Blog`}
   description={post.data.description}
 >
-  <JsonLd data={articleStructuredData} />
-  <article class="container mx-auto px-4 py-12">
-    <div class="max-w-3xl mx-auto">
-
-      <div class="mb-8">
-        {
-          post.data.keywords.length > 0 && (
-            <div class="flex flex-wrap gap-2 mb-4">
-              {post.data.keywords.map((tag) => (
-                <a
-                  href={`/blog/tag/${tag.toLowerCase()}`}
-                  class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20"
-                >
-                  {tag}
-                </a>
-              ))}
-            </div>
-          )
-        }
-
-        <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
-
-        <div class="flex flex-wrap items-center gap-4 text-muted-foreground mb-6">
-          <span>{post.data.author}</span>
-          <span>•</span>
-          <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time
-          >
+  <div class="flex flex-col md:flex-row justify-around" id="blog-container">
+    <JsonLd data={articleStructuredData} />
+    <article class="container mx-auto px-2 md:px-6 py-12">
+      <div class="max-w-3xl mx-auto">
+        <div class="mb-8">
           {
-            post.data.mediumLink && (
-              <a
-                href={`${post.data.mediumLink}?utm_source=smiling.dev&utm_medium=blog&utm_campaign=${post.data.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image src={MEDIUM_IMG} alt="Medium logo" height={20} width={130} class="dark:invert" />
-              </a>
+            post.data.keywords.length > 0 && (
+              <div class="flex flex-wrap gap-2 mb-4">
+                {post.data.keywords.map((tag) => (
+                  <a
+                    href={`/blog/tag/${tag.toLowerCase()}`}
+                    class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20"
+                  >
+                    {tag}
+                  </a>
+                ))}
+              </div>
             )
           }
-        </div>
 
-        <SocialShare
-          title={post.data.title}
-          description={post.data.description}
-          url={Astro.url.href}
-          class="mb-8"
-        />
-      </div>
+          <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
 
-      <div class="prose prose-lg max-w-none blog-content">
-        <Content />
-      </div>
+          <div
+            class="flex flex-wrap items-center gap-4 text-muted-foreground mb-6"
+          >
+            <span>{post.data.author}</span>
+            <span>•</span>
+            <time datetime={post.data.pubDate.toISOString()}
+              >{formattedDate}</time
+            >
+            {
+              post.data.mediumLink && (
+                <a
+                  href={`${post.data.mediumLink}?utm_source=smiling.dev&utm_medium=blog&utm_campaign=${post.data.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src={MEDIUM_IMG}
+                    alt="Medium logo"
+                    height={20}
+                    width={130}
+                    class="dark:invert"
+                  />
+                </a>
+              )
+            }
+          </div>
 
-      <div class="mt-16 pt-8 border-t border-border">
-        <div class="flex items-center justify-between">
-          <div class="text-sm text-muted-foreground">Share this article:</div>
           <SocialShare
             title={post.data.title}
             description={post.data.description}
             url={Astro.url.href}
+            class="mb-8"
           />
         </div>
+
+        <div class="prose prose-lg max-w-none blog-content">
+          <Content />
+        </div>
+
+        <div class="mt-16 pt-8 border-t border-border">
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-muted-foreground">Share this article:</div>
+            <SocialShare
+              title={post.data.title}
+              description={post.data.description}
+              url={Astro.url.href}
+            />
+          </div>
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
+    <aside id="toc-sidebar" class="hidden md:block shrink-0 px-2 py-12">
+      <div class="flex flex-col gap-4" id="toc">
+        <h2 class="text-right">Table of Contents</h2>
+        <div class="flex flex-col gap-2 overflow-y-auto" id="sections">
+          {
+            filteredHeadings.map((h) => {
+              if (h.depth !== 1 && h.depth !== 2)
+                throw new Error("Unexpected heading depth: " + h.depth);
+              return (
+                <div class="flex items-center gap-2">
+                  <span class="text-muted-foreground">&middot;</span>
+                  <a
+                    href={"#" + h.slug}
+                    class="text-muted-foreground hover:text-primary hover:underline decoration-primary"
+                  >
+                    {h.text}
+                  </a>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </aside>
+  </div>
 </MainLayout>
