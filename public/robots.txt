@@ -1,3 +1,19 @@
+# Smiling Dev Consulting - Robots.txt
+
+# Allow all user agents
 User-agent: *
 Allow: /
+
+# Disallow private/draft content
+Disallow: /private/
+
+# Sitemaps for crawlers
 Sitemap: https://smiling.dev/sitemap-index.xml
+Sitemap: https://smiling.dev/sitemap.md
+
+# LLM-specific content discovery
+# See /llms.txt for curated content
+# See /llms-full.txt for complete content with full blog posts
+
+# Crawl delay to be respectful
+Crawl-delay: 1
