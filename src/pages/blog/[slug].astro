@@ -22,7 +22,11 @@ const { post } = Astro.props;
 const { Content, headings } = await render(post);
 
 const filteredHeadings = headings.filter((h) => h.depth === 1 || h.depth === 2);
-
+if (filteredHeadings.length > 20) {
+  console.warn(
+    `Warning for ${post.data.slug}: More than 20 headings found. Consider adding more H1/H2 headings or reducing the number of sections so the sidebar table of contents remains visible on desktop`,
+  );
+}
 const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
   year: "numeric",
   month: "long",
@@ -62,24 +66,24 @@ const articleStructuredData = {
     {
       "@type": "WebPage",
       "@id": Astro.url.href,
-      "url": Astro.url.href,
-      "name": post.data.title,
-      "isPartOf": {
+      url: Astro.url.href,
+      name: post.data.title,
+      isPartOf: {
         "@type": "WebSite",
         "@id": new URL("/", Astro.url).href,
-        "url": new URL("/", Astro.url).href,
-        "name": "Smiling Dev Blog",
+        url: new URL("/", Astro.url).href,
+        name: "Smiling Dev Blog",
       },
-      "hasPart": [
+      hasPart: [
         filteredHeadings.map((h) => ({
-           "@type": "WebPageElement",
-           "@id": `${Astro.url.href}#${h.slug}`,
-           "name": h.text,
-           "cssSelector": `#${h.slug}`
+          "@type": "WebPageElement",
+          "@id": `${Astro.url.href}#${h.slug}`,
+          name: h.text,
+          cssSelector: `#${h.slug}`,
         })),
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 };
 ---
 
@@ -160,7 +164,10 @@ const articleStructuredData = {
         </div>
       </div>
     </article>
-    <aside id="toc-sidebar" class="hidden md:block shrink-0 px-2 py-12">
+    <aside
+      id="toc-sidebar"
+      class="hidden lg:block shrink-0 px-4 py-12 pr-10 sticky top-12 h-fit"
+    >
       <div class="flex flex-col gap-4" id="toc">
         <h2 class="text-right">Table of Contents</h2>
         <div class="flex flex-col gap-2 overflow-y-auto" id="sections">
