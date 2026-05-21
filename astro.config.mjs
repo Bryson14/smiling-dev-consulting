@@ -5,7 +5,6 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-import gtm from "astro-gtm-lite";
 import partytown from "@astrojs/partytown";
 import cloudflare from "@astrojs/cloudflare";
 
@@ -14,17 +13,10 @@ export default defineConfig({
   site: "https://smiling.dev",
 
   integrations: [
-    gtm({
-      id: "GTM-WXRHVR6",
-      devMode: true,
-    }),
     react(),
     mdx(),
     sitemap({
       filter: (page) => !page.includes("/private/"),
-    }),
-    gtm({
-      id: "GTM-WXRHVR6",
     }),
     partytown({
       config: {
