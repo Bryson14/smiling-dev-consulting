@@ -17,6 +17,7 @@ image: src/content/images/slf-landing-page.webp
 featured: true
 websiteLink: https://sorensonlegacyfoundation.org
 ---
+
 ## Project Overview
 
 I helped the Sorenson Legacy Foundation modernize their outdated website by migrating from a decade-old WordPress installation to a modern, cost-effective platform. This comprehensive website overhaul addressed both technical and financial challenges while improving the user experience.
@@ -31,7 +32,6 @@ The foundation's website had been running on the same WordPress setup for over 1
 - **Outdated technology** - The aging WordPress installation posed security risks and performance issues
 - **Poor user experience** - Slow loading times, outdated design, and suboptimal mobile responsiveness
 - **Limited content management** - Staff struggled to make updates using the complex, outdated system
-    
 
 ## My Solution
 
@@ -60,7 +60,6 @@ I executed a complete platform migration that transformed both the technical fou
 - Provided the foundation with an intuitive content management system
 - Enabled staff to easily make updates and add content without technical expertise
 - Established a reliable, mainstream platform for long-term sustainability
-    
 
 ## Results
 

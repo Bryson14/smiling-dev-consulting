@@ -27,29 +27,37 @@ const recentProject = sortedProjects[0];
 const recentBlogs = sortedPosts.slice(0, 2);
 ---
 
-<MainLayout 
+<MainLayout
   title="Page Not Found - 404"
   description="Sorry, we couldn't find the page you're looking for. Check out our recent projects and blog posts instead."
 >
-  <div class="min-h-screen bg-gradient-to-b from-background to-muted/20 dark:from-background dark:to-muted/20 py-12 px-4">
+  <div
+    class="min-h-screen bg-gradient-to-b from-background to-muted/20 dark:from-background dark:to-muted/20 py-12 px-4"
+  >
     <div class="container mx-auto max-w-4xl">
       <!-- 404 Header -->
       <div class="text-center mb-16">
         <div class="mb-8">
-          <h1 class="text-6xl md:text-8xl font-bold text-primary dark:text-primary mb-4">
+          <h1
+            class="text-6xl md:text-8xl font-bold text-primary dark:text-primary mb-4"
+          >
             404
           </h1>
-          <p class="text-xl md:text-2xl font-semibold text-foreground dark:text-foreground mb-2">
+          <p
+            class="text-xl md:text-2xl font-semibold text-foreground dark:text-foreground mb-2"
+          >
             Page Not Found
           </p>
-          <p class="text-lg text-muted-foreground dark:text-muted-foreground max-w-2xl mx-auto">
-            The page you're looking for doesn't exist or may have been moved. But don't worry—here's some of our latest work to get you back on track.
+          <p
+            class="text-lg text-muted-foreground dark:text-muted-foreground max-w-2xl mx-auto"
+          >
+            The page you're looking for doesn't exist or may have been moved.
+            But don't worry—here's some of our latest work to get you back on
+            track.
           </p>
         </div>
         <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-          <Button href="/" variant="default">
-            Back to Home
-          </Button>
+          <Button href="/" variant="default"> Back to Home </Button>
           <Button href="/blog" variant="secondary">
             View All Blog Posts
           </Button>
@@ -59,103 +67,122 @@ const recentBlogs = sortedPosts.slice(0, 2);
       <!-- Recent Content Section -->
       <div class="space-y-12 mt-16">
         <!-- Featured Project -->
-        {recentProject && (
-          <div class="bg-white dark:bg-slate-900 rounded-lg border border-border dark:border-border shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-            <div class="p-8 md:p-10">
-              <div class="inline-block px-3 py-1 bg-primary/10 dark:bg-primary/20 rounded-full mb-4">
-                <span class="text-sm font-semibold text-primary dark:text-primary">Latest Project</span>
-              </div>
-              <h2 class="text-3xl md:text-4xl font-bold text-foreground dark:text-foreground mb-4">
-                {recentProject.data.title}
-              </h2>
-              <p class="text-lg text-muted-foreground dark:text-muted-foreground mb-6 leading-relaxed">
-                {recentProject.data.description}
-              </p>
-              {recentProject.data.technologies && recentProject.data.technologies.length > 0 && (
-                <div class="mb-6">
-                  <p class="text-sm font-semibold text-foreground dark:text-foreground mb-2">Technologies Used:</p>
-                  <div class="flex flex-wrap gap-2">
-                    {recentProject.data.technologies.map((tech: string) => (
-                      <span class="px-3 py-1 bg-secondary/50 dark:bg-secondary/50 rounded-full text-sm text-foreground dark:text-foreground">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+        {
+          recentProject && (
+            <div class="bg-white dark:bg-slate-900 rounded-lg border border-border dark:border-border shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div class="p-8 md:p-10">
+                <div class="inline-block px-3 py-1 bg-primary/10 dark:bg-primary/20 rounded-full mb-4">
+                  <span class="text-sm font-semibold text-primary dark:text-primary">
+                    Latest Project
+                  </span>
                 </div>
-              )}
-              <div class="flex flex-col sm:flex-row gap-4 mt-8">
-                <Button href={`/projects/${recentProject.data.slug}`} variant="default">
-                  View Project Details
-                </Button>
-                <Button href="/projects" variant="secondary">
-                  See All Projects
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <!-- Recent Blog Posts -->
-        <div>
-          <h3 class="text-2xl md:text-3xl font-bold text-foreground dark:text-foreground mb-6">
-            Latest Blog Posts
-          </h3>
-          <div class="grid gap-6 md:grid-cols-2">
-            {recentBlogs.map((post) => {
-              const pubDate = new Date(post.data.updateDate || post.data.pubDate);
-              const formattedDate = pubDate.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              });
-
-              return (
-                <a
-                  href={`/blog/${post.data.slug}`}
-                  class="group bg-white dark:bg-slate-900 rounded-lg border border-border dark:border-border p-6 hover:shadow-lg transition-all hover:border-primary dark:hover:border-primary"
-                >
-                  <div class="flex flex-col h-full">
-                    <p class="text-sm text-muted-foreground dark:text-muted-foreground mb-2">
-                      {formattedDate}
-                    </p>
-                    <h4 class="text-xl font-bold text-foreground dark:text-foreground mb-3 group-hover:text-primary dark:group-hover:text-primary transition-colors line-clamp-2">
-                      {post.data.title}
-                    </h4>
-                    <p class="text-muted-foreground dark:text-muted-foreground mb-4 flex-grow line-clamp-3">
-                      {post.data.description}
-                    </p>
-                    {post.data.keywords && post.data.keywords.length > 0 && (
-                      <div class="flex flex-wrap gap-2 mt-auto pt-4">
-                        {post.data.keywords.slice(0, 2).map((tag: string) => (
-                          <span class="text-xs px-2 py-1 bg-secondary/50 dark:bg-secondary/50 rounded text-foreground dark:text-foreground">
-                            {tag}
+                <h2 class="text-3xl md:text-4xl font-bold text-foreground dark:text-foreground mb-4">
+                  {recentProject.data.title}
+                </h2>
+                <p class="text-lg text-muted-foreground dark:text-muted-foreground mb-6 leading-relaxed">
+                  {recentProject.data.description}
+                </p>
+                {recentProject.data.technologies &&
+                  recentProject.data.technologies.length > 0 && (
+                    <div class="mb-6">
+                      <p class="text-sm font-semibold text-foreground dark:text-foreground mb-2">
+                        Technologies Used:
+                      </p>
+                      <div class="flex flex-wrap gap-2">
+                        {recentProject.data.technologies.map((tech: string) => (
+                          <span class="px-3 py-1 bg-secondary/50 dark:bg-secondary/50 rounded-full text-sm text-foreground dark:text-foreground">
+                            {tech}
                           </span>
                         ))}
                       </div>
-                    )}
-                  </div>
-                </a>
-              );
-            })}
+                    </div>
+                  )}
+                <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                  <Button
+                    href={`/projects/${recentProject.data.slug}`}
+                    variant="default"
+                  >
+                    View Project Details
+                  </Button>
+                  <Button href="/projects" variant="secondary">
+                    See All Projects
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )
+        }
+
+        <!-- Recent Blog Posts -->
+        <div>
+          <h3
+            class="text-2xl md:text-3xl font-bold text-foreground dark:text-foreground mb-6"
+          >
+            Latest Blog Posts
+          </h3>
+          <div class="grid gap-6 md:grid-cols-2">
+            {
+              recentBlogs.map((post) => {
+                const pubDate = new Date(
+                  post.data.updateDate || post.data.pubDate,
+                );
+                const formattedDate = pubDate.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                });
+
+                return (
+                  <a
+                    href={`/blog/${post.data.slug}`}
+                    class="group bg-white dark:bg-slate-900 rounded-lg border border-border dark:border-border p-6 hover:shadow-lg transition-all hover:border-primary dark:hover:border-primary"
+                  >
+                    <div class="flex flex-col h-full">
+                      <p class="text-sm text-muted-foreground dark:text-muted-foreground mb-2">
+                        {formattedDate}
+                      </p>
+                      <h4 class="text-xl font-bold text-foreground dark:text-foreground mb-3 group-hover:text-primary dark:group-hover:text-primary transition-colors line-clamp-2">
+                        {post.data.title}
+                      </h4>
+                      <p class="text-muted-foreground dark:text-muted-foreground mb-4 flex-grow line-clamp-3">
+                        {post.data.description}
+                      </p>
+                      {post.data.keywords && post.data.keywords.length > 0 && (
+                        <div class="flex flex-wrap gap-2 mt-auto pt-4">
+                          {post.data.keywords.slice(0, 2).map((tag: string) => (
+                            <span class="text-xs px-2 py-1 bg-secondary/50 dark:bg-secondary/50 rounded text-foreground dark:text-foreground">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </a>
+                );
+              })
+            }
           </div>
         </div>
       </div>
 
       <!-- Footer CTA -->
-      <div class="mt-16 pt-12 border-t border-border dark:border-border text-center">
-        <h3 class="text-2xl font-bold text-foreground dark:text-foreground mb-4">
+      <div
+        class="mt-16 pt-12 border-t border-border dark:border-border text-center"
+      >
+        <h3
+          class="text-2xl font-bold text-foreground dark:text-foreground mb-4"
+        >
           Need help with your project?
         </h3>
-        <p class="text-lg text-muted-foreground dark:text-muted-foreground mb-6 max-w-2xl mx-auto">
-          We specialize in web development, AI integration, and technical consulting. Let's turn your ideas into reality.
+        <p
+          class="text-lg text-muted-foreground dark:text-muted-foreground mb-6 max-w-2xl mx-auto"
+        >
+          We specialize in web development, AI integration, and technical
+          consulting. Let's turn your ideas into reality.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button href="/contact" variant="default">
-            Get in Touch
-          </Button>
-          <Button href="/services" variant="secondary">
-            Our Services
-          </Button>
+          <Button href="/contact" variant="default"> Get in Touch </Button>
+          <Button href="/services" variant="secondary"> Our Services </Button>
         </div>
       </div>
     </div>

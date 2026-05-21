@@ -4,8 +4,10 @@ import MainLayout from "@/layouts/main.astro";
 import ImportanceCodeProposalContent from "@/components/ImportanceCodeProposalContent.astro";
 
 // Get credentials from environment variables
-const VALID_USERNAME = import.meta.env.PROPOSAL_IMPORTANCE_CODE_USERNAME || "client";
-const VALID_PASSWORD = import.meta.env.PROPOSAL_IMPORTANCE_CODE_PASSWORD || "phase3";
+const VALID_USERNAME =
+  import.meta.env.PROPOSAL_IMPORTANCE_CODE_USERNAME || "client";
+const VALID_PASSWORD =
+  import.meta.env.PROPOSAL_IMPORTANCE_CODE_PASSWORD || "phase3";
 
 let isAuthenticated = false;
 let error = "";
@@ -42,10 +44,14 @@ if (!isAuthenticated) {
 }
 ---
 
-<MainLayout title="Private Proposal - Importance Code" description="Private proposal document">
+<MainLayout
+  title="Private Proposal - Importance Code"
+  description="Private proposal document"
+>
   <meta name="robots" content="noindex, nofollow" slot="head" />
-    {!isAuthenticated ? (
-      <!-- Login Form -->
+  {
+    !isAuthenticated ? (
+      // <!-- Login Form -->
       <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
         <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 w-full max-w-sm mx-4 border border-gray-200 dark:border-gray-700">
           <div class="mb-6 text-center">
@@ -62,7 +68,7 @@ if (!isAuthenticated) {
                   stroke-linejoin="round"
                   stroke-width="2"
                   d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                ></path>
+                />
               </svg>
             </div>
             <h1 class="text-xl font-bold text-gray-900 dark:text-white">
@@ -108,9 +114,7 @@ if (!isAuthenticated) {
             </div>
 
             {error && (
-              <p class="text-sm text-red-600 dark:text-red-400">
-                {error}
-              </p>
+              <p class="text-sm text-red-600 dark:text-red-400">{error}</p>
             )}
 
             <button
@@ -123,7 +127,8 @@ if (!isAuthenticated) {
         </div>
       </div>
     ) : (
-      <!-- Proposal Content -->
+      // <!-- Proposal Content -->
       <ImportanceCodeProposalContent />
-    )}
+    )
+  }
 </MainLayout>

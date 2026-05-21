@@ -7,82 +7,121 @@ import MainLayout from "../../layouts/main.astro";
 import "@/styles/blog.css";
 
 export async function getStaticPaths() {
-	const projects = await getCollection("projects");
-	return projects.map((project) => ({
-		params: { project: project.data.slug },
-		props: { project },
-	}));
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { project: project.data.slug },
+    props: { project },
+  }));
 }
 
 const { project } = Astro.props;
 const { Content } = await render(project);
 
 const formattedDate = project.data.updateDate?.toLocaleDateString("en-US", {
-	year: "numeric",
-	month: "long",
-	day: "numeric",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
 });
 
 // Get the image URL for OpenGraph/JSON-LD
-const imageUrl = project.data.image ? new URL(project.data.image.src, Astro.url.origin).href : undefined;
+const imageUrl = project.data.image
+  ? new URL(project.data.image.src, Astro.url.origin).href
+  : undefined;
 ---
 
-<MainLayout 
-  title={`${project.data.title} | Project | Smiling Dev Consulting`} 
+<MainLayout
+  title={`${project.data.title} | Project | Smiling Dev Consulting`}
   description={project.data.description}
   image={imageUrl}
   type="article"
 >
   <article class="container mx-auto px-4 py-12 max-w-3xl">
     <nav class="mb-8 text-sm text-muted-foreground">
-      <a href="/projects" class="hover:text-primary transition-colors">← Back to Projects</a>
+      <a href="/projects" class="hover:text-primary transition-colors"
+        >← Back to Projects</a
+      >
     </nav>
 
     <div class="mb-8">
-      <h1 class="text-4xl font-bold mb-2 text-foreground dark:text-foreground">{project.data.title}</h1>
-      <div class="flex flex-wrap items-center gap-4 text-muted-foreground dark:text-muted-foreground mb-4">
-        <span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold uppercase tracking-wide">{project.data.status}</span>
+      <h1 class="text-4xl font-bold mb-2 text-foreground dark:text-foreground">
+        {project.data.title}
+      </h1>
+      <div
+        class="flex flex-wrap items-center gap-4 text-muted-foreground dark:text-muted-foreground mb-4"
+      >
+        <span
+          class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-semibold uppercase tracking-wide"
+          >{project.data.status}</span
+        >
         <span>•</span>
         <span>Last updated: {formattedDate}</span>
       </div>
-      <p class="text-xl text-muted-foreground dark:text-muted-foreground mb-4">{project.data.description}</p>
-      {project.data.image && (
-        <div class="mb-6">
-          <img
-            src={project.data.image.src}
-            alt={project.data.title}
-            class="rounded-lg shadow-lg w-full max-h-96 object-cover"
-          />
-        </div>
-      )}
+      <p class="text-xl text-muted-foreground dark:text-muted-foreground mb-4">
+        {project.data.description}
+      </p>
+      {
+        project.data.image && (
+          <div class="mb-6">
+            <img
+              src={project.data.image.src}
+              alt={project.data.title}
+              class="rounded-lg shadow-lg w-full max-h-96 object-cover"
+            />
+          </div>
+        )
+      }
       <div class="flex flex-wrap gap-2 mb-4">
-        {project.data.technologies?.map((tech) => (
-          <span class="px-3 py-1 bg-muted dark:bg-muted text-primary dark:text-primary rounded-full text-xs font-medium">{tech}</span>
-        ))}
+        {
+          project.data.technologies?.map((tech) => (
+            <span class="px-3 py-1 bg-muted dark:bg-muted text-primary dark:text-primary rounded-full text-xs font-medium">
+              {tech}
+            </span>
+          ))
+        }
       </div>
       <div class="flex flex-wrap gap-2 mb-4">
-        {project.data.keywords?.map((kw) => (
-          <span class="px-2 py-1 bg-muted/50 dark:bg-muted/70 text-muted-foreground dark:text-muted-foreground rounded text-xs">{kw}</span>
-        ))}
+        {
+          project.data.keywords?.map((kw) => (
+            <span class="px-2 py-1 bg-muted/50 dark:bg-muted/70 text-muted-foreground dark:text-muted-foreground rounded text-xs">
+              {kw}
+            </span>
+          ))
+        }
       </div>
-      {project.data.websiteLink && (
-        <div class="mb-4">
-          <a 
-            href={project.data.websiteLink} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 text-primary hover:text-primary/80 dark:hover:text-primary/80 transition-colors font-medium"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-            Visit Website
-          </a>
-        </div>
-      )}
-      <SocialShare title={project.data.title} description={project.data.description} url={Astro.url.href} />
+      {
+        project.data.websiteLink && (
+          <div class="mb-4">
+            <a
+              href={project.data.websiteLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-primary hover:text-primary/80 dark:hover:text-primary/80 transition-colors font-medium"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              Visit Website
+            </a>
+          </div>
+        )
+      }
+      <SocialShare
+        title={project.data.title}
+        description={project.data.description}
+        url={Astro.url.href}
+      />
     </div>
 
     <div class="prose prose-lg dark:prose-invert max-w-none mb-12">
@@ -91,12 +130,21 @@ const imageUrl = project.data.image ? new URL(project.data.image.src, Astro.url.
 
     <div class="mt-16 pt-8 border-t border-border dark:border-border">
       <div class="mb-8 p-8 bg-muted/30 dark:bg-muted/20 rounded-lg text-center">
-        <h3 class="text-2xl font-bold mb-2 text-foreground dark:text-foreground">Interested in how to make your own custom website?</h3>
-        <p class="text-muted-foreground dark:text-muted-foreground mb-6">Let's discuss how we can build something amazing for your project.</p>
+        <h3
+          class="text-2xl font-bold mb-2 text-foreground dark:text-foreground"
+        >
+          Interested in how to make your own custom website?
+        </h3>
+        <p class="text-muted-foreground dark:text-muted-foreground mb-6">
+          Let's discuss how we can build something amazing for your project.
+        </p>
         <Button href="/contact" variant="default">Get in Touch</Button>
       </div>
       <div class="text-center">
-        <a href="/projects" class="inline-flex items-center gap-2 text-primary hover:text-primary/80 dark:hover:text-primary/80 transition-colors font-medium">
+        <a
+          href="/projects"
+          class="inline-flex items-center gap-2 text-primary hover:text-primary/80 dark:hover:text-primary/80 transition-colors font-medium"
+        >
           ← View all projects
         </a>
       </div>

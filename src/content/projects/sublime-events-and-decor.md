@@ -17,6 +17,7 @@ image: src/content/images/sublime-decor-landing-page.webp
 featured: false
 websiteLink: https://sublimeeventsdecor.com
 ---
+
 ## Project Overview
 
 I helped Sublime Events & Decor establish a comprehensive digital presence to support their transition from word-of-mouth referrals to professional marketing and client acquisition. This project created a complete business management platform that showcases their diverse event services while streamlining operations.
@@ -32,7 +33,6 @@ Sublime Events & Decor was experiencing organic growth beyond their initial frie
 - **Manual processes** - No systematic way to manage bookings, payments, or client communications
 - **Diverse services** - Needed to effectively present multiple service categories including balloon arrangements, event decor, furniture rentals, and cultural wedding attire
 - **Growing demand** - Required efficient systems to handle increasing client inquiries and bookings
-    
 
 ## My Solution
 
@@ -65,7 +65,6 @@ I designed a comprehensive digital business platform that addressed both marketi
 - Provided clear service descriptions and pricing information
 - Created an intuitive user experience for potential clients
 - Enabled easy content updates and portfolio additions
-    
 
 ## Results & Impact
 
@@ -90,7 +89,6 @@ The digital transformation delivered significant business growth and operational
 - Professional platform supporting premium pricing
 - Scalable systems to handle increasing demand
 - Foundation for continued digital marketing efforts
-    
 
 ## Long-term Value
 

@@ -1,23 +1,23 @@
 ---
 interface Props {
-	title: string;
-	description: string;
-	image?: string;
-	canonicalUrl?: string;
-	type?: "website" | "article";
+  title: string;
+  description: string;
+  image?: string;
+  canonicalUrl?: string;
+  type?: "website" | "article";
 }
 
 const {
-	title,
-	description,
-	image = "/smiling-dev-logo-small.png",
-	canonicalUrl = Astro.url.href,
-	type = "website",
+  title,
+  description,
+  image = "/smiling-dev-logo-small.png",
+  canonicalUrl = Astro.url.href,
+  type = "website",
 } = Astro.props;
 
 const siteTitle = title.includes("Smiling Dev")
-	? title
-	: `${title} - Smiling Dev Consulting`;
+  ? title
+  : `${title} - Smiling Dev Consulting`;
 ---
 
 <!-- Global Metadata -->
@@ -47,9 +47,9 @@ const siteTitle = title.includes("Smiling Dev")
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
 <!-- RSS Feed -->
-<link 
-  rel="alternate" 
-  type="application/rss+xml" 
+<link
+  rel="alternate"
+  type="application/rss+xml"
   title="Smiling Dev Blog RSS Feed"
   href="/rss.xml"
 />
@@ -58,31 +58,37 @@ const siteTitle = title.includes("Smiling Dev")
 <link rel="sitemap" href="/sitemap-index.xml" />
 
 <!-- LLM & Agent Discovery -->
-<link 
-  rel="alternate" 
-  type="text/markdown" 
+<link
+  rel="alternate"
+  type="text/markdown"
   title="Curated content for LLM/AI agents"
-  href="/llms.txt" 
+  href="/llms.txt"
 />
-<link 
-  rel="alternate" 
-  type="text/markdown" 
+<link
+  rel="alternate"
+  type="text/markdown"
   title="Complete content with full articles"
-  href="/llms-full.txt" 
+  href="/llms-full.txt"
 />
-<link 
-  rel="alternate" 
-  type="text/markdown" 
+<link
+  rel="alternate"
+  type="text/markdown"
   title="Sitemap in markdown format"
-  href="/sitemap.md" 
+  href="/sitemap.md"
 />
 
 <!-- Preload common assets -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=League+Gothic:wdth@75..100&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=League+Gothic:wdth@75..100&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=League+Gothic:wdth@75..100&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=League+Gothic:wdth@75..100&family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+  rel="stylesheet"
+/>
 
 <!-- Preload critical images -->
 <link rel="preload" as="image" href="/smiling-dev-logo-small.png" />

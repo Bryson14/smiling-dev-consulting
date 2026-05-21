@@ -17,6 +17,7 @@ keywords:
   - Benchmarking
 image: src/content/images/sudoku-rust.png
 ---
+
 I’ll take you through the process of optimizing a Sudoku solver written in Rust. We’ll start with a simple, unoptimized version and apply a series of optimizations that will take the time to solve 100,000 puzzles from over 5 minutes down to just 33 seconds, and 20,000 of the hardest puzzles from over 2 minutes down to just 17 seconds.
 
 ### The Setup
@@ -32,13 +33,9 @@ The second part of the line is the puzzle itself, where `0` represents an empty 
 The basic flow of the program is:
 
 1.  Read the puzzle file.
-    
 2.  For each line, parse the puzzle string into a `Board` struct.
-    
 3.  Call the `solve` function on the board.
-    
 4.  Print the statistics.
-    
 
 ### The Benchmarks
 
@@ -52,10 +49,8 @@ Our starting point was a straightforward backtracking solver. The solver would r
 
 While this approach worked, it was slow. The initial benchmark for solving 100,000 easy puzzles was **5 minutes and 26 seconds**, and 20,000 of the hardest puzzles took **2 minutes and 18 seconds**. The main culprits for this slow performance were:
 
-*   **Excessive Cloning**: The board state was cloned for every single step of the recursion.
-    
-*   **Frequent Allocations**: Functions that fetched rows, columns, and sections of the board were returning new vectors (`Vec`s), leading to frequent memory allocations.
-    
+- **Excessive Cloning**: The board state was cloned for every single step of the recursion.
+- **Frequent Allocations**: Functions that fetched rows, columns, and sections of the board were returning new vectors (`Vec`s), leading to frequent memory allocations.
 
 Here is what the initial `solve` function looked like:
 
@@ -103,7 +98,6 @@ if let Some(option_values) = options {
 The first step was to reduce the memory overhead. We did this by:
 
 1.  **Removing** `board.clone()`: Instead of cloning the board for each recursive call, we modified the `solve` function to use a mutable reference (`&mut Board`). This single change had a huge impact on performance.
-    
 
 **Before:**
 
@@ -118,9 +112,7 @@ if solve(board).is_ok() { ... }
 ```
 
 1.  **Using Iterators**: The `get_row`, `get_col`, and `get_section` functions were refactored to return iterators instead of new vectors. This avoided unnecessary memory allocations.
-    
 2.  **Before:**
-    
 
 ```
 pub fn get_row(&self, row: usize) -> Vec<Option<NonZeroU8>> {
@@ -130,7 +122,6 @@ pub fn get_row(&self, row: usize) -> Vec<Option<NonZeroU8>> {
 ```
 
 1.  **After:**
-    
 
 ```
 pub fn get_row(&self, row: usize) -> &[Option<NonZeroU8>] {
@@ -140,9 +131,7 @@ pub fn get_row(&self, row: usize) -> &[Option<NonZeroU8>] {
 ```
 
 1.  **Optimizing Option Lookups**: The `get_options` function, which finds valid numbers for a cell, was optimized to use a boolean array for faster lookups, instead of searching through vectors.
-    
 2.  **Before:**
-    
 
 ```
 let options: Vec<NonZeroU8> = (1..=self.max_value.get())
@@ -154,7 +143,6 @@ let options: Vec<NonZeroU8> = (1..=self.max_value.get())
 ```
 
 1.  **After:**
-    
 
 ```
 let mut used = vec![false; self.max_value.get() as usize + 1];
@@ -228,7 +216,7 @@ pub fn solve(board: &mut Board) -> Result<(), String> {
 }
 ```
 
-And criterion shows the same regression. I think the skew and larger variance in the benchmark is the most noticable that we are hitting non-deterministic data sharing between the threads. **Turns out that parallel code can easily make your code slower if you’re not thinking.**  
+And criterion shows the same regression. I think the skew and larger variance in the benchmark is the most noticable that we are hitting non-deterministic data sharing between the threads. **Turns out that parallel code can easily make your code slower if you’re not thinking.**
 
 ![](https://cdn-images-1.medium.com/max/800/1*GCQNMGkKHAJS4G7PcR1Itw.png)
 
@@ -328,16 +316,11 @@ pub fn set_cell(&mut self, row: usize, col: usize, val: Option<NonZeroU8>) {
 
 This journey of optimization highlights several key principles of writing high-performance code:
 
-*   **Choose the right data structures and algorithms**: The move from `Vec`s to iterators and the introduction of the `eliminate` function had the 2nd biggest impact.
-    
-*   **Profile your code**: Understanding where the bottlenecks are is crucial for effective optimization.
-    
-*   **Parallelism is not a silver bullet**: The overhead of parallelism can sometimes make your code slower. It’s important to choose the right parallelization strategy for your problem.
-    
-*   **A little logic can save a lot of time**: The simple `eliminate` function provided a massive performance boost by reducing the search space for the more expensive backtracking algorithm. Small Cloning made a small difference, but improving the number of times to scan the puzzle was more important.
-    
-*   **In further optimizations**, I’d want to eliminate much of the iteration over the table, calling `get_options()` for the entire board first, then using those for a speedy test and insert.
-    
+- **Choose the right data structures and algorithms**: The move from `Vec`s to iterators and the introduction of the `eliminate` function had the 2nd biggest impact.
+- **Profile your code**: Understanding where the bottlenecks are is crucial for effective optimization.
+- **Parallelism is not a silver bullet**: The overhead of parallelism can sometimes make your code slower. It’s important to choose the right parallelization strategy for your problem.
+- **A little logic can save a lot of time**: The simple `eliminate` function provided a massive performance boost by reducing the search space for the more expensive backtracking algorithm. Small Cloning made a small difference, but improving the number of times to scan the puzzle was more important.
+- **In further optimizations**, I’d want to eliminate much of the iteration over the table, calling `get_options()` for the entire board first, then using those for a speedy test and insert.
 
 By applying these principles, we were able to take our Sudoku solver from a slow, 5-minute process to a highly optimized solver that can crack 100,000 easy puzzles in just 33 seconds, and 20,000 of the most diabolical puzzles in under 18 seconds. 
 

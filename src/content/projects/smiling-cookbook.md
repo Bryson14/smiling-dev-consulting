@@ -5,23 +5,23 @@ description: A personal recipe and food blog website built with Astro static sit
 status: Active
 updateDate: 2026-03-15
 keywords:
-    - astro
-    - static-site-generation
-    - cloudflare-workers
-    - pages-cms
-    - markdown
-    - github-integration
-    - content-management
-    - monetization
-technologies: 
-    - astro
-    - cloudflare workers
-    - cloudflare pages
-    - pages cms
-    - github
-    - markdown
-    - frontmatter
-    - tailwind css
+  - astro
+  - static-site-generation
+  - cloudflare-workers
+  - pages-cms
+  - markdown
+  - github-integration
+  - content-management
+  - monetization
+technologies:
+  - astro
+  - cloudflare workers
+  - cloudflare pages
+  - pages cms
+  - github
+  - markdown
+  - frontmatter
+  - tailwind css
 featured: true
 image: src/content/images/smiling-cookbook-hero.png
 websiteLink: https://cookbook.smiling.dev

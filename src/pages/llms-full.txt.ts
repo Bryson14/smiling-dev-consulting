@@ -15,7 +15,7 @@ const cleanContent = (content: string): string => {
   // Clean up MDX-specific imports
   cleanedContent = cleanedContent.replace(
     /import\s+.*\s+from\s+['"].*['"];?\s*/g,
-    ""
+    "",
   );
 
   // Remove MDX component declarations
@@ -49,11 +49,13 @@ export const GET: APIRoute = async () => {
 
   let llmData = "";
   llmData += "# Smiling Dev Consulting - Full Content\n\n";
-  llmData += "> Complete documentation with full blog posts and project details for deep context.\n\n";
+  llmData +=
+    "> Complete documentation with full blog posts and project details for deep context.\n\n";
 
   // Projects section with full details
   llmData += "## Projects\n\n";
-  llmData += "A comprehensive list of projects we've worked on, including descriptions, technologies used, and key details.\n\n";
+  llmData +=
+    "A comprehensive list of projects we've worked on, including descriptions, technologies used, and key details.\n\n";
 
   sortedProjects.forEach((project) => {
     llmData += `### ${project.data.title}\n\n`;
@@ -65,11 +67,14 @@ export const GET: APIRoute = async () => {
 
   // Blog posts section with full content
   llmData += "## Blog Posts\n\n";
-  llmData += "Full content of all blog posts with metadata for comprehensive understanding.\n\n";
+  llmData +=
+    "Full content of all blog posts with metadata for comprehensive understanding.\n\n";
 
   for (const post of sortedPosts) {
     const pubDate = new Date(post.data.pubDate || "").toLocaleDateString();
-    const updateDate = new Date(post.data.updateDate || post.data.pubDate || "").toLocaleDateString();
+    const updateDate = new Date(
+      post.data.updateDate || post.data.pubDate || "",
+    ).toLocaleDateString();
 
     llmData += `## ${post.data.title}\n\n`;
     llmData += `**URL**: https://smiling.dev/blog/${post.data.slug}\n`;

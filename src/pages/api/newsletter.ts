@@ -22,7 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
     if (!email || !email.includes("@")) {
       return new Response(
         JSON.stringify({ message: "Invalid email address" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
@@ -48,7 +48,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!response.ok) {
       throw new Error(
-        `Failed to submit to Formspree: ${response.status} ${responseText}`
+        `Failed to submit to Formspree: ${response.status} ${responseText}`,
       );
     }
 
@@ -60,19 +60,18 @@ export const POST: APIRoute = async ({ request }) => {
       {
         status: 200,
         headers: { "Content-Type": "application/json" },
-      }
+      },
     );
   } catch (error) {
     console.error("Newsletter subscription error:", error);
     return new Response(
       JSON.stringify({
-        message:
-          error instanceof Error ? error.message : "Failed to subscribe",
+        message: error instanceof Error ? error.message : "Failed to subscribe",
       }),
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
-      }
+      },
     );
   }
 };

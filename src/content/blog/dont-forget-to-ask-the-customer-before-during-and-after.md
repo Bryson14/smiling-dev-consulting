@@ -20,8 +20,9 @@ keywords:
   - entrepreneurship
 image: src/content/images/ask-the-customer.jpg
 ---
-![](https://miro.medium.com/v2/resize:fit:500/1*mVH46i8ccrRj4SQ1_NXfRA@2x.jpeg)  
-  
+
+![](https://miro.medium.com/v2/resize:fit:500/1*mVH46i8ccrRj4SQ1_NXfRA@2x.jpeg)
+
 I just wanna put this out as a PSA that you should be writing and making products that work well AND they solve a end user frustration.
 
 Seems stupid to say this until your realize how easy it is for a project at work to carry on 6 month ( or even years!!! ) without getting substantial and valid criticism and feedback.
@@ -47,13 +48,9 @@ No one likes to feel like their work is an important. But we also want to feel l
 I am discovering little by little that the same lessons I learned at the ESTEEM program are still just as applicable to a master student as they are to a software developer. As a developer you have multiple “customers” you have to satisfy:
 
 1.  The Customer — they might be on the company, they might be on the other side of the world paying $2 for your business micro transactions. They needs to buy the product and hopefully keep buying.
-    
 2.  The business — its bottom line is profit. Can your work efforts bring profit? Sadly, we all are cogs in someone’s wheel.
-    
 3.  Your manager — They need to prove to the business that they are bringing profit and value because of their ideas, management, project, and team. Great managers are a delight to work with/ for. Sucky managers drag you down with their own inability to align incentives and see the bigger picture.
-    
 4.  Your team — they need to prove that they provide value themselves and keep their job. They are looking for workplace satisfaction and a paycheck just as much as you are. Uplift them as you watch out for your own interest.
-    
 
 The “customer” is always a dynamic term depending on perspective. You will have to satisfy/ delight the customer if you want to keep a job, build a team, or sell your product. Keep that in mind.
 
@@ -70,15 +67,10 @@ I guess that’s kind of the beauty entrepreneurship is there’s no one right w
 Hear the basics:
 
 1.  Ask yourself how can I deliver value? If that value is completing a bunch of Jira tickets, that’s great. If you’re starting a Greenfield project, be sure to ask the customer where they actually want to use this. And also ask them.
-    
 2.  Beware of the XY problem. Sometimes customers say they want one thing, but they really want another. This takes a little bit of experience to see, but you’ll notice it when in the beginning of projects you don’t have something totally firm down or the customers are describing a problem they think they have. One of the most famous characterizations of this is when Ford said, “If I had asked people what they wanted, they would have said faster horses.”
-    
 3.  In the beginning, iterate quickly and be unafraid to change or start over. Make a low fidelity demo (think figma, balsamiq, ugly react app, scraps of paper with labels) that you can make an iterate quickly over. Ideally, if you can do it within a day and get feedback from your end-user in a day, you doing something right.
-    
 4.  Get customer and stakeholder buy in. You can have the best idea in the world that solve someone’s problem, but if you can’t explain the idea, well, you won’t get far.
-    
 5.  What venture funds look for is the Right Team, the right Market, and the right Timing. managers will look for the same things, whether they know it or not. Do you have the right skill set to get things done, are you trying to address a problem that is worthwhile, and do you have enough time and timing to get it done?
-    
 
 # **Conclusion**
 

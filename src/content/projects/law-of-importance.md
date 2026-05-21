@@ -5,20 +5,20 @@ description: An intensive, security-first personality assessment platform with s
 status: In-Progress
 updateDate: 2026-03-15
 keywords:
-    - full-stack
-    - security-first
-    - user-authentication
-    - real-time-processing
-    - server-side-rendering
-technologies: 
-    - tanstack start
-    - react
-    - typescript
-    - supabase
-    - postgresql
-    - shadcn ui
-    - tailwind css
-    - row-level security
+  - full-stack
+  - security-first
+  - user-authentication
+  - real-time-processing
+  - server-side-rendering
+technologies:
+  - tanstack start
+  - react
+  - typescript
+  - supabase
+  - postgresql
+  - shadcn ui
+  - tailwind css
+  - row-level security
 featured: true
 image: src/content/images/law-of-importance-hero.png
 websiteLink: https://thelawofimportance.com
@@ -55,7 +55,6 @@ I designed and implemented a modern, security-focused platform using cutting-edg
 - **Limited client access** - Users restricted to viewing only their own data
 - **Authentication** - Email/password and Google OAuth integration via Supabase Auth
 - **Error monitoring** - Sentry integration for comprehensive error tracking and debugging
-    
 
 ## Design & User Experience
 
@@ -65,7 +64,6 @@ I designed and implemented a modern, security-focused platform using cutting-edg
 - **Soft gradients** - Subtle rounded corners and gradients creating contemporary feel
 - **Accessible design** - Intuitive interface designed for non-technical audiences
 - **Consistent theming** - Shadcn design tokens ensuring visual cohesion
-    
 
 ## Key Features
 
@@ -87,7 +85,6 @@ I designed and implemented a modern, security-focused platform using cutting-edg
 - **Multi-provider auth** - Email/password and Google OAuth options
 - **Seamless registration** - Integrated sign-up process with automatic user profile creation
 - **Session management** - Secure authentication state across the application
-    
 
 ## Technical Achievements
 
@@ -112,7 +109,6 @@ I designed and implemented a modern, security-focused platform using cutting-edg
 - **Transaction handling** - Complex multi-step database operations with atomic commits
 - **State management** - TanStack Router loaders and actions for efficient data flow
 - **Scalable foundation** - Architecture designed to grow with increasing user base
-    
 
 ## Development Workflow
 
@@ -122,7 +118,6 @@ I designed and implemented a modern, security-focused platform using cutting-edg
 - **Linting** - Biome for code quality and consistency
 - **Testing** - Vitest for unit and component testing
 - **Monitoring** - Sentry for production error tracking and debugging
-    
 
 ## Results & Impact
 

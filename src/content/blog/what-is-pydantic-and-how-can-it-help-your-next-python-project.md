@@ -5,29 +5,29 @@ description: For anyone that has been either living under a programming rock or 
 author: Bryson
 pubDate: 2024-10-06
 mediumLink: https://medium.com/python-in-plain-english/what-is-pydantic-and-how-can-it-help-your-next-python-project-a2d1bc01c91b
-keywords: ["Software Development", "Python" , "Software Engineering"]
+keywords: ["Software Development", "Python", "Software Engineering"]
 image: ../images/what-is-pydantic-and-how-can-it-help-your-next-python-project.webp
 ---
+
 ![Spidy knows a good validation library will help protect your local neighborhood](../images/what-is-pydantic-and-how-can-it-help-your-next-python-project.webp)
 
 Of course. Here is the text formatted in markdown.
 
 For anyone that has been either living under a programming rock or honestly has stuff to do outside of python development, you may not have heard about **Pydantic**. It's a package for data validation, object serialization and de-serialization, and class management.
 
-In my recent article, *Stop using Python like it was 15 years ago*, I mentioned you should be using Pydantic models. So now I’m going to show you what I mean. Also, just found out a little while ago that the definition of *pedantic* is:
+In my recent article, _Stop using Python like it was 15 years ago_, I mentioned you should be using Pydantic models. So now I’m going to show you what I mean. Also, just found out a little while ago that the definition of _pedantic_ is:
 
 > “someone who annoys others by correcting small errors, caring too much about minor details, or emphasizing their own expertise especially in some narrow or boring subject matter.”
 
 So this is very fitting for a medium tech article! haha
 
-
 ## What do I use it for?
 
-* Parsing incoming **data**
-* Passing around **settings**, **data**, and other information over **args**
-* Ensuring that **types** are what I expect at runtime.
+- Parsing incoming **data**
+- Passing around **settings**, **data**, and other information over **args**
+- Ensuring that **types** are what I expect at runtime.
 
-***
+---
 
 ## 1. Parsing Incoming Data
 
@@ -70,7 +70,7 @@ def handler(event, context) -> str:
 
 It's much more **clear** about **what data you are expecting**, **what is optional**, and also the Pydantic library will check the **types of these parameters** automatically!
 
-***
+---
 
 ## 2. Passing around settings, data, and other information over args
 
@@ -160,7 +160,7 @@ if __name__ == "__main__":
 
 You can even avoid having to pass around the config to each function with just a function called `get_config()` which would return the config object.
 
-***
+---
 
 ## 3. Ensure the types are what I think at runtime
 

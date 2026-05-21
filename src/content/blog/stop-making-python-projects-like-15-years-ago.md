@@ -5,16 +5,17 @@ description: I have a few things I’ve seen across companies and projects that 
 author: Bryson
 pubDate: 2024-09-28
 mediumLink: https://medium.com/gitconnected/stop-making-your-python-projects-like-it-was-15-years-ago-125436b470a5
-keywords: ["Software Development", "Python" , "Software Engineering"]
+keywords: ["Software Development", "Python", "Software Engineering"]
 image: "../images/stop-making-your-python-projects-like-it-was-15-years-ago-125436b470a5.png"
 ---
+
 ![A sad programmer thinking about the time wasted with python project management and debugging](../images/stop-making-your-python-projects-like-it-was-15-years-ago-125436b470a5.png)
 
 I have a few things I’ve seen across companies and projects that I’ve seen working with Python that are annoying, hard to maintain, and are antiquated. Lets jump right in:
 
 ## Use PyProject.toml instead of requirements.txt
 
-Don’t do it. Stop putting in your README.md 
+Don’t do it. Stop putting in your README.md
 
 > install dependencies with pip install -r requirements.txt
 
@@ -87,6 +88,7 @@ def query_db(query: SqlQuery) -> Optional[Dict[str, Any]:
 I’m tired of code I see that has functions that essentially prop drill with pieces of data that don’t change. This a data processing pipeline that has a bunch of environment variables that get looked up once and never change. Just define a pydantic class and boom, you have error handling, type checking, and can pass that around as a single argument to functions.
 
 ## Use a linter and formatter like Ruff
+
 Javascript projects have prettier and its a near standard at this point. In Python, use ruff (which copies Black’s formatting standard) and its fast. it also will lint common issues that you might have missed. this linting is not as in depth as a static analysis tool like mypy, but sure does help.
 
 While you’re add it, add a few of these opt-in rules into your pyproject.toml to make your code base even better:
@@ -118,14 +120,15 @@ split-on-trailing-commas = false
 There are many things you can add here. But is al a carte.
 
 ## Use Pytest over unittest
+
 Where is makes sense to convert, use pytest over unittest. The pytest fixtures are very helpful and composable.
 
 ## Hot Takes If You Can Manage To Sneak This Into Your Projects
+
 - Use orjson instead of the built in json library
 - Always use f strings instead of string concatonation or .format or %s formatted strings
 - Use pathlib instead of os.path
 - Use [click](https://click.palletsprojects.com/en/stable/) or [typer](https://typer.tiangolo.com/) instead of argparse or heaven forbid, sys.argv
 - Upgrade to python 3.8+
 
-
-*Thank you for coming to my soapbox Ted Talk.*
+_Thank you for coming to my soapbox Ted Talk._

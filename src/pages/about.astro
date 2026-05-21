@@ -4,84 +4,84 @@ import Button from "../components/Button.astro";
 import MainLayout from "../layouts/main.astro";
 
 const skills = [
-	{
-		category: "Web Development",
-		technologies: [
-			"React",
-			"Next.js",
-			"Astro",
-			"TypeScript",
-			"Node.js",
-			"TailwindCSS",
-		],
-	},
-	{
-		category: "Cloud & DevOps",
-		technologies: ["AWS", "Cloudflare", "Docker", "CI/CD", "Terraform"],
-	},
-	{
-		category: "AI & Integration",
-		technologies: ["OpenAI API", "LangChain", "REST APIs", "GraphQL"],
-	},
-	{
-		category: "Performance & SEO",
-		technologies: [
-			"Lighthouse",
-			"Google Analytics",
-			"Schema.org",
-			"Core Web Vitals",
-		],
-	},
+  {
+    category: "Web Development",
+    technologies: [
+      "React",
+      "Next.js",
+      "Astro",
+      "TypeScript",
+      "Node.js",
+      "TailwindCSS",
+    ],
+  },
+  {
+    category: "Cloud & DevOps",
+    technologies: ["AWS", "Cloudflare", "Docker", "CI/CD", "Terraform"],
+  },
+  {
+    category: "AI & Integration",
+    technologies: ["OpenAI API", "LangChain", "REST APIs", "GraphQL"],
+  },
+  {
+    category: "Performance & SEO",
+    technologies: [
+      "Lighthouse",
+      "Google Analytics",
+      "Schema.org",
+      "Core Web Vitals",
+    ],
+  },
 ];
 
 const experience = [
-	{
-		period: "July 2023 - Present",
-		role: "AI & Cloud Senior Engineer",
-		company: "GE Healthcare | Seattle, WA",
-		description:
-			"Led development of a new database architecture and API for a Generative AI System, resulting in a 30% increase in engineering productivity. Orchestrated migration of over 3 billion Elasticsearch documents and optimized log collection systems, reducing processing time by 95%.",
-	},
-	{
-		period: "July 2022 - July 2023",
-		role: "Edison Engineering Development Program",
-		company: "GE Healthcare | Milwaukee, WI",
-		description:
-			"Completed intensive rotational program focusing on software engineering, cloud architecture, and AI/ML applications in healthcare. Contributed to critical healthcare software systems while developing broad technical expertise.",
-	},
-	{
-		period: "Aug 2021 - Present",
-		role: "Founder & Technical Consultant",
-		company: "Smiling Dev Consulting",
-		description:
-			"Founded and operating a successful tech consultancy focused on web development, AI integration, and cloud solutions. Delivering high-impact projects for clients across various industries while maintaining excellent client satisfaction.",
-	},
-	{
-		period: "Jun 2021 - May 2022",
-		role: "Cybersecurity Healthcare Consultant",
-		company: "University of Notre Dame | South Bend, IN",
-		description:
-			"Developed comprehensive cybersecurity strategies and conducted market analysis identifying a $10.5M Total Addressable Market. Innovated new product concepts enabling market expansion into emerging cybersecurity markets.",
-	},
-	{
-		period: "Aug 2021 - July 2022",
-		role: "Software and Manufacturing Consultant",
-		company: "Enfocus | South Bend, IN",
-		description:
-			"Facilitated bi-weekly software development meetings and conducted in-depth analyses of operations. Developed strategic proposals for legacy system improvements, projecting 40% performance enhancement.",
-	},
-	{
-		period: "May 2020 - Aug 2020",
-		role: "Software Development Intern",
-		company: "Ram Aviation, Space, and Defense | St George, UT",
-		description:
-			"Boosted worker productivity through GUI redesign and modernized legacy software interfaces, resulting in a 40% increase in user satisfaction.",
-	},
+  {
+    period: "July 2023 - Present",
+    role: "AI & Cloud Senior Engineer",
+    company: "GE Healthcare | Seattle, WA",
+    description:
+      "Led development of a new database architecture and API for a Generative AI System, resulting in a 30% increase in engineering productivity. Orchestrated migration of over 3 billion Elasticsearch documents and optimized log collection systems, reducing processing time by 95%.",
+  },
+  {
+    period: "July 2022 - July 2023",
+    role: "Edison Engineering Development Program",
+    company: "GE Healthcare | Milwaukee, WI",
+    description:
+      "Completed intensive rotational program focusing on software engineering, cloud architecture, and AI/ML applications in healthcare. Contributed to critical healthcare software systems while developing broad technical expertise.",
+  },
+  {
+    period: "Aug 2021 - Present",
+    role: "Founder & Technical Consultant",
+    company: "Smiling Dev Consulting",
+    description:
+      "Founded and operating a successful tech consultancy focused on web development, AI integration, and cloud solutions. Delivering high-impact projects for clients across various industries while maintaining excellent client satisfaction.",
+  },
+  {
+    period: "Jun 2021 - May 2022",
+    role: "Cybersecurity Healthcare Consultant",
+    company: "University of Notre Dame | South Bend, IN",
+    description:
+      "Developed comprehensive cybersecurity strategies and conducted market analysis identifying a $10.5M Total Addressable Market. Innovated new product concepts enabling market expansion into emerging cybersecurity markets.",
+  },
+  {
+    period: "Aug 2021 - July 2022",
+    role: "Software and Manufacturing Consultant",
+    company: "Enfocus | South Bend, IN",
+    description:
+      "Facilitated bi-weekly software development meetings and conducted in-depth analyses of operations. Developed strategic proposals for legacy system improvements, projecting 40% performance enhancement.",
+  },
+  {
+    period: "May 2020 - Aug 2020",
+    role: "Software Development Intern",
+    company: "Ram Aviation, Space, and Defense | St George, UT",
+    description:
+      "Boosted worker productivity through GUI redesign and modernized legacy software interfaces, resulting in a 40% increase in user satisfaction.",
+  },
 ];
 ---
 
-<MainLayout 
-  title="About Bryson - Smiling Dev Consulting" 
+<MainLayout
+  title="About Bryson - Smiling Dev Consulting"
   description="Learn about Bryson's experience in tech consulting, web development, and digital transformation."
 >
   <div class="container mx-auto px-4 py-12">
@@ -90,13 +90,21 @@ const experience = [
         <div>
           <h1 class="text-4xl font-bold mb-6">About Me</h1>
           <p class="text-xl text-muted-foreground mb-6">
-            I'm Bryson, a tech consultant and full-stack developer passionate about creating impactful digital solutions that drive business growth.
+            I'm Bryson, a tech consultant and full-stack developer passionate
+            about creating impactful digital solutions that drive business
+            growth.
           </p>
           <p class="text-muted-foreground mb-6">
-            With over 8 years of experience in web development and technical consulting, I specialize in helping businesses leverage modern technology to achieve their goals. My approach combines technical expertise with business acumen to deliver solutions that not only work flawlessly but also provide real value.
+            With over 8 years of experience in web development and technical
+            consulting, I specialize in helping businesses leverage modern
+            technology to achieve their goals. My approach combines technical
+            expertise with business acumen to deliver solutions that not only
+            work flawlessly but also provide real value.
           </p>
           <p class="text-muted-foreground mb-8">
-            Whether it's building high-performance web applications, implementing AI solutions, or providing technical strategy, I'm committed to delivering excellence in every project.
+            Whether it's building high-performance web applications,
+            implementing AI solutions, or providing technical strategy, I'm
+            committed to delivering excellence in every project.
           </p>
           <div class="flex gap-4">
             <Button href="/contact">Work with Me</Button>
@@ -104,13 +112,19 @@ const experience = [
           </div>
         </div>
         <div class="relative">
-          <div class="w-full h-[600px] bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg shadow-xl flex items-center justify-center">
+          <div
+            class="w-full h-[600px] bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg shadow-xl flex items-center justify-center"
+          >
             <div class="text-center p-8">
               <h3 class="text-4xl font-bold text-primary mb-4">Smiling Dev</h3>
-              <p class="text-xl text-muted-foreground">Your Technology Partner</p>
+              <p class="text-xl text-muted-foreground">
+                Your Technology Partner
+              </p>
             </div>
           </div>
-          <div class="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-4 rounded-lg shadow-lg">
+          <div
+            class="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-4 rounded-lg shadow-lg"
+          >
             <p class="font-semibold">6+ Years Experience</p>
             <p class="text-sm">10+ Projects Delivered</p>
           </div>
@@ -120,33 +134,37 @@ const experience = [
       <div class="mb-16">
         <h2 class="text-3xl font-bold mb-8">Technical Expertise</h2>
         <div class="grid md:grid-cols-2 gap-8">
-          {skills.map(({ category, technologies }) => (
-            <div class="bg-muted/30 p-6 rounded-lg">
-              <h3 class="text-xl font-semibold mb-4">{category}</h3>
-              <div class="flex flex-wrap gap-2">
-                {technologies.map(tech => (
-                  <span class="px-3 py-1 bg-background text-primary rounded-full text-sm shadow-sm">
-                    {tech}
-                  </span>
-                ))}
+          {
+            skills.map(({ category, technologies }) => (
+              <div class="bg-muted/30 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold mb-4">{category}</h3>
+                <div class="flex flex-wrap gap-2">
+                  {technologies.map((tech) => (
+                    <span class="px-3 py-1 bg-background text-primary rounded-full text-sm shadow-sm">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
 
       <div>
         <h2 class="text-3xl font-bold mb-8">Professional Experience</h2>
         <div class="space-y-8">
-          {experience.map(({ period, role, company, description }) => (
-            <div class="relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-primary">
-              <div class="absolute left-0 top-2 w-2 h-2 bg-primary rounded-full -translate-x-[5px]"></div>
-              <p class="text-sm text-primary font-medium">{period}</p>
-              <h3 class="text-xl font-semibold mt-1">{role}</h3>
-              <p class="text-muted-foreground font-medium">{company}</p>
-              <p class="text-muted-foreground mt-2">{description}</p>
-            </div>
-          ))}
+          {
+            experience.map(({ period, role, company, description }) => (
+              <div class="relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-0.5 before:bg-primary">
+                <div class="absolute left-0 top-2 w-2 h-2 bg-primary rounded-full -translate-x-[5px]" />
+                <p class="text-sm text-primary font-medium">{period}</p>
+                <h3 class="text-xl font-semibold mt-1">{role}</h3>
+                <p class="text-muted-foreground font-medium">{company}</p>
+                <p class="text-muted-foreground mt-2">{description}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>

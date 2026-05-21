@@ -2,21 +2,23 @@
 import Button from "./Button.astro";
 
 interface Props {
-	title?: string;
-	description?: string;
-	class?: string;
+  title?: string;
+  description?: string;
+  class?: string;
 }
 
 const {
-	title = "Subscribe to Newsletter",
-	description = "Get the latest updates and insights delivered to your inbox.",
-	class: className = "",
+  title = "Subscribe to Newsletter",
+  description = "Get the latest updates and insights delivered to your inbox.",
+  class: className = "",
 } = Astro.props;
 ---
 
 <div class:list={["newsletter-form", className]}>
   <h3 class="font-semibold mb-2 dark:text-foreground">{title}</h3>
-  <p class="text-muted-foreground dark:text-muted-foreground mb-4 text-sm">{description}</p>
+  <p class="text-muted-foreground dark:text-muted-foreground mb-4 text-sm">
+    {description}
+  </p>
 
   <form id="newsletterForm" class="space-y-4">
     <div class="flex flex-col gap-3">

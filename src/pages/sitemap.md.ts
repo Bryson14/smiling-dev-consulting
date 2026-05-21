@@ -21,19 +21,24 @@ export const GET: APIRoute = async () => {
 
   let sitemapData = "";
   sitemapData += "# Smiling Dev Consulting - Sitemap\n\n";
-  sitemapData += "Complete index of all pages and content on Smiling Dev Consulting.\n\n";
+  sitemapData +=
+    "Complete index of all pages and content on Smiling Dev Consulting.\n\n";
 
   // Main pages
   sitemapData += "## Main Pages\n\n";
   sitemapData += "- [Home](https://smiling.dev/): Homepage\n";
-  sitemapData += "- [About](https://smiling.dev/about/): About Smiling Dev Consulting\n";
+  sitemapData +=
+    "- [About](https://smiling.dev/about/): About Smiling Dev Consulting\n";
   sitemapData += "- [Blog](https://smiling.dev/blog/): All blog posts\n";
-  sitemapData += "- [Projects](https://smiling.dev/projects/): Portfolio of projects\n\n";
+  sitemapData +=
+    "- [Projects](https://smiling.dev/projects/): Portfolio of projects\n\n";
 
   // LLM-specific resources
   sitemapData += "## LLM & Agent Resources\n\n";
-  sitemapData += "- [LLMs.txt](https://smiling.dev/llms.txt): Curated content index for AI agents\n";
-  sitemapData += "- [LLMs Full](https://smiling.dev/llms-full.txt): Complete content with full blog posts\n";
+  sitemapData +=
+    "- [LLMs.txt](https://smiling.dev/llms.txt): Curated content index for AI agents\n";
+  sitemapData +=
+    "- [LLMs Full](https://smiling.dev/llms-full.txt): Complete content with full blog posts\n";
   sitemapData += "- [RSS Feed](https://smiling.dev/rss.xml): Blog RSS feed\n\n";
 
   // Projects section
@@ -48,7 +53,9 @@ export const GET: APIRoute = async () => {
   // Blog posts section
   sitemapData += "## Blog Posts\n\n";
   sortedPosts.forEach((post) => {
-    const date = new Date(post.data.updateDate || post.data.pubDate).toLocaleDateString();
+    const date = new Date(
+      post.data.updateDate || post.data.pubDate,
+    ).toLocaleDateString();
     sitemapData += `- [${post.data.title}](https://smiling.dev/blog/${post.data.slug}) — *${date}*\n`;
     if (post.data.keywords && post.data.keywords.length > 0) {
       sitemapData += `  \`${post.data.keywords.slice(0, 3).join("`, `")}\`\n`;

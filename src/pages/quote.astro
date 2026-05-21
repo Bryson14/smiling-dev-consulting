@@ -5,17 +5,17 @@ import QuoteQuestionnaire from "../components/QuoteQuestionnaire";
 import JsonLd from "../components/JsonLd.astro";
 
 const quoteStructuredData = {
-	"@context": "https://schema.org",
-	"@type": "WebPage",
-	name: "Get a Project Quote - Smiling Dev Consulting",
-	description:
-		"Get a personalized quote for your web development project. Quick 3-minute questionnaire to help us understand your needs.",
-	url: Astro.url.href,
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Get a Project Quote - Smiling Dev Consulting",
+  description:
+    "Get a personalized quote for your web development project. Quick 3-minute questionnaire to help us understand your needs.",
+  url: Astro.url.href,
 };
 ---
 
-<MainLayout 
-  title="Get a Quote - Smiling Dev Consulting" 
+<MainLayout
+  title="Get a Quote - Smiling Dev Consulting"
   description="Get a personalized quote for your web development project. Quick 3-minute questionnaire to help us understand your needs."
 >
   <JsonLd data={quoteStructuredData} />

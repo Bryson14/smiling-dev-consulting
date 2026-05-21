@@ -4,37 +4,37 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/main.astro";
 
 interface TagDict {
-	name: string;
-	count: number;
-	linkList: string[];
+  name: string;
+  count: number;
+  linkList: string[];
 }
 
 export async function getStaticPaths() {
-	const tags: Record<string, TagDict> = {};
-	const posts = await getCollection("blog");
+  const tags: Record<string, TagDict> = {};
+  const posts = await getCollection("blog");
 
-	for (const post of posts) {
-		for (const tag of post.data.keywords) {
-			if (tags[tag]) {
-				tags[tag].count += 1;
-				tags[tag].linkList.push(post.data.slug);
-			} else {
-				tags[tag] = { count: 1, name: tag, linkList: [post.data.slug] };
-			}
-		}
-	}
+  for (const post of posts) {
+    for (const tag of post.data.keywords) {
+      if (tags[tag]) {
+        tags[tag].count += 1;
+        tags[tag].linkList.push(post.data.slug);
+      } else {
+        tags[tag] = { count: 1, name: tag, linkList: [post.data.slug] };
+      }
+    }
+  }
 
-	return Object.entries(tags).map(([name, data]) => ({
-		params: { tag: name.toLowerCase() },
-		props: {
-			tag: data,
-			posts: posts.filter((post) =>
-				post.data.keywords.some(
-					(keyword) => keyword.toLowerCase() === name.toLowerCase(),
-				),
-			),
-		},
-	}));
+  return Object.entries(tags).map(([name, data]) => ({
+    params: { tag: name.toLowerCase() },
+    props: {
+      tag: data,
+      posts: posts.filter((post) =>
+        post.data.keywords.some(
+          (keyword) => keyword.toLowerCase() === name.toLowerCase(),
+        ),
+      ),
+    },
+  }));
 }
 
 const { tag, posts } = Astro.props;
@@ -44,92 +44,103 @@ const { tag, posts } = Astro.props;
   title={`${tag.name} Posts - Smiling Dev Consulting`}
   description={`All blog posts tagged with ${tag.name}`}
 >
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- Header Section -->
-        <div class="mb-8">
-            <nav class="text-sm text-muted-foreground mb-4">
-                <a href="/blog" class="hover:text-primary transition-colors">Blog</a>
-                <span class="mx-2">→</span>
-                <a href="/blog/tags" class="hover:text-primary transition-colors">Tags</a>
-                <span class="mx-2">→</span>
-                <span class="text-foreground dark:text-foreground capitalize">{tag.name}</span>
-            </nav>
-            
-            <div class="flex items-center gap-4 mb-4">
-                <h1 class="text-4xl font-bold text-foreground dark:text-foreground capitalize">
-                    {tag.name}
-                </h1>
-                <span class="bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary px-3 py-1 rounded-full text-sm font-medium">
-                    {tag.count} {tag.count === 1 ? 'post' : 'posts'}
-                </span>
-            </div>
-            
-            <p class="text-muted-foreground dark:text-muted-foreground text-lg">
-                Exploring all posts tagged with "{tag.name}"
-            </p>
-        </div>
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header Section -->
+    <div class="mb-8">
+      <nav class="text-sm text-muted-foreground mb-4">
+        <a href="/blog" class="hover:text-primary transition-colors">Blog</a>
+        <span class="mx-2">→</span>
+        <a href="/blog/tags" class="hover:text-primary transition-colors"
+          >Tags</a
+        >
+        <span class="mx-2">→</span>
+        <span class="text-foreground dark:text-foreground capitalize"
+          >{tag.name}</span
+        >
+      </nav>
 
-        <!-- Posts Grid -->
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-1">
-            {posts.map((post) => (
-                <article class="bg-background dark:bg-muted rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-border dark:border-border">
-                    <div class="flex flex-col h-full">
-                        <div class="flex-grow">
-                            <h2 class="text-xl font-semibold text-foreground dark:text-foreground mb-3 leading-tight">
-                                <a 
-                                    href={`/blog/${post.data.slug}`}
-                                    class="hover:text-primary dark:hover:text-primary transition-colors"
-                                >
-                                    {post.data.title}
-                                </a>
-                            </h2>
-                            
-                            {post.data.description && (
-                                <p class="text-muted-foreground dark:text-muted-foreground mb-4 line-clamp-3">
-                                    {post.data.description}
-                                </p>
-                            )}
-                        </div>
-                        
-                        <div class="flex items-center justify-between pt-4 border-t border-border dark:border-border">
-                            <div class="flex items-center text-sm text-muted-foreground dark:text-muted-foreground">
-                                {post.data.pubDate && (
-                                    <time datetime={post.data.pubDate.toISOString()}>
-                                        {post.data.pubDate.toLocaleDateString('en-US', {
-                                            year: 'numeric',
-                                            month: 'long',
-                                            day: 'numeric'
-                                        })}
-                                    </time>
-                                )}
-                            </div>
-                            
-                            <div class="flex flex-wrap gap-1">
-                                {post.data.keywords.slice(0, 3).map((keyword) => (
-                                    <span class="inline-block bg-muted dark:bg-muted text-foreground dark:text-foreground text-xs px-2 py-1 rounded">
-                                        {keyword}
-                                    </span>
-                                ))}
-                                {post.data.keywords.length > 3 && (
-                                    <span class="text-xs text-muted-foreground dark:text-muted-foreground px-2 py-1">
-                                        +{post.data.keywords.length - 3} more
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            ))}
-        </div>
+      <div class="flex items-center gap-4 mb-4">
+        <h1
+          class="text-4xl font-bold text-foreground dark:text-foreground capitalize"
+        >
+          {tag.name}
+        </h1>
+        <span
+          class="bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary px-3 py-1 rounded-full text-sm font-medium"
+        >
+          {tag.count}
+          {tag.count === 1 ? "post" : "posts"}
+        </span>
+      </div>
 
-        <!-- Back to Tags -->
-        <div class="mt-12 text-center">
-            <a 
-                href="/blog/tags"
-                class="inline-flex items-center gap-2 text-primary hover:text-primary/80 dark:hover:text-primary/80 transition-colors font-medium"
-            >
-                ← View all tags
-            </a>
-        </div>
+      <p class="text-muted-foreground dark:text-muted-foreground text-lg">
+        Exploring all posts tagged with "{tag.name}"
+      </p>
     </div>
+
+    <!-- Posts Grid -->
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-1">
+      {
+        posts.map((post) => (
+          <article class="bg-background dark:bg-muted rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border border-border dark:border-border">
+            <div class="flex flex-col h-full">
+              <div class="flex-grow">
+                <h2 class="text-xl font-semibold text-foreground dark:text-foreground mb-3 leading-tight">
+                  <a
+                    href={`/blog/${post.data.slug}`}
+                    class="hover:text-primary dark:hover:text-primary transition-colors"
+                  >
+                    {post.data.title}
+                  </a>
+                </h2>
+
+                {post.data.description && (
+                  <p class="text-muted-foreground dark:text-muted-foreground mb-4 line-clamp-3">
+                    {post.data.description}
+                  </p>
+                )}
+              </div>
+
+              <div class="flex items-center justify-between pt-4 border-t border-border dark:border-border">
+                <div class="flex items-center text-sm text-muted-foreground dark:text-muted-foreground">
+                  {post.data.pubDate && (
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                  )}
+                </div>
+
+                <div class="flex flex-wrap gap-1">
+                  {post.data.keywords.slice(0, 3).map((keyword) => (
+                    <span class="inline-block bg-muted dark:bg-muted text-foreground dark:text-foreground text-xs px-2 py-1 rounded">
+                      {keyword}
+                    </span>
+                  ))}
+                  {post.data.keywords.length > 3 && (
+                    <span class="text-xs text-muted-foreground dark:text-muted-foreground px-2 py-1">
+                      +{post.data.keywords.length - 3} more
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- Back to Tags -->
+    <div class="mt-12 text-center">
+      <a
+        href="/blog/tags"
+        class="inline-flex items-center gap-2 text-primary hover:text-primary/80 dark:hover:text-primary/80 transition-colors font-medium"
+      >
+        ← View all tags
+      </a>
+    </div>
+  </div>
 </Layout>

@@ -5,19 +5,19 @@ description: A lightning-fast, SEO-optimized website for a premium water filtrat
 status: Active
 updateDate: 2026-01-30
 keywords:
-    - astro
-    - seo-optimization
-    - high-performance
-    - local-seo
-    - edge-computing
-technologies: 
-    - astro
-    - cloudflare workers
-    - tailwind css
-    - typescript
-    - ssr
-    - json-ld
-    - oklch colors
+  - astro
+  - seo-optimization
+  - high-performance
+  - local-seo
+  - edge-computing
+technologies:
+  - astro
+  - cloudflare workers
+  - tailwind css
+  - typescript
+  - ssr
+  - json-ld
+  - oklch colors
 featured: true
 image: src/content/images/blue-logic-water-hero.png
 websiteLink: https://bluelogicwater.com
@@ -51,7 +51,6 @@ Built with cutting-edge web technologies prioritizing speed, SEO, and user exper
 - **Modern Image Formats** - WebP and AVIF with fallbacks for optimal delivery
 - **Asset Optimization** - Pre-optimized images and compile-time processing
 - **View Transitions** - Smooth navigation with Astro's native view transitions
-    
 
 ## Design Philosophy: "High-Tech Wellness"
 
@@ -69,7 +68,6 @@ Built with cutting-edge web technologies prioritizing speed, SEO, and user exper
 - **WCAG 2.1 Level AA** - Full accessibility compliance with high contrast and semantic HTML
 - **Intuitive navigation** - Clean structure guiding users through information hierarchy
 - **Trust signals** - Transparent information architecture building credibility
-    
 
 ## Key Technical Features
 
@@ -94,7 +92,6 @@ Built with cutting-edge web technologies prioritizing speed, SEO, and user exper
 - **Product visualizations** - Animated exploded views and filter flow demonstrations
 - **Process steppers** - Visual installation roadmap components
 - **Smart hydration** - `client:visible` and `client:idle` directives for optimal performance
-    
 
 ## Performance Excellence
 
@@ -111,7 +108,6 @@ Built with cutting-edge web technologies prioritizing speed, SEO, and user exper
 - **Critical CSS inlining** - Above-the-fold styles inlined for instant rendering
 - **Resource hints** - Preconnect and prefetch for external resources
 - **Efficient bundling** - Code splitting and lazy loading for optimal payload
-    
 
 ## Advanced Architecture Patterns
 
@@ -135,7 +131,6 @@ Built with cutting-edge web technologies prioritizing speed, SEO, and user exper
 - **CI/CD pipeline** - GitHub Actions deploying to Cloudflare Pages
 - **Format & lint** - Prettier and ESLint for code quality
 - **Local development** - Hot module replacement for rapid iteration
-    
 
 ## Results & Technical Achievements
 
@@ -166,7 +161,6 @@ Built with cutting-edge web technologies prioritizing speed, SEO, and user exper
 - Accessibility-first approach meeting WCAG 2.1 standards
 - Modern color science with OKLCH for perceptual consistency
 - Responsive design optimized for mobile-majority user base
-    
 
 ## Technical Innovation
 

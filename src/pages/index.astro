@@ -5,24 +5,24 @@ import { getCollection } from "astro:content";
 import { Globe, Code, Briefcase } from "@lucide/astro";
 import Button from "../components/Button.astro";
 import TypewriterHero from "../components/TypewriterHero";
-import HeroImage from "@/content/images/isomorphic-business-icons.png"
+import HeroImage from "@/content/images/isomorphic-business-icons.png";
 import MainLayout from "../layouts/main.astro";
 
 let projects = await getCollection("projects");
 projects = projects
-	.filter((project) => project.data.featured)
-	.sort((a, b) => {
-		return (
-			new Date(b.data.updateDate).getTime() -
-			new Date(a.data.updateDate).getTime()
-		);
-	});
+  .filter((project) => project.data.featured)
+  .sort((a, b) => {
+    return (
+      new Date(b.data.updateDate).getTime() -
+      new Date(a.data.updateDate).getTime()
+    );
+  });
 ---
 
-
-
 <MainLayout>
-  <section class="relative overflow-hidden min-h-[90vh] flex items-center justify-center">
+  <section
+    class="relative overflow-hidden min-h-[90vh] flex items-center justify-center"
+  >
     <div class="absolute inset-0 opacity-30">
       <Picture
         src={HeroImage}
@@ -33,14 +33,16 @@ projects = projects
         widths={[200, 400, 800, 1600]}
       />
     </div>
-    <div class="relative container mx-auto px-4 flex items-center justify-center">
+    <div
+      class="relative container mx-auto px-4 flex items-center justify-center"
+    >
       <div class="max-w-2xl text-center">
         <div class="mb-6">
           <TypewriterHero client:load />
         </div>
         <p class="text-xl text-muted-foreground mb-8">
-          Hi, I'm Bryson. I help businesses and organizations build
-          modern, efficient, and user-friendly digital experiences.
+          Hi, I'm Bryson. I help businesses and organizations build modern,
+          efficient, and user-friendly digital experiences.
         </p>
         <div class="flex gap-4 justify-center">
           <Button href="/contact" class="text-white">Get in Touch</Button>
@@ -50,13 +52,23 @@ projects = projects
     </div>
     <!-- Cloud divider -->
     <div class="absolute bottom-0 left-0 w-full leading-[0] border-t-green-500">
-      <svg class="block w-full h-[50px] md:h-[100px] mb-[-1px]" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        class="block w-full h-[50px] md:h-[100px] mb-[-1px]"
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <!-- Fill shape without stroke -->
-        <path d="M0,120 L0,100 C20,100 40,70 80,60 C120,50 140,80 200,70 C260,60 280,25 340,20 C400,15 420,55 480,50 C540,45 570,15 630,10 C690,5 710,45 770,50 C830,55 860,20 920,25 C980,30 1000,65 1060,60 C1120,55 1140,80 1200,100 L1200,120 Z" 
-        fill="var(--background)" stroke="none" />
+        <path
+          d="M0,120 L0,100 C20,100 40,70 80,60 C120,50 140,80 200,70 C260,60 280,25 340,20 C400,15 420,55 480,50 C540,45 570,15 630,10 C690,5 710,45 770,50 C830,55 860,20 920,25 C980,30 1000,65 1060,60 C1120,55 1140,80 1200,100 L1200,120 Z"
+          fill="var(--background)"
+          stroke="none"></path>
         <!-- Wavy line with stroke only -->
-        <path d="M0,100 C20,100 40,70 80,60 C120,50 140,80 200,70 C260,60 280,25 340,20 C400,15 420,55 480,50 C540,45 570,15 630,10 C690,5 710,45 770,50 C830,55 860,20 920,25 C980,30 1000,65 1060,60 C1120,55 1140,80 1200,100" 
-        fill="none" stroke="var(--primary)" stroke-width="5" />
+        <path
+          d="M0,100 C20,100 40,70 80,60 C120,50 140,80 200,70 C260,60 280,25 340,20 C400,15 420,55 480,50 C540,45 570,15 630,10 C690,5 710,45 770,50 C830,55 860,20 920,25 C980,30 1000,65 1060,60 C1120,55 1140,80 1200,100"
+          fill="none"
+          stroke="var(--primary)"
+          stroke-width="5"></path>
       </svg>
     </div>
   </section>
@@ -65,36 +77,47 @@ projects = projects
     <div class="container mx-auto px-4">
       <h2 class="text-3xl font-bold text-center mb-12">What I Offer</h2>
       <div class="grid md:grid-cols-3 gap-8 mb-12">
-        <div class="p-6 border rounded-lg hover:border-primary/50 transition-colors">
+        <div
+          class="p-6 border rounded-lg hover:border-primary/50 transition-colors"
+        >
           <div class="flex items-center gap-3 mb-3">
             <h3 class="text-xl font-semibold">Business Websites</h3>
             <Globe class="w-6 h-6 text-primary flex-shrink-0" />
           </div>
           <p class="text-muted-foreground mb-4">
-            Professional, SEO-optimized websites that establish your online presence and convert visitors.
+            Professional, SEO-optimized websites that establish your online
+            presence and convert visitors.
           </p>
         </div>
-        <div class="p-6 border rounded-lg hover:border-primary/50 transition-colors">
+        <div
+          class="p-6 border rounded-lg hover:border-primary/50 transition-colors"
+        >
           <div class="flex items-center gap-3 mb-3">
             <h3 class="text-xl font-semibold">Web Applications</h3>
             <Code class="w-6 h-6 text-primary flex-shrink-0" />
           </div>
           <p class="text-muted-foreground mb-4">
-            Custom web apps with databases, user management, dashboards, and real-time data features.
+            Custom web apps with databases, user management, dashboards, and
+            real-time data features.
           </p>
         </div>
-        <div class="p-6 border rounded-lg hover:border-primary/50 transition-colors">
+        <div
+          class="p-6 border rounded-lg hover:border-primary/50 transition-colors"
+        >
           <div class="flex items-center gap-3 mb-3">
             <h3 class="text-xl font-semibold">Technical Leadership</h3>
             <Briefcase class="w-6 h-6 text-primary flex-shrink-0" />
           </div>
           <p class="text-muted-foreground mb-4">
-            Fractional CTO services, consulting, and architectural guidance for your projects.
+            Fractional CTO services, consulting, and architectural guidance for
+            your projects.
           </p>
         </div>
       </div>
       <div class="text-center">
-        <p class="text-muted-foreground mb-6">Want to know the cost? Try our quick quote estimator.</p>
+        <p class="text-muted-foreground mb-6">
+          Want to know the cost? Try our quick quote estimator.
+        </p>
         <Button href="/quote" variant="outline">Get a Free Quote</Button>
       </div>
     </div>
@@ -106,15 +129,21 @@ projects = projects
         <div class="grid grid-cols-3 gap-8 text-center py-12">
           <div class="space-y-3">
             <div class="text-5xl font-light text-primary">10</div>
-            <p class="text-sm text-muted-foreground uppercase tracking-wide">Successful Projects</p>
+            <p class="text-sm text-muted-foreground uppercase tracking-wide">
+              Successful Projects
+            </p>
           </div>
           <div class="space-y-3">
             <div class="text-5xl font-light text-primary">5+</div>
-            <p class="text-sm text-muted-foreground uppercase tracking-wide">Years Experience</p>
+            <p class="text-sm text-muted-foreground uppercase tracking-wide">
+              Years Experience
+            </p>
           </div>
           <div class="space-y-3">
             <div class="text-5xl font-light text-primary">∞</div>
-            <p class="text-sm text-muted-foreground uppercase tracking-wide">Customer Satisfaction</p>
+            <p class="text-sm text-muted-foreground uppercase tracking-wide">
+              Customer Satisfaction
+            </p>
           </div>
         </div>
       </div>
@@ -144,7 +173,9 @@ projects = projects
               )}
               <div class="p-6">
                 <h3 class="text-xl font-semibold mb-2">{project.data.title}</h3>
-                <p class="text-muted-foreground mb-4">{project.data.description}</p>
+                <p class="text-muted-foreground mb-4">
+                  {project.data.description}
+                </p>
                 <div class="flex flex-wrap gap-2">
                   {project.data.technologies.map((tech) => (
                     <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">

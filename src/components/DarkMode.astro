@@ -2,7 +2,7 @@
 import { Moon, Sun } from "@lucide/astro";
 
 interface Props {
-	class?: string;
+  class?: string;
 }
 
 const { class: className = "" } = Astro.props;
@@ -51,11 +51,9 @@ const { class: className = "" } = Astro.props;
       localStorage.setItem("theme", isDark ? "dark" : "light");
     };
 
-    document
-      .querySelectorAll(".theme-toggle")
-      .forEach((button) => {
-        button.addEventListener("click", handleToggleClick);
-      });
+    document.querySelectorAll(".theme-toggle").forEach((button) => {
+      button.addEventListener("click", handleToggleClick);
+    });
 
     // Watch for system theme changes
     window

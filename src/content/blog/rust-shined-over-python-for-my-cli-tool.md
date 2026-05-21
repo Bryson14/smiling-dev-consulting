@@ -14,6 +14,7 @@ keywords:
   - Rewrite
 image: src/content/images/IMG_0754.png
 ---
+
 I have really been enjoying the new tooling in Python, let me just start out with that. What the team at Astral has been doing with uv, Ruff, and Typo has really pushed the tooling and developer experience. For a lot of things, Python is the right way to go. It's quick and "fast enough." Most developers are proficient in Python, even if they don't know it well. AI tools can rip through it. So why consider Rust?
 
 ## Automation Tooling
@@ -33,20 +34,20 @@ Also, Python's exception handling is fine, but when compared to Rust, it's hard 
 Testing was another area where I thought Python would shine. Mocking is easy—you can mock the database, API, configs, and everything else. In the beginning, Rust was a bit trickier to test. For structs and functions that dealt with API or client inputs, it wasn't clear how to mock that. There's mockito, but then reading some Reddit posts, I realized that traits are often the answer. Instead of making a function like `fn get_posts(&client: &MyClient, data: PostUpload) -> Result<>`, it's better to use a trait:
 
 ```rust
-trait HttpGet {  
-  fn get(data: serde_json::Value) -> Result<>;  
-}  
+trait HttpGet {
+  fn get(data: serde_json::Value) -> Result<>;
+}
 
-struct MyClient {}  
+struct MyClient {}
 
-impl HttpGet for MyClient {  
-  fn get(data: serde_json::Value) -> Result<> {  
-    reqwest.get()?  
-  }  
-}  
+impl HttpGet for MyClient {
+  fn get(data: serde_json::Value) -> Result<> {
+    reqwest.get()?
+  }
+}
 
-fn get_posts<T: HttpGet>(client: impl HttpGet, data: serde_json::Value) {  
-  client.get(data)?  
+fn get_posts<T: HttpGet>(client: impl HttpGet, data: serde_json::Value) {
+  client.get(data)?
 }
 ```
 

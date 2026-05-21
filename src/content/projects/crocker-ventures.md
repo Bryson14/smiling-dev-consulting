@@ -14,6 +14,7 @@ image: src/content/images/crocker-ventures-landing_page.webp
 featured: false
 websiteLink: https://crockerventures.com
 ---
+
 ## Project Overview
 
 I partnered with Crocker Ventures, a Utah-based venture capital firm, to modernize their existing website while maintaining business continuity. This project focused on security updates, performance optimization, and content enhancement within an accelerated timeline.
@@ -29,7 +30,6 @@ Crocker Ventures had an established WordPress website that served their business
 - **Content gaps** - Extensive content updates were needed to reflect current portfolio and messaging
 - **Technical roadblocks** - Missing administrator passwords and theme licensing keys complicated access
 - **Time constraints** - The client needed rapid turnaround to meet business deadlines
-    
 
 ## My Approach
 
@@ -58,7 +58,6 @@ Working closely with the Crocker Ventures team, I delivered a comprehensive webs
 - Maintained the existing WordPress platform to avoid DNS and system disruptions
 - Provided future-focused recommendations for potential migration to Cloudflare and Astro
 - Delivered comprehensive documentation for ongoing maintenance
-    
 
 ## Project Execution
 
@@ -68,7 +67,6 @@ This project exemplified effective client collaboration and rapid delivery:
 - **Problem-solving** - Quickly resolved technical obstacles that could have delayed progress
 - **Efficient workflow** - Completed all updates within the requested timeline
 - **Minimal disruption** - Preserved existing infrastructure while implementing improvements
-    
 
 ## Results
 
@@ -78,6 +76,5 @@ The updated website delivered immediate improvements while positioning Crocker V
 - **Improved performance** - Faster loading times through optimized image formats
 - **Professional presentation** - Updated content and visual elements that better represent the firm
 - **Future readiness** - Clear roadmap for potential platform modernization
-    
 
 This project demonstrates how strategic updates to existing systems can deliver significant value while respecting operational constraints and business priorities.

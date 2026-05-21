@@ -1,4 +1,4 @@
-media: 
+media:
   - name: images
     label: Images
     input: src/content/images
@@ -22,7 +22,7 @@ content:
     path: src/content/blog
     type: collection
     format: yaml-frontmatter
-    filename: '{primary}.md'
+    filename: "{primary}.md"
     fields:
       - name: slug
         label: Slug
@@ -59,7 +59,7 @@ content:
         required: false
         pattern: # Validates for a URL, matching Zod's .url()
           regex: '^(https?|ftp):\/\/[^\s\/$.?#].[^\s]*$'
-          message: 'Please enter a valid URL (e.g., https://example.com/)'
+          message: "Please enter a valid URL (e.g., https://example.com/)"
       - name: keywords
         label: Keywords
         type: string
@@ -87,7 +87,7 @@ content:
     path: src/content/projects
     type: collection
     format: yaml-frontmatter
-    filename: '{primary}.md'
+    filename: "{primary}.md"
     fields:
       - name: slug
         label: Slug
@@ -147,7 +147,7 @@ content:
         description: URL to the demo version
       - name: videoLink
         type: string
-        description: URL to a video 
+        description: URL to a video
       - name: body
         label: Content
         type: rich-text

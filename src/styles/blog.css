@@ -1,133 +1,133 @@
 h1 {
-	font-size: 2.25rem;
-	font-weight: 700;
-	margin-bottom: 1.5rem;
-	color: hsl(var(--foreground));
-	padding-bottom: 0.75rem;
-	border-bottom: 3px solid hsl(var(--primary));
-	display: inline-block;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: hsl(var(--foreground));
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid hsl(var(--primary));
+  display: inline-block;
 }
 
 h2 {
-	font-size: 1.875rem;
-	font-weight: 600;
-	margin-bottom: 1rem;
-	color: hsl(var(--primary));
-	padding-bottom: 0.5rem;
-	border-bottom: 2px solid hsl(var(--primary) / 0.3);
-	margin-top: 1.5rem;
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: hsl(var(--primary));
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid hsl(var(--primary) / 0.3);
+  margin-top: 1.5rem;
 }
 
 h3 {
-	font-size: 1.5rem;
-	font-weight: 600;
-	margin-bottom: 0.75rem;
-	color: hsl(var(--primary) / 0.9);
-	margin-top: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: hsl(var(--primary) / 0.9);
+  margin-top: 1.25rem;
 }
 
 p {
-	margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 ul {
-	list-style: none;
-	margin-bottom: 1rem;
-	padding-left: 1.5rem;
+  list-style: none;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
 }
 
 ul li {
-	margin-bottom: 0.5rem;
-	position: relative;
+  margin-bottom: 0.5rem;
+  position: relative;
 }
 
 ul li::before {
-	content: "→";
-	position: absolute;
-	left: -1.5rem;
-	color: hsl(var(--primary));
-	font-weight: 600;
-	margin-right: 0.75rem;
+  content: "→";
+  position: absolute;
+  left: -1.5rem;
+  color: hsl(var(--primary));
+  font-weight: 600;
+  margin-right: 0.75rem;
 }
 
 ol {
-	list-style: none;
-	margin-bottom: 1rem;
-	padding-left: 2rem;
-	counter-reset: item;
+  list-style: none;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+  counter-reset: item;
 }
 
 ol li {
-	margin-bottom: 0.5rem;
-	position: relative;
-	counter-increment: item;
+  margin-bottom: 0.5rem;
+  position: relative;
+  counter-increment: item;
 }
 
 ol li::before {
-	content: counter(item) ".";
-	position: absolute;
-	left: -2rem;
-	color: hsl(var(--primary));
-	font-weight: 600;
-	min-width: 1.5rem;
+  content: counter(item) ".";
+  position: absolute;
+  left: -2rem;
+  color: hsl(var(--primary));
+  font-weight: 600;
+  min-width: 1.5rem;
 }
 
 /* ── Tables ── */
 .blog-content {
-	overflow-x: auto;
+  overflow-x: auto;
 }
 
 table {
-	width: 100%;
-	min-width: 500px;
-	border-collapse: collapse;
-	margin-bottom: 1.5rem;
-	font-size: 0.925rem;
-	border: 1px solid var(--border) !important;
-	border-radius: 0.5rem;
+  width: 100%;
+  min-width: 500px;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.925rem;
+  border: 1px solid var(--border) !important;
+  border-radius: 0.5rem;
 }
 
 /* Hide empty header rows generated from markdown tables with no header text */
 thead tr:has(th:empty) {
-	display: none;
+  display: none;
 }
 
 thead {
-	border-bottom: 2px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
 }
 
 th {
-	font-weight: 700;
-	text-align: left;
-	padding: 0.75rem 1rem;
-	color: hsl(var(--foreground));
-	background-color: hsl(var(--primary) / 0.08);
-	border: 1px solid var(--border) !important;
+  font-weight: 700;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--primary) / 0.08);
+  border: 1px solid var(--border) !important;
 }
 
 td {
-	padding: 0.75rem 1rem;
-	color: hsl(var(--foreground) / 0.85);
-	border: 1px solid var(--border) !important;
+  padding: 0.75rem 1rem;
+  color: hsl(var(--foreground) / 0.85);
+  border: 1px solid var(--border) !important;
 }
 
 /* Style the first row of tbody as header when thead is empty */
 thead:has(th:empty) + tbody tr:first-child {
-	background-color: hsl(var(--primary) / 0.08);
-	border-bottom: 2px solid var(--primary);
+  background-color: hsl(var(--primary) / 0.08);
+  border-bottom: 2px solid var(--primary);
 }
 
 thead:has(th:empty) + tbody tr:first-child td {
-	font-weight: 700;
-	color: hsl(var(--foreground));
+  font-weight: 700;
+  color: hsl(var(--foreground));
 }
 
 tbody tr:hover {
-	background-color: hsl(var(--primary) / 0.04);
+  background-color: hsl(var(--primary) / 0.04);
 }
 
 /* Bold text inside table cells (markdown **bold**) */
 td strong,
 th strong {
-	color: hsl(var(--foreground));
+  color: hsl(var(--foreground));
 }

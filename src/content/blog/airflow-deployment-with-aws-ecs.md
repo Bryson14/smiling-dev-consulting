@@ -14,6 +14,7 @@ keywords:
   - ECS
 image: src/content/images/IMG_0293.png
 ---
+
 Strategies
 
 ## Executive Summary
@@ -26,13 +27,14 @@ Strategies
 
 ### Problem Distribution by Category
 
-| Category | Count | Percentage | Top Issues |
-|----------|-------|------------|------------|
-| **Airflow-Specific Pitfalls** | 23 | 43% | Configuration, permissions, secrets, service communication |
-| **AWS/ECS Pitfalls** | 19 | 35% | Secret injection, health checks, resource allocation, spot instances |
-| **Networking Pitfalls** | 12 | 22% | IPv6, service discovery, ALB configuration, security groups |
-| **CDK Pitfalls** | 8 | 15% | Context management, synthesizer, stack dependencies |
-| **Docker/Container Pitfalls** | 15 | 28% | Build performance, user permissions, multi-stage builds |
+| Category                      | Count | Percentage | Top Issues                                                           |
+| ----------------------------- | ----- | ---------- | -------------------------------------------------------------------- |
+| **Airflow-Specific Pitfalls** | 23    | 43%        | Configuration, permissions, secrets, service communication           |
+| **AWS/ECS Pitfalls**          | 19    | 35%        | Secret injection, health checks, resource allocation, spot instances |
+| **Networking Pitfalls**       | 12    | 22%        | IPv6, service discovery, ALB configuration, security groups          |
+| **CDK Pitfalls**              | 8     | 15%        | Context management, synthesizer, stack dependencies                  |
+| **Docker/Container Pitfalls** | 15    | 28%        | Build performance, user permissions, multi-stage builds              |
+
 _Note: Commits can appear in multiple categories_
 
 ---
@@ -55,16 +57,17 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Airflow requires precise configuration across multiple services with shared secrets.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #39 | Removed static airflow.cfg, relied on env vars | Use environment variables exclusively instead of config files |
-| #40 | ECS injecting "\[object Object\]" for secrets | Fixed secret reference syntax in CDK |
-| #41 | Secrets still passed incorrectly | Simplified to direct secret ARN references |
-| #28 | Changed service startup based on local dev | Validated config locally first before ECS deployment |
-| #4 | Major refactoring of environment variables | Centralized env var management in CDK constructs |
-| #54 | Removed unneeded default env vars | Clean up reduces complexity and confusion |
-| #31 | Database connection failing | Proper connection string format with all required params |
-| #30 | Special characters in DB password broke startup | URL-encode passwords with special characters |
+| Commit | Issue                                           | Resolution                                                    |
+| ------ | ----------------------------------------------- | ------------------------------------------------------------- |
+| #39    | Removed static airflow.cfg, relied on env vars  | Use environment variables exclusively instead of config files |
+| #40    | ECS injecting "\[object Object\]" for secrets   | Fixed secret reference syntax in CDK                          |
+| #41    | Secrets still passed incorrectly                | Simplified to direct secret ARN references                    |
+| #28    | Changed service startup based on local dev      | Validated config locally first before ECS deployment          |
+| #4     | Major refactoring of environment variables      | Centralized env var management in CDK constructs              |
+| #54    | Removed unneeded default env vars               | Clean up reduces complexity and confusion                     |
+| #31    | Database connection failing                     | Proper connection string format with all required params      |
+| #30    | Special characters in DB password broke startup | URL-encode passwords with special characters                  |
+
 **Resolution Strategy:**
 
 - â Use environment variables exclusively, avoid static config files
@@ -82,7 +85,7 @@ _Note: Commits can appear in multiple categories_
 **Problem:** Database connectivity and encoding issues caused repeated failures.
 
 | Commit | Issue | Resolution |
-|--------|-------|------------|
+| ------ | ----- | ---------- |
 
 | #30 | Encoded chars in password caused ECS failure | URL-encode passwords, avoid special chars in generation |
 | #31 | DB connection failing | Security groups, connection strings, timeouts |
@@ -106,13 +109,14 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Airflow services need to communicate with each other reliably.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #46 | Worker can't reach base URL | Added service discovery and internal ALB |
-| #47 | Added common JWT secret | Shared JWT for inter-service authentication |
-| #27 | Can't get auth to work | Proper authentication backend configuration |
-| #32 | Successfully deployed API and scheduler | Validated basic service communication |
-| #24 | Split into storage/service stacks | Separate stateful from stateless resources |
+| Commit | Issue                                   | Resolution                                  |
+| ------ | --------------------------------------- | ------------------------------------------- |
+| #46    | Worker can't reach base URL             | Added service discovery and internal ALB    |
+| #47    | Added common JWT secret                 | Shared JWT for inter-service authentication |
+| #27    | Can't get auth to work                  | Proper authentication backend configuration |
+| #32    | Successfully deployed API and scheduler | Validated basic service communication       |
+| #24    | Split into storage/service stacks       | Separate stateful from stateless resources  |
+
 **Resolution Strategy:**
 
 - â Use AWS Cloud Map for service discovery between components
@@ -129,17 +133,18 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Finding the right way to deploy DAGs to all Airflow services.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #15 | Tried EFS after 'aws' CLI not found in image | EFS for shared storage |
-| #17 | EFS mount point issues | Fixed mount configuration |
-| #18 | EFS DNS modification issues | Changed mount attachment method |
-| #19 | Switched from EFS to git-sync | Git-sync sidecar pattern |
-| #20 | Added git-sync with SSL certs | Proper SSL for private repos |
-| #21 | Git-sync needs root permissions | Run as root to write to filesystem |
-| #43 | Read-only DAG folder caused startup error | Make DAG folder writable |
-| #49 | Simplified git-sync configuration | Direct git sync approach |
-| #53 | Fixed git-sync repo configuration | Correct repo URL and credentials |
+| Commit | Issue                                        | Resolution                         |
+| ------ | -------------------------------------------- | ---------------------------------- |
+| #15    | Tried EFS after 'aws' CLI not found in image | EFS for shared storage             |
+| #17    | EFS mount point issues                       | Fixed mount configuration          |
+| #18    | EFS DNS modification issues                  | Changed mount attachment method    |
+| #19    | Switched from EFS to git-sync                | Git-sync sidecar pattern           |
+| #20    | Added git-sync with SSL certs                | Proper SSL for private repos       |
+| #21    | Git-sync needs root permissions              | Run as root to write to filesystem |
+| #43    | Read-only DAG folder caused startup error    | Make DAG folder writable           |
+| #49    | Simplified git-sync configuration            | Direct git sync approach           |
+| #53    | Fixed git-sync repo configuration            | Correct repo URL and credentials   |
+
 **Resolution Strategy:**
 
 - â Use git-sync sidecar pattern instead of EFS (simpler, more reliable)
@@ -156,14 +161,15 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Getting all Airflow components (webserver, scheduler, worker, triggerer) healthy.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #33 | Triggerer failing health checks | Temporarily disabled to isolate issues |
-| #34 | Deployed without health checks | Removed to isolate startup from health check issues |
-| #35 | All but worker running | Webserver, scheduler, triggerer operational |
-| #44 | Re-enabled triggerer | Fixed config and re-added successfully |
-| #45 | Worker killed due to high memory | Doubled memory to 2GB |
-| #51 | Added worker auto-scaling | Scale 1-10 based on CPU/memory |
+| Commit | Issue                            | Resolution                                          |
+| ------ | -------------------------------- | --------------------------------------------------- |
+| #33    | Triggerer failing health checks  | Temporarily disabled to isolate issues              |
+| #34    | Deployed without health checks   | Removed to isolate startup from health check issues |
+| #35    | All but worker running           | Webserver, scheduler, triggerer operational         |
+| #44    | Re-enabled triggerer             | Fixed config and re-added successfully              |
+| #45    | Worker killed due to high memory | Doubled memory to 2GB                               |
+| #51    | Added worker auto-scaling        | Scale 1-10 based on CPU/memory                      |
+
 **Resolution Strategy:**
 
 - â Disable health checks initially to isolate startup issues
@@ -180,11 +186,12 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Container user permissions for filesystem access.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #37 | Trying to fix airflow user with root permissions | User/group permission conflicts |
-| #21 | Git-sync needs root permissions to write | Run git-sync as root |
-| #38 | Simplified user management in Docker | Use base image defaults |
+| Commit | Issue                                            | Resolution                      |
+| ------ | ------------------------------------------------ | ------------------------------- |
+| #37    | Trying to fix airflow user with root permissions | User/group permission conflicts |
+| #21    | Git-sync needs root permissions to write         | Run git-sync as root            |
+| #38    | Simplified user management in Docker             | Use base image defaults         |
+
 **Resolution Strategy:**
 
 - â Run git-sync sidecar as root (uid 0) for file system writes
@@ -215,13 +222,14 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** ECS secret injection has specific syntax requirements.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #40 | ECS injecting "\[object Object\]" literally | Fixed CDK secret reference syntax |
-| #41 | Secrets still passed incorrectly | Used direct secret ARN references |
-| #47 | Added common JWT secret | Centralized secret in Secrets Manager |
-| #52 | Fixed Fernet key generation | Proper secret generation in storage stack |
-| #30 | Password encoding issues | URL-encode or avoid special characters |
+| Commit | Issue                                       | Resolution                                |
+| ------ | ------------------------------------------- | ----------------------------------------- |
+| #40    | ECS injecting "\[object Object\]" literally | Fixed CDK secret reference syntax         |
+| #41    | Secrets still passed incorrectly            | Used direct secret ARN references         |
+| #47    | Added common JWT secret                     | Centralized secret in Secrets Manager     |
+| #52    | Fixed Fernet key generation                 | Proper secret generation in storage stack |
+| #30    | Password encoding issues                    | URL-encode or avoid special characters    |
+
 **Resolution Strategy:**
 
 - â Use `ecs.Secret.fromSecretsManager(secret)` or direct ARN references
@@ -238,16 +246,17 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** ECS health checks failed due to timing and configuration issues.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #42 | ALB considering task failed, need more time | Increased grace period and check intervals |
-| #36 | Health check failed due to DB connection | Added DB connection validation |
-| #34 | Deployed without health checks temporarily | Isolated startup from health check issues |
-| #33 | Triggerer failing health checks | Disabled until config fixed |
-| #35 | Most services up without health checks | Validated core functionality first |
-| #15 | Health check failed, probably DB connection | Database initialization timing |
-| #12 | Added ECS circuit breaker | Automatic rollback on deployment failures |
-| #54 | Removed unneeded health checks | Cleaned up redundant checks |
+| Commit | Issue                                       | Resolution                                 |
+| ------ | ------------------------------------------- | ------------------------------------------ |
+| #42    | ALB considering task failed, need more time | Increased grace period and check intervals |
+| #36    | Health check failed due to DB connection    | Added DB connection validation             |
+| #34    | Deployed without health checks temporarily  | Isolated startup from health check issues  |
+| #33    | Triggerer failing health checks             | Disabled until config fixed                |
+| #35    | Most services up without health checks      | Validated core functionality first         |
+| #15    | Health check failed, probably DB connection | Database initialization timing             |
+| #12    | Added ECS circuit breaker                   | Automatic rollback on deployment failures  |
+| #54    | Removed unneeded health checks              | Cleaned up redundant checks                |
+
 **Resolution Strategy:**
 
 - â Set health check grace period to 300-600 seconds for DB-dependent services
@@ -266,13 +275,14 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Services need adequate CPU and memory resources.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #45 | Worker killed due to high memory usage | Doubled memory to 2GB |
-| #42 | Bumped to 1 vCPU | Increased from 0.5 to 1 vCPU |
-| #51 | Added auto-scaling for workers | Scale 1-10 based on metrics |
-| #45 | Added Spot instances | Cost savings on worker fleet |
-| #11 | Added temp directory configuration | Proper temp storage allocation |
+| Commit | Issue                                  | Resolution                     |
+| ------ | -------------------------------------- | ------------------------------ |
+| #45    | Worker killed due to high memory usage | Doubled memory to 2GB          |
+| #42    | Bumped to 1 vCPU                       | Increased from 0.5 to 1 vCPU   |
+| #51    | Added auto-scaling for workers         | Scale 1-10 based on metrics    |
+| #45    | Added Spot instances                   | Cost savings on worker fleet   |
+| #11    | Added temp directory configuration     | Proper temp storage allocation |
+
 **Resolution Strategy:**
 
 - â Start with minimum: webserver/scheduler 1 vCPU/2GB, workers 1 vCPU/2GB
@@ -289,12 +299,13 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** ARM64 vs AMD64 architecture differences.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #13 | Trying ARM64 for [entrypoint.sh](http://entrypoint.sh) problem | Switched to ARM64 architecture |
-| #14 | Specific ARM64 tagging | Explicit platform tagging |
-| #12 | Architecture differences in ECS | Set explicit architecture in task definitions |
-| #8 | Multi-stage builds with UV | Optimized for target architecture |
+| Commit | Issue                                                          | Resolution                                    |
+| ------ | -------------------------------------------------------------- | --------------------------------------------- |
+| #13    | Trying ARM64 for [entrypoint.sh](http://entrypoint.sh) problem | Switched to ARM64 architecture                |
+| #14    | Specific ARM64 tagging                                         | Explicit platform tagging                     |
+| #12    | Architecture differences in ECS                                | Set explicit architecture in task definitions |
+| #8     | Multi-stage builds with UV                                     | Optimized for target architecture             |
+
 **Resolution Strategy:**
 
 - â Choose ARM64 for better price/performance (Graviton processors)
@@ -309,11 +320,12 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Availability zone and deployment configuration issues.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #6 | Getting error about availability zones | Added AZ mappings to context |
-| #7 | Some services not starting up | Fixed ECR image references |
-| #25 | Fixed subnet AZ and naming | Proper subnet selection |
+| Commit | Issue                                  | Resolution                   |
+| ------ | -------------------------------------- | ---------------------------- |
+| #6     | Getting error about availability zones | Added AZ mappings to context |
+| #7     | Some services not starting up          | Fixed ECR image references   |
+| #25    | Fixed subnet AZ and naming             | Proper subnet selection      |
+
 **Resolution Strategy:**
 
 - â Cache AZ lookups in cdk.context.json to avoid API calls
@@ -344,12 +356,13 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Services couldn't reliably communicate with each other.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #46 | Worker can't reach base URL | Added AWS Cloud Map service discovery |
-| #46 | Worker to API connectivity | Configured internal ALB DNS |
-| #46 | Security group rules missing | Added worker-to-webserver connectivity |
-| #31 | DB connection failing | Security group for RDS access |
+| Commit | Issue                        | Resolution                             |
+| ------ | ---------------------------- | -------------------------------------- |
+| #46    | Worker can't reach base URL  | Added AWS Cloud Map service discovery  |
+| #46    | Worker to API connectivity   | Configured internal ALB DNS            |
+| #46    | Security group rules missing | Added worker-to-webserver connectivity |
+| #31    | DB connection failing        | Security group for RDS access          |
+
 **Resolution Strategy:**
 
 - â Use AWS Cloud Map for service discovery (servicename.namespace)
@@ -366,13 +379,14 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** ALB health checks and routing configuration.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #42 | ALB considering task failed | Increased timeouts and grace periods |
-| #2 | Initial ALB setup with webserver | Public ALB for external access |
-| #46 | Added internal communication path | Internal ALB/service discovery |
-| #35 | Health check configuration | Proper health check paths |
-| #54 | Removed unneeded health checks | Simplified configuration |
+| Commit | Issue                             | Resolution                           |
+| ------ | --------------------------------- | ------------------------------------ |
+| #42    | ALB considering task failed       | Increased timeouts and grace periods |
+| #2     | Initial ALB setup with webserver  | Public ALB for external access       |
+| #46    | Added internal communication path | Internal ALB/service discovery       |
+| #35    | Health check configuration        | Proper health check paths            |
+| #54    | Removed unneeded health checks    | Simplified configuration             |
+
 **Resolution Strategy:**
 
 - â Use public ALB only for webserver/UI
@@ -389,11 +403,12 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** RDS connection string format and network access.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #23 | Bad IPv6 URL when connecting to Postgres | Use hostname format without brackets |
-| #31 | DB connection failing | Security groups and connection params |
-| #36 | DB connection in health checks | Validate connection before health checks |
+| Commit | Issue                                    | Resolution                               |
+| ------ | ---------------------------------------- | ---------------------------------------- |
+| #23    | Bad IPv6 URL when connecting to Postgres | Use hostname format without brackets     |
+| #31    | DB connection failing                    | Security groups and connection params    |
+| #36    | DB connection in health checks           | Validate connection before health checks |
+
 **Resolution Strategy:**
 
 - â Use RDS endpoint hostname directly: `dbinstance.xxxxxx.region.rds.amazonaws.com`
@@ -410,11 +425,12 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Subnet and availability zone configuration.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #6 | AZ errors | Fixed AZ configuration and context |
-| #25 | Subnet AZ issues | Proper subnet selection in correct AZs |
-| #24 | VPC in storage stack | Centralized VPC in stateful stack |
+| Commit | Issue                | Resolution                             |
+| ------ | -------------------- | -------------------------------------- |
+| #6     | AZ errors            | Fixed AZ configuration and context     |
+| #25    | Subnet AZ issues     | Proper subnet selection in correct AZs |
+| #24    | VPC in storage stack | Centralized VPC in stateful stack      |
+
 **Resolution Strategy:**
 
 - â Create VPC in storage/stateful stack
@@ -447,11 +463,12 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Monolithic stack vs separated concerns.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #24 | Split into storage and service stacks | Separated stateful from stateless |
-| #4 | Major stack refactoring | Better organization and structure |
-| #2 | Initial monolithic stack | Started with everything in one stack |
+| Commit | Issue                                 | Resolution                           |
+| ------ | ------------------------------------- | ------------------------------------ |
+| #24    | Split into storage and service stacks | Separated stateful from stateless    |
+| #4     | Major stack refactoring               | Better organization and structure    |
+| #2     | Initial monolithic stack              | Started with everything in one stack |
+
 **Resolution Strategy:**
 
 - â Separate stateful resources (VPC, RDS, Cache) into storage-stack
@@ -468,11 +485,12 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** CDK context and synthesizer warnings.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #5 | Fixing CDK warnings | Added proper synthesizer configuration |
-| #6 | AZ lookup issues | Added cdk.context.json with AZ mappings |
-| #6 | Added .env file | Environment-specific configuration |
+| Commit | Issue               | Resolution                              |
+| ------ | ------------------- | --------------------------------------- |
+| #5     | Fixing CDK warnings | Added proper synthesizer configuration  |
+| #6     | AZ lookup issues    | Added cdk.context.json with AZ mappings |
+| #6     | Added .env file     | Environment-specific configuration      |
+
 **Resolution Strategy:**
 
 - â Use cdk.context.json to cache AZ lookups (avoid API calls)
@@ -489,10 +507,11 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Properly referencing resources across stacks.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #24 | Cross-stack references for storage resources | Export/import pattern |
-| #40 | Secret reference syntax errors | Proper CDK secret constructs |
+| Commit | Issue                                        | Resolution                   |
+| ------ | -------------------------------------------- | ---------------------------- |
+| #24    | Cross-stack references for storage resources | Export/import pattern        |
+| #40    | Secret reference syntax errors               | Proper CDK secret constructs |
+
 **Resolution Strategy:**
 
 - â Use `stack.export()` and `Fn.importValue()` for cross-stack refs
@@ -525,11 +544,12 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Docker builds were extremely slow (4+ minutes).
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #8 | Got docker building faster with UV | 4 min â 10 sec improvement |
-| #8 | Implemented multi-stage builds | Separate builder and runtime stages |
-| #39 | Simplified to leverage base image UV | Use apache/airflow's built-in tools |
+| Commit | Issue                                | Resolution                          |
+| ------ | ------------------------------------ | ----------------------------------- |
+| #8     | Got docker building faster with UV   | 4 min â 10 sec improvement          |
+| #8     | Implemented multi-stage builds       | Separate builder and runtime stages |
+| #39    | Simplified to leverage base image UV | Use apache/airflow's built-in tools |
+
 **Resolution Strategy:**
 
 - â Use UV package manager for 25-50x faster pip installs
@@ -548,12 +568,13 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Over-complicated Docker image with unnecessary scripts.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #38 | Massive cleanup: removed 1057 lines | Removed test/debug scripts |
-| #39 | Removed airflow.cfg file | Use environment variables only |
-| #39 | Simplified Dockerfile by 16 lines | Leveraged base image features |
-| #6 | Temporarily removed Docker files | Clean slate approach |
+| Commit | Issue                               | Resolution                     |
+| ------ | ----------------------------------- | ------------------------------ |
+| #38    | Massive cleanup: removed 1057 lines | Removed test/debug scripts     |
+| #39    | Removed airflow.cfg file            | Use environment variables only |
+| #39    | Simplified Dockerfile by 16 lines   | Leveraged base image features  |
+| #6     | Temporarily removed Docker files    | Clean slate approach           |
+
 **Resolution Strategy:**
 
 - â Start with minimal Dockerfile extending apache/airflow base
@@ -570,11 +591,12 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Need to test Docker images locally before ECS.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #9 | Created Docker Compose for local testing | Full local environment |
-| #10 | Got local dev working | Validated configuration locally |
-| #26 | Used local deployment to fix ECS issues | Local testing found issues |
+| Commit | Issue                                    | Resolution                      |
+| ------ | ---------------------------------------- | ------------------------------- |
+| #9     | Created Docker Compose for local testing | Full local environment          |
+| #10    | Got local dev working                    | Validated configuration locally |
+| #26    | Used local deployment to fix ECS issues  | Local testing found issues      |
+
 **Resolution Strategy:**
 
 - â Create docker-compose.yml matching ECS configuration
@@ -591,11 +613,12 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Managing Python dependencies and base image.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #7 | Added build\_and\_[push.sh](http://push.sh) for ECR | Automated image publishing |
-| #8 | Used UV for dependencies | Faster installs |
-| #15 | 'aws' CLI not found in image | Base image didn't include AWS CLI |
+| Commit | Issue                                              | Resolution                        |
+| ------ | -------------------------------------------------- | --------------------------------- |
+| #7     | Added build_and\_[push.sh](http://push.sh) for ECR | Automated image publishing        |
+| #8     | Used UV for dependencies                           | Faster installs                   |
+| #15    | 'aws' CLI not found in image                       | Base image didn't include AWS CLI |
+
 **Resolution Strategy:**
 
 - â Use official apache/airflow:3.1.0 as base image
@@ -612,10 +635,11 @@ _Note: Commits can appear in multiple categories_
 
 **Problem:** Running git-sync as sidecar with proper image.
 
-| Commit | Issue | Resolution |
-|--------|-------|------------|
-| #20 | Added git-sync image to ECR | Mirrored [k8s.gcr.io/git-sync](http://k8s.gcr.io/git-sync) |
-| #50 | Created GitLab CI for git-sync mirroring | Automated mirror updates |
+| Commit | Issue                                    | Resolution                                                 |
+| ------ | ---------------------------------------- | ---------------------------------------------------------- |
+| #20    | Added git-sync image to ECR              | Mirrored [k8s.gcr.io/git-sync](http://k8s.gcr.io/git-sync) |
+| #50    | Created GitLab CI for git-sync mirroring | Automated mirror updates                                   |
+
 **Resolution Strategy:**
 
 - â Mirror external images (k8s git-sync) to ECR for reliability

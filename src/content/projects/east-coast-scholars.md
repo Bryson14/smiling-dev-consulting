@@ -21,6 +21,7 @@ image: src/content/images/east-coast-scholars-landing.png
 featured: true
 websiteLink: https://eastcoastscholars.com
 ---
+
 ## Project Overview
 
 East Coast Scholars represents a comprehensive platform rewrite and rebranding of Tutor the Future—migrating from AWS Amplify to Supabase while modernizing the entire technical architecture. This project demonstrates the strategic evolution from NoSQL to SQL, improved developer experience, and enhanced platform capabilities while maintaining the core educational technology features that drive the business.
@@ -45,7 +46,6 @@ The complete rewrite to Supabase brought modern PostgreSQL database architecture
 - **Data migration** - Seamless transfer of 1,000+ student records, tutor profiles, and historical session data
 - **Zero downtime** - Gradual migration strategy ensuring continuous service availability
 - **UI consistency** - Preserved familiar user experience while updating branding and theme
-    
 
 ## Technical Architecture
 
@@ -79,7 +79,6 @@ The rewritten platform leverages modern, open-source technologies for improved p
 
 - **Stripe integration** - Maintained secure payment processing with improved webhook handling
 - **Enhanced transactions** - Better transaction tracking with PostgreSQL's ACID guarantees
-    
 
 ## Platform Improvements
 
@@ -102,7 +101,6 @@ The migration to Supabase delivered significant technical and operational benefi
 
 - **Predictable pricing** - Moved from complex AWS billing to straightforward Supabase tiers
 - **Open-source foundation** - Reduced vendor lock-in with PostgreSQL and Deno
-    
 
 ## Business Impact & Scale
 
@@ -123,7 +121,6 @@ The robust platform foundation enabled the business to expand beyond traditional
 - **Subject-specific tutoring** - Specialized academic support across disciplines
 - **College advising services** - Comprehensive educational guidance
 - **Custom learning paths** - Personalized educational experiences
-    
 
 ![](src/content/images/east-coast-scholars-dashboard.png)
 
@@ -147,7 +144,6 @@ The robust platform foundation enabled the business to expand beyond traditional
 - Financial reporting with improved data integrity
 - Staff scheduling with optimized database queries
 - Client communication and relationship management
-    
 
 ## Branding & UI Evolution
 
@@ -157,7 +153,6 @@ The robust platform foundation enabled the business to expand beyond traditional
 - Maintained shadcn/ui component library for consistency
 - Updated logos, imagery, and marketing materials
 - Preserved user-familiar layouts to minimize learning curve
-    
 
 ## Ongoing Partnership
 
@@ -174,7 +169,6 @@ As an active retainer client, East Coast Scholars continues to evolve on the mod
 - Leveraging PostgreSQL for advanced features and reporting
 - Enhanced AI-powered matching with better data relationships
 - Continued expansion planning with improved scalability foundation
-    
 
 ## Technical Achievements
 
@@ -186,7 +180,6 @@ This migration project showcases advanced platform engineering and data migratio
 - **Performance optimization** - Achieved faster load times and query performance
 - **Developer velocity** - Improved iteration speed with better tooling and local development
 - **Database design** - Normalized schema design with proper relationships and constraints
-    
 
 ## Results & Impact
 

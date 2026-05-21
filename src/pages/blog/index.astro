@@ -9,45 +9,46 @@ const posts = await getCollection("blog");
 
 // Sort posts by date (newest first)
 const sortedPosts = posts.sort(
-	(a, b) =>
-		new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+  (a, b) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
 );
 
 // Format date function
 function formatDate(date: Date) {
-	return new Intl.DateTimeFormat("en-US", {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	}).format(date);
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
 }
 
 // Build JSON-LD for the blog
 const blogJsonLd = {
-	"@context": "https://schema.org",
-	"@type": "Blog",
-	"name": "Smiling Dev Consulting Blog",
-	"description": "Thoughts, tutorials, and insights on web development, design, and technology.",
-	"url": `${Astro.url.origin}/blog`,
-	"mainEntity": {
-		"@type": "ItemList",
-		"itemListElement": sortedPosts.map((post, index) => ({
-			"@type": "ListItem",
-			"position": index + 1,
-			"item": {
-				"@type": "BlogPosting",
-				"headline": post.data.title,
-				"description": post.data.description,
-				"image": post.data.image?.src ?? undefined,
-				"datePublished": post.data.pubDate.toISOString(),
-				"author": {
-					"@type": "Person",
-					"name": post.data.author || "Bryson Meiling"
-				},
-				"url": `${Astro.url.origin}/blog/${post.id}`,
-			},
-		})),
-	},
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "Smiling Dev Consulting Blog",
+  description:
+    "Thoughts, tutorials, and insights on web development, design, and technology.",
+  url: `${Astro.url.origin}/blog`,
+  mainEntity: {
+    "@type": "ItemList",
+    itemListElement: sortedPosts.map((post, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "BlogPosting",
+        headline: post.data.title,
+        description: post.data.description,
+        image: post.data.image?.src ?? undefined,
+        datePublished: post.data.pubDate.toISOString(),
+        author: {
+          "@type": "Person",
+          name: post.data.author || "Bryson Meiling",
+        },
+        url: `${Astro.url.origin}/blog/${post.id}`,
+      },
+    })),
+  },
 };
 ---
 
@@ -83,7 +84,7 @@ const blogJsonLd = {
             )}
 
             <div class="p-6">
-                <div class="flex items-center justify-between text-sm text-muted-foreground dark:text-muted-foreground mb-3">
+              <div class="flex items-center justify-between text-sm text-muted-foreground dark:text-muted-foreground mb-3">
                 <time datetime={post.data.pubDate.toISOString()}>
                   {formatDate(post.data.pubDate)}
                 </time>
@@ -157,10 +158,7 @@ const blogJsonLd = {
   </div>
 
   <div class="container mx-auto px-4 py-8 text-center">
-    <a
-      href="/blog/tags"
-      class="text-primary dark:text-primary hover:underline"
-    >
+    <a href="/blog/tags" class="text-primary dark:text-primary hover:underline">
       <span class="font-semibold">Explore all tags</span>
     </a>
   </div>

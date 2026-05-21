@@ -19,6 +19,7 @@ technologies:
 image: src/content/images/enterprise-chat-bot-ui-copy.png
 featured: false
 ---
+
 ## Project Overview
 
 I developed a comprehensive AI chatbot framework for a Fortune 500 healthcare company that addresses the unique challenges of deploying conversational AI in a highly regulated environment. Built during the early AI era when companies were just beginning to explore chatbot technology, this project involved adapting and significantly enhancing open-source solutions to create the most premium internal chatbot the organization had deployed at the time.

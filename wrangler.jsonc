@@ -1,5 +1,5 @@
 {
-    "$schema": "./node_modules/wrangler/config-schema.json",
+  "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "smiling-development-consulting",
   "main": "./dist/_worker.js/index.js",
   "account_id": "4cb2ba2c46032a15d574024f631bba64",
@@ -7,15 +7,15 @@
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "binding": "ASSETS",
-    "directory": "./dist"
+    "directory": "./dist",
   },
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "routes": [
     {
-        "pattern": "smiling.dev",
-        "custom_domain": true
-    }
-  ]
+      "pattern": "smiling.dev",
+      "custom_domain": true,
+    },
+  ],
 }

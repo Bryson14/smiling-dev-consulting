@@ -16,6 +16,7 @@ keywords:
   - Modern Tooling
 image: src/content/images/jump-on-uv-bandwagon-python-hugger.png
 ---
+
 Tired of slow `pip` installs, confusing virtual environments, and messy `requirements.txt` files? Meet **UV**, the new Python package installer and manager that's changing the game. UV is super fast, easy to use, and much better than older tools like `pip`, `virtualenv`, and even `poetry`.
 
 I’ve started to use it and forget about all the headaches and duplicate python installs I’ve had. Fancy new [MCP projects](https://glama.ai/mcp/servers/@ReAPI-com/mcp-openapi#:~:text=of%20API%20development.-,Cursor%20Configuration,-To%20integrate%20the) and [common data validation libraries](https://github.com/pydantic/pydantic) are using it because it just makes sense. Just look for a uv.lock file in your favorite python repo.
@@ -125,7 +126,7 @@ uv-install:
         - uv.lock
     paths:
       - $UV_CACHE_DIR # Cache UV's internal package cache
-      - .venv/        # Cache the virtual environment created by UV
+      - .venv/ # Cache the virtual environment created by UV
     policy: pull-push
   script:
     # This command creates or updates the virtual environment
@@ -246,9 +247,9 @@ if __name__ == "__main__":
 
 **How it helps:**
 
-*   **Self-contained Migrations:** The script itself tells UV what it needs (`boto3`, `aioboto3`). When you run `uv run db_migration_script.py`, UV makes sure these are available.
-*   **Easy Sharing:** Just share the script! No separate `requirements.txt` for this specific helper.
-*   **Consistent Environments:** Whether you run it locally or in your CI/CD, UV creates the correct environment, preventing issues from missing packages. This is super important for critical tasks like database migrations.
+- **Self-contained Migrations:** The script itself tells UV what it needs (`boto3`, `aioboto3`). When you run `uv run db_migration_script.py`, UV makes sure these are available.
+- **Easy Sharing:** Just share the script! No separate `requirements.txt` for this specific helper.
+- **Consistent Environments:** Whether you run it locally or in your CI/CD, UV creates the correct environment, preventing issues from missing packages. This is super important for critical tasks like database migrations.
 
 ## 8. No More Virtual Environment Mess
 

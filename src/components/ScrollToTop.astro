@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <button
@@ -6,41 +7,35 @@
   class="fixed bottom-8 right-8 p-3 rounded-full bg-primary dark:bg-primary text-primary-foreground shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90 dark:hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary"
   aria-label="Scroll to top"
 >
-  <svg
-    class="w-6 h-6"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path
       stroke-linecap="round"
       stroke-linejoin="round"
       stroke-width="2"
-      d="M5 10l7-7m0 0l7 7m-7-7v18"
-    />
+      d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
   </svg>
 </button>
 
 <script>
-  const scrollButton = document.getElementById('scrollToTop');
-  
+  const scrollButton = document.getElementById("scrollToTop");
+
   const toggleScrollButton = () => {
     if (window.scrollY > 200) {
-      scrollButton?.classList.remove('opacity-0', 'invisible');
-      scrollButton?.classList.add('opacity-100', 'visible');
+      scrollButton?.classList.remove("opacity-0", "invisible");
+      scrollButton?.classList.add("opacity-100", "visible");
     } else {
-      scrollButton?.classList.add('opacity-0', 'invisible');
-      scrollButton?.classList.remove('opacity-100', 'visible');
+      scrollButton?.classList.add("opacity-0", "invisible");
+      scrollButton?.classList.remove("opacity-100", "visible");
     }
   };
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
-  window.addEventListener('scroll', toggleScrollButton);
-  scrollButton?.addEventListener('click', scrollToTop);
+  window.addEventListener("scroll", toggleScrollButton);
+  scrollButton?.addEventListener("click", scrollToTop);
 </script>

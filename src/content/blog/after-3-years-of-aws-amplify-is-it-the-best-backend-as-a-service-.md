@@ -1,13 +1,14 @@
 ---
 slug: after-3-years-of-aws-amplify-is-it-the-best-backend-as-a-service
 title: After 3 years of AWS Amplify, is it the Best Backend as a Service?
-description: As a one-person team managing backend services for a few businesses, finding a reliable and efficient Backend as a Service (BaaS) is crucial. For the past three years, AWS Amplify has been that service for me. 
+description: As a one-person team managing backend services for a few businesses, finding a reliable and efficient Backend as a Service (BaaS) is crucial. For the past three years, AWS Amplify has been that service for me.
 author: Bryson
 pubDate: 2025-05-12
 mediumLink: https://medium.com/@BryMei/after-3-years-of-aws-amplify-is-it-the-best-backend-as-a-service-4f12bed21511
 keywords: ["Backend as a Service", "AWS"]
 image: "../images/after-3-years-of-amplify-aws.webp"
 ---
+
 ![A sad programmer thinking about the time wasted with python project management and debugging](../images/after-3-years-of-amplify-aws.webp)
 
 As a one-person team managing backend services for a few businesses, finding a reliable and efficient Backend as a Service (BaaS) is crucial. For the past three years, AWS Amplify has been that service for me. Given AWS’s reputation for solid infrastructure, my initial assessment remains largely positive: it’s a good platform, albeit with its own specific way of doing things. It has enabled me to deliver features and manage operations effectively, proving to be a powerful tool for a lean team. So, would I use it again? Perhaps, but not without acknowledging some significant points of friction I’ve encountered along the way.
@@ -30,7 +31,6 @@ The flexibility of SQL databases like PostgreSQL, allowing for easy pivoting, su
 
 ![Cost of the website over over the year](../images/aws-amplify-yearly-costs.png)
 
-
 On the financial front, Amplify has been quite cost-effective for my needs. The cost has been great! Comparing my average monthly bill of around $14 (which includes costs for services like SES for email and SNS for texts) to the $25/month starting tier of Supabase, Amplify certainly seems to win purely on price for my current usage. However, this cost analysis feels a bit petty when considering the development overhead and workarounds necessitated by using DynamoDB instead of a more flexible SQL database like PostgreSQL offered by Supabase. The features and ease of querying a SQL database could potentially justify a higher cost for many projects.
 
 ## UI Component Experience: A Disappointing Detour
@@ -46,12 +46,15 @@ Compared to mature and popular UI libraries like Shadcn, MUI, or Mantine, Amplif
 Beyond the areas mentioned, Amplify also provides robust solutions for other essential BaaS functionalities:
 
 ### Authentication
+
 Amplify integrates seamlessly with Amazon Cognito to provide a fully managed user directory. Setting up various authentication flows, including email/password, social logins (Google, Facebook, etc.), and multi-factor authentication (MFA), is relatively straightforward. This is a critical component for most applications, and Amplify handles it quite well, offering both pre-built UI components (though I preferred building my own using the underlying libraries) and fine-grained access control rules tied to user groups and ownership. Its cheap, BUT the docs are rough and it pisses me off that you can’t change the group claims after creation. Migrating cognito user pools is a too much of a hassle.
 
 ### APIs (GraphQL and REST)
+
 Amplify simplifies the creation of both GraphQL APIs (powered by AWS AppSync) and REST APIs (powered by Amazon API Gateway and AWS Lambda). While I focused on the database challenges with GraphQL’s data modeling, the ability to quickly set up endpoints and connect them to backend logic (often implemented using Lambda functions) is a core strength. Defining resolvers or Lambda handlers allows you to implement custom business logic.
 
 ### Functions (AWS Lambda)
+
 As I mentioned using Lambda for DynamoDB workarounds, it’s worth noting that Amplify makes it relatively easy to add and manage AWS Lambda functions. These can be triggered by API calls, database events (like DynamoDB streams), or other AWS services, providing a flexible way to add custom server-side logic without managing servers.
 
 These features are fundamental to a BaaS, and Amplify’s integration with the broader AWS ecosystem provides a lot of power and scalability potential, even if some aspects require a deeper understanding of the underlying AWS services.

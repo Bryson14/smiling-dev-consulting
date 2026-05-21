@@ -5,21 +5,21 @@ description: A high-performance Astro + Cloudflare Workers website for a premium
 status: Active
 updateDate: 2026-03-16
 keywords:
-    - astro
-    - cloudflare workers
-    - b2b
-    - industrial
-    - seo-optimization
-    - high-performance
-    - contact-forms
-technologies: 
-    - astro
-    - cloudflare workers
-    - tailwind css
-    - typescript
-    - shadcn styling
-    - svelte
-    - json-ld
+  - astro
+  - cloudflare workers
+  - b2b
+  - industrial
+  - seo-optimization
+  - high-performance
+  - contact-forms
+technologies:
+  - astro
+  - cloudflare workers
+  - tailwind css
+  - typescript
+  - shadcn styling
+  - svelte
+  - json-ld
 featured: true
 image: src/content/images/peak-warehouse-solutions-hero.webp
 websiteLink: https://peakwarehousesolutions.com

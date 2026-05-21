@@ -21,10 +21,12 @@ export const GET: APIRoute = async () => {
 
   let llmData = "";
   llmData += "# Smiling Dev Consulting smiling.dev\n\n";
-  llmData += "> A consultancy for small and medium sized businesses looking for websites, web apps, fractional CTO services, and AI solutions.\n\n";
+  llmData +=
+    "> A consultancy for small and medium sized businesses looking for websites, web apps, fractional CTO services, and AI solutions.\n\n";
 
   llmData += "## Full Documentation\n\n";
-  llmData += "- [Full Blog Content](https://smiling.dev/llms-full.txt): Complete blog posts with full content for deep context.\n\n";
+  llmData +=
+    "- [Full Blog Content](https://smiling.dev/llms-full.txt): Complete blog posts with full content for deep context.\n\n";
 
   // Projects section (curated summary)
   llmData += "## Featured Projects\n\n";
@@ -40,7 +42,9 @@ export const GET: APIRoute = async () => {
   // Blog posts section (curated summary)
   llmData += "## Recent Blog Posts\n\n";
   sortedPosts.slice(0, 8).forEach((post) => {
-    const date = new Date(post.data.updateDate || post.data.pubDate).toLocaleDateString();
+    const date = new Date(
+      post.data.updateDate || post.data.pubDate,
+    ).toLocaleDateString();
     llmData += `- [${post.data.title}](https://smiling.dev/blog/${post.data.slug}): ${post.data.description}\n`;
     if (post.data.keywords && post.data.keywords.length > 0) {
       llmData += `  Tags: ${post.data.keywords.join(", ")}\n`;

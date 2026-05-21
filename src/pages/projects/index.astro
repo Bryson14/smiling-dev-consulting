@@ -6,28 +6,28 @@ import Layout from "@/layouts/main.astro";
 
 let projects = await getCollection("projects");
 projects = projects.sort((a, b) => {
-	return (
-		new Date(b.data.updateDate).getTime() -
-		new Date(a.data.updateDate).getTime()
-	);
+  return (
+    new Date(b.data.updateDate).getTime() -
+    new Date(a.data.updateDate).getTime()
+  );
 });
 
 // Build JSON-LD for the projects list
 const projectsJsonLd = {
-	"@context": "https://schema.org",
-	"@type": "ItemList",
-	"name": "Project Portfolio",
-	"description": "A list of recent projects completed by Smiling Dev Consulting",
-	"itemListElement": projects.map((project, index) => ({
-		"@type": "ListItem",
-		"position": index + 1,
-		"item": {
-			"@type": "CreativeWork",
-			"name": project.data.title,
-			"description": project.data.description,
-			"url": `${Astro.url.origin}/projects/${project.data.slug}`,
-		},
-	})),
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Project Portfolio",
+  description: "A list of recent projects completed by Smiling Dev Consulting",
+  itemListElement: projects.map((project, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "CreativeWork",
+      name: project.data.title,
+      description: project.data.description,
+      url: `${Astro.url.origin}/projects/${project.data.slug}`,
+    },
+  })),
 };
 ---
 
@@ -43,19 +43,27 @@ const projectsJsonLd = {
       Our Projects
     </h1>
 
-    <div class="max-w-2xl mx-auto mb-16 pb-12 border-b border-muted-foreground/20">
+    <div
+      class="max-w-2xl mx-auto mb-16 pb-12 border-b border-muted-foreground/20"
+    >
       <div class="grid grid-cols-3 gap-8 text-center">
         <div class="space-y-2">
           <div class="text-4xl font-light text-primary">{projects.length}</div>
-          <p class="text-xs text-muted-foreground uppercase tracking-wide">Completed Projects</p>
+          <p class="text-xs text-muted-foreground uppercase tracking-wide">
+            Completed Projects
+          </p>
         </div>
         <div class="space-y-2">
           <div class="text-4xl font-light text-primary">100%</div>
-          <p class="text-xs text-muted-foreground uppercase tracking-wide">Client Satisfaction</p>
+          <p class="text-xs text-muted-foreground uppercase tracking-wide">
+            Client Satisfaction
+          </p>
         </div>
         <div class="space-y-2">
           <div class="text-4xl font-light text-primary">$0</div>
-          <p class="text-xs text-muted-foreground uppercase tracking-wide">Hidden Fees</p>
+          <p class="text-xs text-muted-foreground uppercase tracking-wide">
+            Hidden Fees
+          </p>
         </div>
       </div>
     </div>
@@ -75,12 +83,17 @@ const projectsJsonLd = {
     </div>
 
     <div class="mt-16">
-      <div class="bg-muted/30 dark:bg-muted/20 rounded-lg p-8 text-center border border-muted-foreground/20 mb-12 max-w-2xl mx-auto">
-        <h2 class="text-2xl font-bold mb-3 text-foreground dark:text-foreground">
+      <div
+        class="bg-muted/30 dark:bg-muted/20 rounded-lg p-8 text-center border border-muted-foreground/20 mb-12 max-w-2xl mx-auto"
+      >
+        <h2
+          class="text-2xl font-bold mb-3 text-foreground dark:text-foreground"
+        >
           Ready to Get Started?
         </h2>
         <p class="text-muted-foreground dark:text-muted-foreground mb-6">
-          Curious about the cost of your project? Try our 3-minute quote estimator to get a rough estimate tailored to your needs.
+          Curious about the cost of your project? Try our 3-minute quote
+          estimator to get a rough estimate tailored to your needs.
         </p>
         <a
           href="/quote"
@@ -103,7 +116,9 @@ const projectsJsonLd = {
       </div>
 
       <div class="text-center">
-        <p class="text-muted-foreground dark:text-muted-foreground max-w-2xl mx-auto mb-6">
+        <p
+          class="text-muted-foreground dark:text-muted-foreground max-w-2xl mx-auto mb-6"
+        >
           Looking to start your own project? Let's discuss how we can help bring
           your vision to life.
         </p>

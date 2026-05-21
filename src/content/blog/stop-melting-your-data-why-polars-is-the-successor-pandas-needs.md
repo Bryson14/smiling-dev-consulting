@@ -16,6 +16,7 @@ keywords:
   - polars
 image: src/content/images/polars.png
 ---
+
 # Polars, Marimo, and the Joy of Personal Finance
 
 Something that impressed me this last week is the buzz surrounding a new Python framework called **Polars**. It has been touted as the successor to Pandas, boasting a better API and significantly faster performance. Plus, it’s written in **Rust**, which always draws attention nowadays—though who knows if that "shiny object" syndrome might backfire in the future. Regardless, I’ve been looking for an opportunity to use it, and I finally found a "real-world" itch to scratch.
@@ -83,11 +84,8 @@ I’ve always found Jupyter notebooks frustrating to share. When a data scientis
 Marimo fixes this by:
 
 1.  **Outputting a pure Python file:** It uses decorators like `@app.cell` to turn every cell into a function.
-    
 2.  **Reactivity:** It builds a dependency graph behind the scenes. When you change an input, it automatically reruns only the downstream cells.
-    
 3.  **UI Elements:** It has built-in sliders, date ranges, and buttons that make it feel like a web app rather than a static document.
-    
 
 The result? Beautiful, instantly updated dashboards that are actually presentable to a manager or coworker.
 
@@ -97,22 +95,20 @@ The result? Beautiful, instantly updated dashboards that are actually presentabl
 
 ![](src/content/images/Screenshot%20From%202026-02-11%2017-46-12.png)
 
-|     |     |     |
-| --- | --- | --- |
-| **Feature** | **The "Old" Way (Pandas/Jupyter)** | **The "Modern" Way (Polars/Marimo/uv)** |
-| **Execution** | Eager (calculates every step immediately) | **Lazy** (optimizes the whole plan before running) |
-| **Speed** | Single-threaded (uses 1 CPU core) | **Multi-threaded** (uses all available cores) |
-| **Language** | Python / C | **Rust** (high performance & memory safety) |
-| **Notebook Format** | `.ipynb` (Messy JSON files) | `.py` **(Clean, versionable Python scripts)** |
-| **State** | Hidden (out-of-order cells can break code) | **Reactive** (updates downstream cells automatically) |
-| **Package Mgmt** | pip / conda (can be slow/bloated) | **uv** (extremely fast, lightweight, and modern) |
+|                     |                                            |                                                       |
+| ------------------- | ------------------------------------------ | ----------------------------------------------------- |
+| **Feature**         | **The "Old" Way (Pandas/Jupyter)**         | **The "Modern" Way (Polars/Marimo/uv)**               |
+| **Execution**       | Eager (calculates every step immediately)  | **Lazy** (optimizes the whole plan before running)    |
+| **Speed**           | Single-threaded (uses 1 CPU core)          | **Multi-threaded** (uses all available cores)         |
+| **Language**        | Python / C                                 | **Rust** (high performance & memory safety)           |
+| **Notebook Format** | `.ipynb` (Messy JSON files)                | `.py` **(Clean, versionable Python scripts)**         |
+| **State**           | Hidden (out-of-order cells can break code) | **Reactive** (updates downstream cells automatically) |
+| **Package Mgmt**    | pip / conda (can be slow/bloated)          | **uv** (extremely fast, lightweight, and modern)      |
 
 So I'm convinced that going forward my go to data stack is polars, uv, and marimo. If I was actually cunching some large data, and not just a pet project for personal finances, I'd start reaching also for DuckDB as a way to reach and store my data in memory or as another alternative to polars.
 
 ### Other Links I fonud about Polars from the community:
 
-*   [https://towardsdatascience.com/modern-dataframes-in-python-a-hands-on-tutorial-with-polars-and-duckdb/](https://towardsdatascience.com/modern-dataframes-in-python-a-hands-on-tutorial-with-polars-and-duckdb/)
-    
-*   [https://pola.rs/posts/case-citizens/](https://pola.rs/posts/case-citizens/)
-    
-*   [https://www.datacamp.com/tutorial/high-performance-data-manipulation-in-python-pandas2-vs-polars](https://www.datacamp.com/tutorial/high-performance-data-manipulation-in-python-pandas2-vs-polars)
+- [https://towardsdatascience.com/modern-dataframes-in-python-a-hands-on-tutorial-with-polars-and-duckdb/](https://towardsdatascience.com/modern-dataframes-in-python-a-hands-on-tutorial-with-polars-and-duckdb/)
+- [https://pola.rs/posts/case-citizens/](https://pola.rs/posts/case-citizens/)
+- [https://www.datacamp.com/tutorial/high-performance-data-manipulation-in-python-pandas2-vs-polars](https://www.datacamp.com/tutorial/high-performance-data-manipulation-in-python-pandas2-vs-polars)

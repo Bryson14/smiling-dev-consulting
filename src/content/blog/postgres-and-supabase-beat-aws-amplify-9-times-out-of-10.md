@@ -14,6 +14,7 @@ keywords:
   - AI Agents
 image: src/content/images/IMG_9667.png
 ---
+
 # Solid Technology Makes for Good Choices
 
 A few months ago I wrote an article called why AWS amplify might be the best backend framework. I wrote it partly as a way to test my own knowledge of what I’ve done for the last 2 1/2 years. Also, because there was a little bit of truth in the goodness of that framework. However, I am going back on my thoughts, and I am now walking away from AWS amplify for Supabase.
