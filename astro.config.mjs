@@ -6,7 +6,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import gtm from "astro-gtm-lite";
-
+import partytown from "@astrojs/partytown";
 import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
@@ -16,47 +16,52 @@ export default defineConfig({
   integrations: [
     gtm({
       id: "GTM-WXRHVR6",
-      devMode: true
+      devMode: true,
     }),
     react(),
     mdx(),
     sitemap({
       filter: (page) => !page.includes("/private/"),
-      }),
-      gtm({
-        id: "GTM-WXRHVR6"
-      })
-	],
+    }),
+    gtm({
+      id: "GTM-WXRHVR6",
+    }),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      }
+    }),
+  ],
 
   markdown: {
-      shikiConfig: {
-          themes: {
-              light: "github-light",
-              dark: "github-dark",
-          },
+    shikiConfig: {
+      themes: {
+        light: "github-light",
+        dark: "github-dark",
       },
-      syntaxHighlight: {
-          excludeLangs: ["mermaid", "math"],
-      },
-	},
+    },
+    syntaxHighlight: {
+      excludeLangs: ["mermaid", "math"],
+    },
+  },
 
   image: {
-      service: {
-          entrypoint: "astro/assets/services/sharp",
-      },
-      layout: "constrained"
-	},
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+    },
+    layout: "constrained",
+  },
 
   output: "static",
   compressHTML: true,
 
   build: {
-      inlineStylesheets: "auto",
-	},
+    inlineStylesheets: "auto",
+  },
 
   vite: {
-      plugins: [tailwindcss()],
-	},
+    plugins: [tailwindcss()],
+  },
 
   adapter: cloudflare(),
 });

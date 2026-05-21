@@ -11,344 +11,349 @@ import { Image } from "astro:assets";
 import { Facebook, Github, Linkedin, Mail, Network, Rss } from "@lucide/astro";
 
 interface Props {
-	title?: string;
-	description?: string;
-	image?: string;
-	type?: "website" | "article";
-	canonicalUrl?: string;
-	jsonld?: Record<string, any>;
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: "website" | "article";
+  canonicalUrl?: string;
+  jsonld?: Record<string, any>;
 }
 
 const {
-	title = "Smiling Dev Consulting - Professional Tech Solutions",
-	description = "Expert tech consulting services specializing in web development, AI integration, and digital transformation.",
-	image,
-	type = "website",
-	canonicalUrl = Astro.url.href,
-	jsonld,
+  title = "Smiling Dev Consulting - Professional Tech Solutions",
+  description = "Expert tech consulting services specializing in web development, AI integration, and digital transformation.",
+  image,
+  type = "website",
+  canonicalUrl = Astro.url.href,
+  jsonld,
 } = Astro.props;
 
 // Default organization schema
 const organizationSchema = {
-	"@context": "https://schema.org",
-	"@type": "ProfessionalService",
-	"@id": "https://smiling.dev/#organization",
-	"name": "Smiling Dev Consulting",
-	"url": "https://smiling.dev",
-	"logo": "https://smiling.dev/smiling-dev-logo-small.png",
-	"description": "Expert tech consulting services specializing in web development, AI integration, and digital transformation.",
-	"sameAs": [
-		"https://github.com",
-		"https://linkedin.com",
-		"https://facebook.com"
-	],
-	"contactPoint": {
-		"@type": "ContactPoint",
-		"telephone": "+1-801-971-5786",
-		"contactType": "Customer Service",
-		"email": "info@smiling.dev",
-		"availableLanguage": "English"
-	},
-	"address": {
-		"@type": "PostalAddress",
-		"addressCountry": "US"
-	}
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://smiling.dev/#organization",
+  name: "Smiling Dev Consulting",
+  url: "https://smiling.dev",
+  logo: "https://smiling.dev/smiling-dev-logo-small.png",
+  description:
+    "Expert tech consulting services specializing in web development, AI integration, and digital transformation.",
+  sameAs: [
+    "https://github.com",
+    "https://linkedin.com",
+    "https://facebook.com",
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+1-801-971-5786",
+    contactType: "Customer Service",
+    email: "info@smiling.dev",
+    availableLanguage: "English",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressCountry: "US",
+  },
 };
 ---
 
 <!doctype html>
 <html lang="en" class="scroll-smooth">
-	<head>
-		<Head
-			title={title}
-			description={description}
-			image={image}
-			type={type}
-			canonicalUrl={canonicalUrl}
-		/>
-		<JsonLd data={organizationSchema} />
-		{jsonld && <JsonLd data={jsonld} />}
-		<script>
-			// Prevent flash of wrong theme
-			const theme = (() => {
-				if (
-					typeof localStorage !== "undefined" &&
-					localStorage.getItem("theme")
-				) {
-					return localStorage.getItem("theme");
-				}
-				if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-					return "dark";
-				}
-				return "light";
-			})();
-			if (theme === "dark")
-				document.documentElement.classList.add("dark");
-		</script>
-	</head>
-	<body class="bg-background dark:bg-background text-foreground dark:text-foreground overflow-x-hidden">
-		<div class="flex flex-col min-h-screen">
-			<header
-				class="sticky top-0 z-50 w-full border-b border-border dark:border-border bg-background/80 dark:bg-background/80 backdrop-blur-sm bg-background/95 dark:bg-background/95"
-			>
-				<div
-					class="container mx-auto px-4 py-4 flex items-center justify-between"
-				>
-					<nav class="flex items-center space-x-8">
-						<a href="/" class="flex items-center space-x-2">
-							<Image
-								src="/smiling-dev-logo-small.png"
-								alt="Smiling Dev Logo"
-								height={36}
-								width={36}
-							/>
-							<span
-								class="font-semibold text-xl text-primary dark:text-primary"
-								>Smiling Dev</span
-							>
-						</a>
-						<div class="hidden md:flex items-center space-x-6">
-								<a
-									href="/"
-									class="hover:text-primary dark:hover:text-primary transition-colors"
-									>Home</a
-							>
-								<a
-									href="/about"
-									class="hover:text-primary dark:hover:text-primary transition-colors"
-									>About</a
-							>
-								<a
-									href="/services"
-									class="hover:text-primary dark:hover:text-primary transition-colors"
-									>Services</a
-							>
-								<a
-									href="/projects"
-									class="hover:text-primary dark:hover:text-primary transition-colors"
-									>Projects</a
-							>
-								<a
-									href="/blog"
-									class="hover:text-primary dark:hover:text-primary transition-colors"
-									>Blog</a
-							>
-								<a
-									href="/contact"
-									class="hover:text-primary dark:hover:text-primary transition-colors"
-									>Contact</a
-							>
-							<DarkMode />
-						</div>
-					</nav>
+  <head>
+    <Head
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      canonicalUrl={canonicalUrl}
+    />
+    <JsonLd data={organizationSchema} />
+    {jsonld && <JsonLd data={jsonld} />}
+    <script>
+      // Prevent flash of wrong theme
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+      if (theme === "dark") document.documentElement.classList.add("dark");
+    </script>
 
-					<div class="flex items-center space-x-4 md:hidden">
-						<DarkMode />
-						<MobileNav />
-					</div>
-				</div>
-			</header>
+	// Google Analytics via Partytown for better performance and privacy
+    <script
+      type="text/partytown"
+      src="https://www.googletagmanager.com/gtag/js?id=YKRMWW9X28"
+    ></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "YKRMWW9X28");
+    </script>
+  </head>
+  <body
+    class="bg-background dark:bg-background text-foreground dark:text-foreground overflow-x-hidden"
+  >
+    <div class="flex flex-col min-h-screen">
+      <header
+        class="sticky top-0 z-50 w-full border-b border-border dark:border-border bg-background/80 dark:bg-background/80 backdrop-blur-sm bg-background/95 dark:bg-background/95"
+      >
+        <div
+          class="container mx-auto px-4 py-4 flex items-center justify-between"
+        >
+          <nav class="flex items-center space-x-8">
+            <a href="/" class="flex items-center space-x-2">
+              <Image
+                src="/smiling-dev-logo-small.png"
+                alt="Smiling Dev Logo"
+                height={36}
+                width={36}
+              />
+              <span class="font-semibold text-xl text-primary dark:text-primary"
+                >Smiling Dev</span
+              >
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+              <a
+                href="/"
+                class="hover:text-primary dark:hover:text-primary transition-colors"
+                >Home</a
+              >
+              <a
+                href="/about"
+                class="hover:text-primary dark:hover:text-primary transition-colors"
+                >About</a
+              >
+              <a
+                href="/services"
+                class="hover:text-primary dark:hover:text-primary transition-colors"
+                >Services</a
+              >
+              <a
+                href="/projects"
+                class="hover:text-primary dark:hover:text-primary transition-colors"
+                >Projects</a
+              >
+              <a
+                href="/blog"
+                class="hover:text-primary dark:hover:text-primary transition-colors"
+                >Blog</a
+              >
+              <a
+                href="/contact"
+                class="hover:text-primary dark:hover:text-primary transition-colors"
+                >Contact</a
+              >
+              <DarkMode />
+            </div>
+          </nav>
 
-			<main class="flex-grow">
-				<slot />
-			</main>
+          <div class="flex items-center space-x-4 md:hidden">
+            <DarkMode />
+            <MobileNav />
+          </div>
+        </div>
+      </header>
 
-			<footer class="mt-auto py-8 bg-muted/30 dark:bg-muted">
-				<div class="container mx-auto px-4">
-					<div
-						class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-					>
-						<div>
-							<h3 class="font-semibold mb-4 dark:text-foreground">
-								Contact
-							</h3>
-							<div class="space-y-3">
-								<a
-									href="mailto:info@smiling.dev"
-										class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									<Mail size={20} />
-									<span>info@smiling.dev</span>
-								</a>
-								<a
-									href="https://github.com/bryson14"
-									target="_blank"
-									rel="noopener noreferrer"
-										class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									<Github size={20} />
-									<span>GitHub</span>
-								</a>
-								<a
-									href="https://www.facebook.com/profile.php?id=61587400222540"
-									target="_blank"
-									rel="noopener noreferrer"
-										class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									<Facebook size={20} />
-									<span>Facebook</span>
-								</a>
-								<a
-									href="https://www.linkedin.com/company/smiling-development-consulting"
-									target="_blank"
-									rel="noopener noreferrer"
-										class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									<Linkedin size={20} />
-									<span>LinkedIn</span>
-								</a>
-						</div>
-					</div>
+      <main class="flex-grow">
+        <slot />
+      </main>
 
-					<div>
-						<h3 class="font-semibold mb-4 dark:text-foreground">
-							Quick Links
-						</h3>
-						<ul class="space-y-2">
-							<li>
-								<a
-									href="/projects"
-									class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									Projects
-								</a>
-							</li>
-							<li>
-								<a
-									href="/blog"
-									class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									Blog
-								</a>
-							</li>
-							<li>
-								<a
-									href="/about"
-									class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									About
-								</a>
-							</li>
-							<li>
-								<a
-									href="/quote"
-									class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									Project Estimator
-								</a>
-							</li>
-							<li>
-								<a
-									href="/terms"
-									class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									Terms & Conditions
-								</a>
-							</li>
-						</ul>
-					</div>
+      <footer class="mt-auto py-8 bg-muted/30 dark:bg-muted">
+        <div class="container mx-auto px-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+              <h3 class="font-semibold mb-4 dark:text-foreground">Contact</h3>
+              <div class="space-y-3">
+                <a
+                  href="mailto:info@smiling.dev"
+                  class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                >
+                  <Mail size={20} />
+                  <span>info@smiling.dev</span>
+                </a>
+                <a
+                  href="https://github.com/bryson14"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                >
+                  <Github size={20} />
+                  <span>GitHub</span>
+                </a>
+                <a
+                  href="https://www.facebook.com/profile.php?id=61587400222540"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                >
+                  <Facebook size={20} />
+                  <span>Facebook</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/smiling-development-consulting"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                >
+                  <Linkedin size={20} />
+                  <span>LinkedIn</span>
+                </a>
+              </div>
+            </div>
 
-					<div>
-						<h3 class="font-semibold mb-4 dark:text-foreground">
-							Services
-						</h3>
-						<ul class="space-y-2">
-							<li>
-								<a
-									href="/services"
-									class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									Web Development
-								</a>
-							</li>
-							<li>
-								<a
-									href="/services"
-									class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									Web Applications
-								</a>
-							</li>
-							<li>
-								<a
-									href="/services"
-									class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									Technical Consulting
-								</a>
-							</li>
-							<li>
-								<a
-									href="/services"
-									class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
-								>
-									Dashboard Solutions
-								</a>
-							</li>
-						</ul>
-					</div>
+            <div>
+              <h3 class="font-semibold mb-4 dark:text-foreground">
+                Quick Links
+              </h3>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="/projects"
+                    class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                  >
+                    Projects
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/blog"
+                    class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                  >
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/about"
+                    class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/quote"
+                    class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                  >
+                    Project Estimator
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/terms"
+                    class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                  >
+                    Terms & Conditions
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-					<div>
-						<NewsletterForm
-							title="Newsletter"
-							description="Stay updated with the latest tech insights and project updates."
-						/>
-					</div>
-				</div>
+            <div>
+              <h3 class="font-semibold mb-4 dark:text-foreground">Services</h3>
+              <ul class="space-y-2">
+                <li>
+                  <a
+                    href="/services"
+                    class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                  >
+                    Web Development
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services"
+                    class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                  >
+                    Web Applications
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services"
+                    class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                  >
+                    Technical Consulting
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/services"
+                    class="text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
+                  >
+                    Dashboard Solutions
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-				<div
-					class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700"
-				>
-					<div
-						class="text-center text-gray-600 dark:text-gray-400 text-sm"
-					>
-						<p>
-							© {new Date().getFullYear()} Smiling Dev Consulting.
-							All rights reserved.
-						</p>
-						<p class="mt-2">
-							<a
-								href="/rss.xml"
-								class="hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-1"
-							>
-								<Rss size={16} />RSS Feed
-							</a>
-							<span class="mx-2">•</span>
-							<a
-								href="/sitemap-index.xml"
-								class="hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-1"
-							>
-								<Network />Sitemap</a
-							>
-						</p>
-					</div>
-				</div>
-			</footer>
-		</div>
+            <div>
+              <NewsletterForm
+                title="Newsletter"
+                description="Stay updated with the latest tech insights and project updates."
+              />
+            </div>
+          </div>
 
-		<ScrollToTop />
-		<script>
-			// Add preload class to prevent transitions on page load
-			document.documentElement.classList.add("preload");
-			window.addEventListener("load", () => {
-				document.documentElement.classList.remove("preload");
-			});
+          <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div class="text-center text-gray-600 dark:text-gray-400 text-sm">
+              <p>
+                © {new Date().getFullYear()} Smiling Dev Consulting. All rights reserved.
+              </p>
+              <p class="mt-2">
+                <a
+                  href="/rss.xml"
+                  class="hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-1"
+                >
+                  <Rss size={16} />RSS Feed
+                </a>
+                <span class="mx-2">•</span>
+                <a
+                  href="/sitemap-index.xml"
+                  class="hover:text-primary dark:hover:text-primary transition-colors inline-flex items-center gap-1"
+                >
+                  <Network />Sitemap</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
 
-			// Add smooth scroll behavior to all internal links
-			document
-				.querySelectorAll('a[href^="/"]:not([href^="//"])')
-				.forEach((link) => {
-					link.addEventListener("click", (e) => {
-						const href = link.getAttribute("href");
-						if (href && href.startsWith("/")) {
-							const target = document.querySelector(href);
-							if (target) {
-								e.preventDefault();
-								target.scrollIntoView({ behavior: "smooth" });
-							}
-						}
-					});
-				});
-		</script>
-	</body>
+      <ScrollToTop />
+      <script>
+        // Add preload class to prevent transitions on page load
+        document.documentElement.classList.add("preload");
+        window.addEventListener("load", () => {
+          document.documentElement.classList.remove("preload");
+        });
+
+        // Add smooth scroll behavior to all internal links
+        document
+          .querySelectorAll('a[href^="/"]:not([href^="//"])')
+          .forEach((link) => {
+            link.addEventListener("click", (e) => {
+              const href = link.getAttribute("href");
+              if (href && href.startsWith("/")) {
+                const target = document.querySelector(href);
+                if (target) {
+                  e.preventDefault();
+                  target.scrollIntoView({ behavior: "smooth" });
+                }
+              }
+            });
+          });
+      </script>
+    </div>
+  </body>
 </html>
