@@ -18,11 +18,7 @@ export default defineConfig({
     sitemap({
       filter: (page) => !page.includes("/private/"),
     }),
-    partytown({
-      config: {
-        forward: ["dataLayer.push"],
-      },
-    }),
+    partytown(),
   ],
 
   markdown: {
