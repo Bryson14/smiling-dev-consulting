@@ -3,6 +3,7 @@ slug: learning-to-code-is-not-about-speed
 title: Learning to Code Is Not About Speed—It's About Depth, Retention, and Fighting Cognitive Decline
 description: Real learning isn't a race. This article explores why deep, intentional learning practices matter more than shortcuts, the cognitive science behind why AI shortcuts backfire, and how proper coding discipline fights cognitive decline.
 author: Bryson
+draft: true
 pubDate: 2025-05-22
 keywords:
   - Learning

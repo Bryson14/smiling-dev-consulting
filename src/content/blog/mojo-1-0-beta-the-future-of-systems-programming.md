@@ -3,7 +3,8 @@ slug: mojo-1-0-beta-the-future-of-systems-programming
 title: "Mojo 1.0 Beta: A New Language for AI and Accelerator Programming"
 description: A deep dive into Mojo 1.0's release as a standalone language combining Python's ergonomics with systems programming capabilities. Explores the evolution from Python superset to independent language, syntax comparisons with Python and Rust, and what Chris Lattner's vision means for the future of computing.
 author: Bryson
-pubDate: 2025-05-22
+pubDate: 2026-05-22
+draft: true
 keywords:
   - Mojo
   - Systems Programming

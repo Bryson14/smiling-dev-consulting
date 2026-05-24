@@ -20,6 +20,7 @@ const blog = defineCollection({
       mediumLink: z.string().url().optional(),
       keywords: z.array(z.string()),
       image: image(),
+      draft: z.boolean().default(false),
     }),
 });
 

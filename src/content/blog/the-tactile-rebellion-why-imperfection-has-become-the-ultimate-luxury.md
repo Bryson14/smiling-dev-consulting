@@ -1,3 +1,22 @@
+---
+slug: the-tactile-rebellion-why-imperfection-has-become-the-ultimate-luxury
+title: "The Tactile Rebellion: Why Imperfection Has Become the Ultimate Luxury"
+description: An opinion essay on the anti-AI design movement exploring why human imperfection, materiality, and visible craft have become the ultimate luxury in an era of infinite algorithmic perfection.
+author: Bryson
+pubDate: 2026-05-24
+draft: true
+keywords:
+  - Design
+  - AI
+  - Anti-AI
+  - Tactile Rebellion
+  - Craft
+  - Authenticity
+  - Wabi-sabi
+  - Branding
+image: src/content/images/sudoku-rust.png
+---
+
 # The Tactile Rebellion: Why Imperfection Has Become the Ultimate Luxury
 
 ## An Opinion Essay on the Anti-AI Design Movement
