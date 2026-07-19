@@ -8,7 +8,7 @@ import JsonLd from "../components/JsonLd.astro";
 import "@/styles/global.css";
 import "@/styles/shadcn.css";
 import { Image } from "astro:assets";
-import { Facebook, Github, Linkedin, Mail, Network, Rss } from "@lucide/astro";
+import { Briefcase, Code, Mail, MessageSquare, Network, Rss } from "@lucide/astro";
 
 interface Props {
   title?: string;
@@ -186,7 +186,7 @@ const organizationSchema = {
                   rel="noopener noreferrer"
                   class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
                 >
-                  <Github size={20} />
+                  <Code size={20} />
                   <span>GitHub</span>
                 </a>
                 <a
@@ -195,7 +195,7 @@ const organizationSchema = {
                   rel="noopener noreferrer"
                   class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
                 >
-                  <Facebook size={20} />
+                  <MessageSquare size={20} />
                   <span>Facebook</span>
                 </a>
                 <a
@@ -204,7 +204,7 @@ const organizationSchema = {
                   rel="noopener noreferrer"
                   class="flex items-center gap-3 text-muted-foreground hover:text-primary dark:text-muted-foreground dark:hover:text-primary transition-colors"
                 >
-                  <Linkedin size={20} />
+                  <Briefcase size={20} />
                   <span>LinkedIn</span>
                 </a>
               </div>
