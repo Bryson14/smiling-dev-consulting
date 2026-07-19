@@ -81,6 +81,7 @@ Built with modern web technologies prioritizing performance, SEO, and simplicity
 ### Subject Pages
 
 Six dedicated subject pages dynamically generated from a central configuration, each with:
+
 - Custom meta descriptions optimized for subject-specific search queries
 - Detailed topic breakdowns aligned with curriculum standards
 - Common student challenges and targeted approaches
@@ -89,6 +90,7 @@ Six dedicated subject pages dynamically generated from a central configuration, 
 ### Blog
 
 A growing collection of educational articles published weekly, covering:
+
 - **Study strategies** — Test anxiety, time management, and effective learning techniques
 - **Subject-specific guides** — Deep dives into geometry, algebra, and precalculus challenges
 - **Parent resources** — Advice for supporting struggling students through academic transitions
