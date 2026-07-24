@@ -1,7 +1,9 @@
 ---
 slug: east-coast-scholars
 title: East Coast Scholars
-description: A complete platform rewrite from AWS Amplify to Supabase, modernizing a tutoring management system with improved performance, SQL database architecture, and enhanced scalability.
+description: A complete platform rewrite from AWS Amplify to Supabase,
+  modernizing a tutoring management system with improved performance, SQL
+  database architecture, and enhanced scalability.
 status: Finished
 updateDate: 2025-12-31
 keywords:
@@ -18,10 +20,9 @@ technologies:
   - hono
   - postgresql
 image: src/content/images/east-coast-scholars-landing.png
-featured: true
+featured: false
 websiteLink: https://eastcoastscholars.com
 ---
-
 ## Project Overview
 
 East Coast Scholars represents a comprehensive platform rewrite and rebranding of Tutor the Future—migrating from AWS Amplify to Supabase while modernizing the entire technical architecture. This project demonstrates the strategic evolution from NoSQL to SQL, improved developer experience, and enhanced platform capabilities while maintaining the core educational technology features that drive the business.
