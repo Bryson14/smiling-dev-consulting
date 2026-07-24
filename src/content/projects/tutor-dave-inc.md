@@ -1,7 +1,9 @@
 ---
 slug: tutor-dave-inc
 title: Tutor Dave Inc
-description: A high-performance Astro static site for a math tutoring business serving Long Island and Queens, NY — optimized for local SEO, lead generation, and zero-maintenance operation on the Cloudflare edge network.
+description: A high-performance Astro static site for a math tutoring business
+  serving Long Island and Queens, NY — optimized for local SEO, lead generation,
+  and zero-maintenance operation on the Cloudflare edge network.
 status: Active
 updateDate: 2026-07-19
 keywords:
@@ -22,10 +24,9 @@ technologies:
   - GA4
   - MDX
 image: src/content/images/tutor-dave-inc-landing.webp
-featured: false
+featured: true
 websiteLink: https://tutor-dave-inc.com
 ---
-
 ## Project Overview
 
 Tutor Dave Inc is a modern, performance-obsessed website for a mathematics tutoring business specializing in 8th–12th grade students across Long Island and Queens, NY. Built with Astro and deployed on Cloudflare's global edge network, the site serves as the primary driver for student acquisition, replacing the tutor's reliance on word-of-mouth referrals with a discoverable, conversion-optimized web presence.
