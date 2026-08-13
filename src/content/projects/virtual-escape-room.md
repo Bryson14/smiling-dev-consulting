@@ -1,11 +1,10 @@
 ---
 slug: virtual-escape-room
 title: Virtual Escape Room
-description:
-  A security-hardened, one-hour virtual escape room for communications
-  and marketing students — built with Astro on Cloudflare featuring a backend
-  answer checker, session-based cookie validation, rate limiting, and an admin
-  panel to track student progress.
+description: A security-hardened, one-hour virtual escape room for
+  communications and marketing students — built with Astro on Cloudflare
+  featuring a backend answer checker, session-based cookie validation, rate
+  limiting, and an admin panel to track student progress.
 status: Active
 updateDate: 2026-08-13
 keywords:
@@ -27,10 +26,10 @@ technologies:
   - cookie-based auth
   - rate limiting
   - admin dashboard
+image: src/content/images/IMG_2231.jpeg
 featured: true
-websiteLink: https://escape-room.brockadams.com
+websiteLink: https://escaperoom.brockadams.com
 ---
-
 ## Project Overview
 
 A virtual one-hour escape room hosted for Professor Brock Adams at Weber State University, used in his communications and marketing courses. Students must solve a sequence of puzzles to escape, while the platform enforces real progress — no skipping ahead, no spamming answers, and no peeking at the solution by reading the page source.
@@ -79,3 +78,4 @@ The rebuilt escape room solves every weakness of the original:
 - **Cheat-resistant** — AI reading the source can no longer extract answers, and students can't skip ahead without completing prior steps.
 - **Professor visibility** — Real-time insight into which students are stuck and for how long, enabling targeted help.
 - **Fair gameplay** — Rate limiting prevents brute-forcing, keeping the experience challenging and fair for students who solve it legitimately.
+
