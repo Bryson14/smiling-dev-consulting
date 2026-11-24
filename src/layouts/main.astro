@@ -76,6 +76,7 @@ const organizationSchema = {
     />
     <JsonLd data={organizationSchema} />
     {jsonld && <JsonLd data={jsonld} />}
+    <slot name="head" />
     <script>
       // Prevent flash of wrong theme
       const theme = (() => {

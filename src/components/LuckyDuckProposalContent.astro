@@ -1,0 +1,2647 @@
+---
+/*
+ * Proposal content for Lucky Duck Car Service.
+ * Rendered only after the password gate in the page route passes.
+ */
+import {
+  ArrowRight,
+  Baby,
+  CalendarDays,
+  Car,
+  Check,
+  ChevronRight,
+  Clock,
+  FileText,
+  Globe,
+  Hotel,
+  Info,
+  Luggage,
+  Mail,
+  MapPin,
+  MessageSquare,
+  Plane,
+  Printer,
+  Ship,
+  ShieldCheck,
+  Sparkles,
+  Users,
+  Wallet,
+  Zap,
+} from "@lucide/astro";
+
+const proposalDate = "November 23, 2026";
+
+const navItems = [
+  { href: "#overview", label: "Executive summary", icon: "📋" },
+  { href: "#today", label: "Where the day leaks", icon: "🌊" },
+  { href: "#what-you-get", label: "What you're getting", icon: "🧩" },
+  { href: "#walkthrough", label: "One booking, end to end", icon: "🦆" },
+  { href: "#how-it-works", label: "How it works", icon: "⚙️" },
+  { href: "#messages", label: "What customers see", icon: "💬" },
+  { href: "#website", label: "The website", icon: "🌐" },
+  { href: "#rollout", label: "Rollout plan", icon: "🗓️" },
+  { href: "#investment", label: "Investment", icon: "💵" },
+  { href: "#roles", label: "Who does what", icon: "🤝" },
+  { href: "#assumptions", label: "Assumptions & questions", icon: "❓" },
+  { href: "#next-steps", label: "Next steps", icon: "✅" },
+];
+
+const outcomes = [
+  {
+    stat: "Under 60 sec",
+    label: "First reply to a new inquiry — day, night, or mid-sail.",
+  },
+  {
+    stat: "3 automatic touches",
+    label: "Every pickup: 24 hours, 3 hours, and 30 minutes out.",
+  },
+  {
+    stat: "1 shared inbox",
+    label: "Texts, email, Facebook messages, and website forms.",
+  },
+  {
+    stat: "5–8 hours a week",
+    label: "Estimated admin time returned to you. (We'll measure it.)",
+  },
+];
+
+const painPoints = [
+  {
+    icon: "💬",
+    title: "The group chat is the schedule",
+    body: "Nine drivers, one thread, and whoever reads it last wins. Assignments and changes live in messages that scroll away — and in your head.",
+  },
+  {
+    icon: "🔁",
+    title: "Every customer is the same interview",
+    body: "You ask the same dozen questions by text, then retype the answers into notes. The details are there, but never in the same place twice.",
+  },
+  {
+    icon: "🧒",
+    title: "Car seats are memory, not data",
+    body: "A rear-facing seat for a one-year-old shouldn't be reconstructed from a text thread at 6 a.m. But today, that's the system.",
+  },
+  {
+    icon: "💰",
+    title: "Payment status is a feeling",
+    body: "Zelle and Venmo work beautifully. But “did the Hendersons pay?” means scrolling, guessing, or texting them again.",
+  },
+  {
+    icon: "📵",
+    title: "Passengers disappear at sea",
+    body: "You send instructions 24 hours out, and half your riders are on a ship with no signal. They get off — and need the details right now.",
+  },
+  {
+    icon: "⭐",
+    title: "Goodwill leaks after the ride",
+    body: "Happy customers are your growth engine, but nobody has time to ask for the review, or to remember the family that sails every winter.",
+  },
+];
+
+const pillars = [
+  {
+    icon: "🌐",
+    title: "A website you're proud to send",
+    body: "Routes, rough pricing, what to expect, and a request form. Built for the friend-of-a-friend who is about to Google you — and find nothing.",
+  },
+  {
+    icon: "🗂️",
+    title: "A CRM that remembers everything",
+    body: "Every passenger, every trip, every car seat, every payment — in one record you can search in seconds instead of scrolling for minutes.",
+  },
+  {
+    icon: "🤖",
+    title: "An intake assistant that never sleeps",
+    body: "Answers new texts, emails, and form submissions in seconds, asks the right questions, then hands you a complete summary.",
+  },
+  {
+    icon: "🚐",
+    title: "A dispatch view for nine drivers",
+    body: "Separate calendars, clear assignments, and status updates — without group-chat archaeology. Everyone sees only what they need.",
+  },
+  {
+    icon: "🔔",
+    title: "Reminders that survive the ocean",
+    body: "24 hours, 3 hours, and 30 minutes out — by email and text, with maps, driver details, and payment links. Sent and logged automatically.",
+  },
+  {
+    icon: "💵",
+    title: "Money tracked without spreadsheets",
+    body: "Quote → invoice → payment pending → paid → completed, all visible at a glance. Keep Zelle and Venmo exactly as they are.",
+  },
+];
+
+const journey = [
+  {
+    time: "Tuesday · 3:12 PM",
+    tag: "customer",
+    title: "A referral becomes a text",
+    body: "Sarah Henderson saw your Facebook post and texts the business line: “Hi! Do you pick up at Port Canaveral? Family of 4, flying home Saturday.”",
+  },
+  {
+    time: "Tuesday · 3:12 PM",
+    tag: "auto",
+    title: "The intake assistant answers in seconds",
+    body: "It thanks her, confirms the route, and asks only what you actually need: sail date, ship, terminal, passengers, car seats, and luggage. No forms. No app to download.",
+  },
+  {
+    time: "Tuesday · 3:18 PM",
+    tag: "auto",
+    title: "A complete record appears",
+    body: "Sarah answers in five quick messages. Her contact and trip records are created, every field filled in, and the trip lands in your pipeline as “Info Collected.”",
+  },
+  {
+    time: "Tuesday · 3:18 PM",
+    tag: "you",
+    title: "You get one clean summary",
+    body: "Your phone buzzes once: “New trip — Henderson, 4 passengers, 1 booster, Port Canaveral T8 → MCO, Sat 9:30 AM, 4 bags.” No scrolling. No retyping.",
+  },
+  {
+    time: "Tuesday · 3:40 PM",
+    tag: "you",
+    title: "You quote. It invoices.",
+    body: "You reply with the price in the same thread. She says yes, you tap “Send invoice,” and she gets her trip summary with your Zelle and Venmo details — or a card link, if you add one later. Pipeline: Payment Pending.",
+  },
+  {
+    time: "Wednesday · 10:02 AM",
+    tag: "system",
+    title: "Payment is recorded",
+    body: "The $185 lands in Zelle. One tap marks it Paid (card payments mark themselves). The record now shows exactly what was paid, when, and how.",
+  },
+  {
+    time: "Thursday",
+    tag: "auto",
+    title: "The right people get calendars",
+    body: "You assign Carlos and the black Sienna. Two separate events go out: Sarah gets pickup time, terminal, and map; Carlos gets passengers, booster seat, luggage count, and terminal notes.",
+  },
+  {
+    time: "Friday · 9:30 AM",
+    tag: "auto",
+    title: "24-hour email + text",
+    body: "Sarah receives the detailed email and a short text: pickup window, Terminal 8 Zone B, a map pin, ship-delay instructions, and her balance. Both are logged to her record and visible in your shared inboxes. About half of cruise passengers are offline here — so we send it again later.",
+  },
+  {
+    time: "Saturday · 6:30 AM",
+    tag: "auto",
+    title: "The 3-hour reminder lands on reconnect",
+    body: "She's just off the ship and her phone comes back to life. The same details arrive again — right when she can actually read them.",
+  },
+  {
+    time: "Saturday · 9:00 AM",
+    tag: "auto",
+    title: "30-minute “your driver is here”",
+    body: "Final text: Carlos, black Toyota Sienna, plate LUCKY1, at Zone B by the blue canopy. Payment link included if a balance remains.",
+  },
+  {
+    time: "Saturday · 10:15 AM",
+    tag: "auto",
+    title: "Ride complete — and the loop closes",
+    body: "The trip moves to Completed. The next morning, a friendly review request goes out. That's the referral engine that already grows your business, on autopilot.",
+  },
+  {
+    time: "Next booking",
+    tag: "system",
+    title: "She's already a known customer",
+    body: "Next time Sarah texts, you already know her kids' ages, her booster seat, her preferred pickup, and her payment history. She feels remembered. You didn't do anything.",
+  },
+];
+
+const tagStyles: Record<string, string> = {
+  auto: "bg-primary/10 text-primary border-primary/20",
+  you: "bg-amber-50 text-amber-800 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/60",
+  system:
+    "bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60",
+  customer:
+    "bg-muted text-muted-foreground border-border",
+};
+
+const tagLabels: Record<string, string> = {
+  auto: "Automatic",
+  you: "You decide",
+  system: "System",
+  customer: "Customer",
+};
+---
+
+<div class="min-h-screen bg-background">
+  <!-- Reading progress -->
+  <div
+    id="reading-progress"
+    class="fixed top-0 left-0 z-[60] h-[3px] w-0 bg-gradient-to-r from-primary to-accent no-print"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+    <div class="lg:grid lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-10 xl:gap-14">
+      <!-- Sidebar -->
+      <aside class="hidden lg:block no-print">
+        <div class="lg:sticky lg:top-24">
+          <div class="mb-6">
+            <p class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-2">
+              Private proposal
+            </p>
+            <p class="text-lg font-bold text-foreground leading-tight">
+              Lucky Duck<br />Car Service
+            </p>
+            <p class="text-xs text-muted-foreground mt-2">
+              Website, CRM &amp; automated dispatch
+            </p>
+          </div>
+
+          <nav class="space-y-1" aria-label="Proposal sections">
+            {navItems.map((item) => (
+              <a
+                href={item.href}
+                class="nav-link flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-primary/5 hover:text-foreground transition-colors"
+              >
+                <span class="w-5 text-center text-[13px]" aria-hidden="true">
+                  {item.icon}
+                </span>
+                <span>{item.label}</span>
+              </a>
+            ))}
+          </nav>
+
+          <div class="mt-6 rounded-xl border border-border bg-card p-4">
+            <p class="text-xs text-muted-foreground leading-relaxed">
+              Questions while you read? Email
+              <a
+                href="mailto:info@smiling.dev?subject=Lucky%20Duck%20proposal"
+                class="text-primary hover:underline font-medium"
+              >
+                info@smiling.dev
+              </a>
+            </p>
+            <a
+              href="?logout=1"
+              class="mt-3 inline-block text-xs text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Sign out
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Content column -->
+      <div class="min-w-0 max-w-4xl">
+        <!-- Mobile contents -->
+        <details
+          class="lg:hidden mb-6 rounded-xl border border-border bg-card no-print group"
+        >
+          <summary
+            class="cursor-pointer list-none px-4 py-3 flex items-center justify-between text-sm font-semibold text-foreground"
+          >
+            <span class="flex items-center gap-2">
+              <FileText size={16} class="text-primary" />
+              Jump to a section
+            </span>
+            <ChevronRight
+              size={16}
+              class="text-muted-foreground transition-transform group-open:rotate-90"
+            />
+          </summary>
+          <div class="grid grid-cols-2 gap-1 px-3 pb-3">
+            {navItems.map((item) => (
+              <a
+                href={item.href}
+                class="rounded-lg px-2.5 py-2 text-xs text-muted-foreground hover:bg-primary/5 hover:text-foreground"
+              >
+                {item.icon} {item.label}
+              </a>
+            ))}
+          </div>
+        </details>
+
+        <!-- ============================= HERO ============================= -->
+        <header
+          class="relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm p-6 sm:p-10 mb-6"
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/10 to-transparent pointer-events-none"
+            aria-hidden="true"
+          >
+          </div>
+          <div class="relative">
+            <div class="flex flex-wrap items-center gap-3 mb-5">
+              <span
+                class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary"
+              >
+                <span aria-hidden="true">🦆</span> Private client proposal
+              </span>
+              <span
+                class="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/70 px-3 py-1 text-[11px] font-medium text-muted-foreground"
+              >
+                <ShieldCheck size={12} /> Confidential
+              </span>
+            </div>
+
+            <p class="text-sm font-medium text-muted-foreground mb-2">
+              Prepared for Lucky Duck Car Service
+            </p>
+            <h1
+              class="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-[1.08] tracking-tight"
+            >
+              Your business, running from one calm command center.
+            </h1>
+            <p
+              class="mt-5 text-base sm:text-lg text-foreground/85 leading-relaxed max-w-2xl"
+            >
+              A branded website, a CRM that remembers every passenger detail,
+              separate calendars for you and your drivers, and pickup reminders
+              that still reach travelers after a week offline at sea.
+            </p>
+            <p class="mt-3 text-sm text-muted-foreground">
+              You keep the relationships. I'll build and run the machine behind
+              them.
+            </p>
+
+            <div class="mt-7 flex flex-wrap items-center gap-3 no-print">
+              <a
+                href="#investment"
+                class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                Jump to investment
+                <ArrowRight size={16} />
+              </a>
+              <a
+                href="#walkthrough"
+                class="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-muted/60 transition-colors"
+              >
+                See it in action
+              </a>
+              <button
+                type="button"
+                id="print-proposal"
+                class="inline-flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Printer size={15} />
+                Print / save PDF
+              </button>
+            </div>
+
+            <div
+              class="mt-9 grid grid-cols-2 lg:grid-cols-4 gap-4 border-t border-border pt-6"
+            >
+              <div>
+                <p class="text-[11px] uppercase tracking-wider text-muted-foreground">
+                  Prepared by
+                </p>
+                <p class="mt-1 text-sm font-semibold text-foreground">
+                  Bryson<br class="hidden sm:block" /> Smiling Dev Consulting
+                </p>
+              </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-wider text-muted-foreground">
+                  Date
+                </p>
+                <p class="mt-1 text-sm font-semibold text-foreground">
+                  {proposalDate}
+                </p>
+              </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-wider text-muted-foreground">
+                  Valid through
+                </p>
+                <p class="mt-1 text-sm font-semibold text-foreground">
+                  30 days
+                </p>
+              </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-wider text-muted-foreground">
+                  Engagement
+                </p>
+                <p class="mt-1 text-sm font-semibold text-foreground">
+                  Build + monthly
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span
+                class="rounded-full bg-background/80 border border-border px-3 py-1.5 text-xs font-semibold text-foreground"
+                >Website · $1,500</span
+              >
+              <span
+                class="rounded-full bg-background/80 border border-border px-3 py-1.5 text-xs font-semibold text-foreground"
+                >CRM &amp; automation · $4,500</span
+              >
+              <span
+                class="rounded-full bg-background/80 border border-border px-3 py-1.5 text-xs font-semibold text-foreground"
+                >Ongoing · $500/mo</span
+              >
+            </div>
+          </div>
+        </header>
+
+        <!-- ============================= OVERVIEW ============================= -->
+        <section
+          id="overview"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <FileText size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                The short version
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                The business already works. This makes it easier to run.
+              </h2>
+            </div>
+          </div>
+
+          <div class="space-y-4 text-foreground/85 leading-relaxed">
+            <p>
+              Your growth is coming from trust: Facebook posts, referrals, and
+              people telling their friends “use Lucky Duck — they were waiting
+              when we got off the ship.” That's the best kind of growth there
+              is. It's also the kind that breaks a manual system.
+            </p>
+            <p>
+              At nine drivers, you are the dispatch desk, the CRM, the reminder
+              service, the billing department, and the customer service line.
+              Most of that lives in your head, a group chat, and a text thread.
+              Every new booking adds one more thing to remember — and the cost
+              of forgetting is high: a family standing at the wrong curb with
+              luggage and a ship to catch.
+            </p>
+            <p>
+              This is not a rebuild. The business already works. This is taking
+              the parts that live in your head and your messages and putting
+              them into a system that does the repetitive work for you, while
+              you stay in charge of pricing, drivers, and the relationships.
+            </p>
+            <p class="font-medium text-foreground">
+              The goal is simple: you open one screen in the morning and know
+              exactly what's happening today, what's been paid, who's driving,
+              and who's been taken care of. No scrolling required.
+            </p>
+          </div>
+
+          <div class="mt-7 grid sm:grid-cols-2 gap-4">
+            {outcomes.map((item) => (
+              <div class="rounded-xl border border-border bg-background/60 p-4">
+                <p class="text-lg font-bold text-primary leading-tight">
+                  {item.stat}
+                </p>
+                <p class="mt-1 text-sm text-muted-foreground leading-snug">
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div
+            class="mt-6 rounded-xl border border-primary/20 bg-primary/5 p-5"
+          >
+            <p class="text-sm text-foreground leading-relaxed">
+              <strong class="font-semibold">In one sentence:</strong> every
+              inquiry gets answered, every detail gets recorded, every pickup
+              gets three reminders, every driver gets their own calendar, and
+              every dollar gets tracked — without you holding it all in your
+              head.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============================= TODAY ============================= -->
+        <section
+          id="today"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <Clock size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                Why this matters now
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                Where the day leaks
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-6">
+            None of this is a discipline problem. It's a systems problem. The
+            work is real, the details are critical, and the tools (texts, group
+            chats, memory) were never built to hold a business this size.
+          </p>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            {painPoints.map((item) => (
+              <div class="rounded-xl border border-border bg-background/50 p-5">
+                <div class="flex items-start gap-3">
+                  <span
+                    class="text-xl leading-none mt-0.5"
+                    aria-hidden="true">{item.icon}</span
+                  >
+                  <div>
+                    <h3 class="font-semibold text-foreground mb-1.5">
+                      {item.title}
+                    </h3>
+                    <p class="text-sm text-muted-foreground leading-relaxed">
+                      {item.body}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <h3 class="mt-8 mb-3 font-semibold text-foreground">
+            The same week, with a system
+          </h3>
+          <div class="overflow-x-auto rounded-xl border border-border">
+            <table class="w-full text-sm min-w-[640px]">
+              <thead class="bg-muted/70">
+                <tr>
+                  <th class="text-left px-4 py-3 font-semibold text-foreground w-1/2">
+                    Today
+                  </th>
+                  <th class="text-left px-4 py-3 font-semibold text-foreground w-1/2">
+                    With the system
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr>
+                  <td class="px-4 py-3 text-muted-foreground">
+                    New text → see it later → ask questions over 40 minutes
+                  </td>
+                  <td class="px-4 py-3 text-foreground">
+                    Instant reply → details collected in about a minute → you get
+                    a summary
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-muted-foreground">
+                    Trip details spread across three threads and your memory
+                  </td>
+                  <td class="px-4 py-3 text-foreground">
+                    One record with every detail, searchable in seconds
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-muted-foreground">
+                    Driver assignments in a group chat
+                  </td>
+                  <td class="px-4 py-3 text-foreground">
+                    Separate calendar events, one per driver and rider
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-muted-foreground">
+                    “Did they pay?” means manual checking
+                  </td>
+                  <td class="px-4 py-3 text-foreground">
+                    Pipeline shows Pending, Paid, and Completed at a glance
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-muted-foreground">
+                    Reminder texts typed by hand, when you remember
+                  </td>
+                  <td class="px-4 py-3 text-foreground">
+                    Automatic at 24h, 3h, and 30m — with map, driver, and payment
+                    link
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 text-muted-foreground">
+                    Referrals go to Facebook Messenger and wait
+                  </td>
+                  <td class="px-4 py-3 text-foreground">
+                    Referrals land on a website that answers questions and
+                    captures the trip
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ============================= WHAT YOU GET ============================= -->
+        <section
+          id="what-you-get"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <Sparkles size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                The six pieces
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                What you're getting
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-6">
+            Six connected pieces, built on one platform, branded as Lucky Duck.
+            Each one solves a specific problem on its own — together they stop
+            the daily scramble.
+          </p>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            {pillars.map((item) => (
+              <div
+                class="rounded-xl border border-border bg-background/50 p-5 hover:border-primary/30 transition-colors"
+              >
+                <div class="flex items-start gap-3">
+                  <span
+                    class="shrink-0 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-xl"
+                    aria-hidden="true">{item.icon}</span
+                  >
+                  <div>
+                    <h3 class="font-semibold text-foreground mb-1.5">
+                      {item.title}
+                    </h3>
+                    <p class="text-sm text-muted-foreground leading-relaxed">
+                      {item.body}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- ============================= WALKTHROUGH ============================= -->
+        <section
+          id="walkthrough"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <Ship size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                A day in the life
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                One booking, end to end
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-5">
+            Here's what it actually feels like. Meet the Hendersons — a made-up
+            family with a very real Saturday. They sail into Port Canaveral and
+            need a ride back to Orlando International.
+          </p>
+
+          <!-- Family summary card -->
+          <div class="rounded-xl border border-border bg-background/60 p-5 mb-7">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <span
+                class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
+                >Example trip</span
+              >
+              <span class="h-1 w-1 rounded-full bg-border"></span>
+              <span class="text-xs font-medium text-foreground"
+                >Port Canaveral Terminal 8 → MCO</span
+              >
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 text-xs text-foreground">
+                <span class="text-primary"><Users size={12} /></span>
+                2 adults, 2 kids (3 &amp; 7)
+              </span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 text-xs text-foreground">
+                <span class="text-primary"><Baby size={12} /></span>
+                1 booster seat
+              </span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 text-xs text-foreground">
+                <span class="text-primary"><Luggage size={12} /></span>
+                4 checked bags
+              </span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 text-xs text-foreground">
+                <span class="text-primary"><MapPin size={12} /></span>
+                Terminal 8, Zone B
+              </span>
+              <span class="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-2.5 py-1 text-xs text-foreground">
+                <span class="text-primary"><Clock size={12} /></span>
+                Saturday, 9:30 AM
+              </span>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <ol class="relative ml-2 border-l border-border space-y-6">
+            {journey.map((step) => (
+              <li class="relative pl-7">
+                <span
+                  class={`absolute -left-2 top-1.5 h-4 w-4 rounded-full ring-4 ring-card ${
+                    step.tag === "auto"
+                      ? "bg-primary"
+                      : step.tag === "you"
+                        ? "bg-amber-500"
+                        : step.tag === "system"
+                          ? "bg-emerald-500"
+                          : "bg-muted-foreground/40"
+                  }`}
+                  aria-hidden="true"
+                >
+                </span>
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <span class="text-xs font-semibold text-muted-foreground">
+                    {step.time}
+                  </span>
+                  <span
+                    class={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${tagStyles[step.tag]}`}
+                  >
+                    {tagLabels[step.tag]}
+                  </span>
+                </div>
+                <h3 class="font-semibold text-foreground text-[15px] mb-1">
+                  {step.title}
+                </h3>
+                <p class="text-sm text-muted-foreground leading-relaxed">
+                  {step.body}
+                </p>
+              </li>
+            ))}
+          </ol>
+
+          <div
+            class="mt-8 rounded-xl border border-emerald-200 bg-emerald-50 p-5 dark:border-emerald-800/60 dark:bg-emerald-950/30"
+          >
+            <p class="text-sm text-emerald-900 dark:text-emerald-200 leading-relaxed">
+              <strong class="font-semibold">Count the work:</strong> you sent one
+              price and tapped "mark paid." The system handled the intake, the
+              record, the invoice, both calendars, all three reminders, and the
+              review request. That's the whole point.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============================= HOW IT WORKS ============================= -->
+        <section
+          id="how-it-works"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <Zap size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                The mechanics
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                How it works, step by step
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-8">
+            Every piece below is configured, tested, and maintained for you.
+            You'll never be asked to build a workflow or learn a complicated
+            tool — you just use the inbox, the pipeline, and the calendar like a
+            normal person.
+          </p>
+
+          <div>
+            <!-- Step 1 -->
+            <div class="relative border-l border-border pl-7 pb-10">
+              <span
+                class="absolute -left-4 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground ring-4 ring-card"
+                >01</span
+              >
+              <h3 class="text-lg font-bold text-foreground mb-2">
+                Every channel lands in one place
+              </h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+                Today, a customer might text, message your Facebook page, email,
+                or call. Each one lives somewhere different. After launch, they
+                all land in one shared inbox and one customer record.
+              </p>
+
+              <div class="grid sm:grid-cols-2 gap-3">
+                {[
+                  {
+                    icon: "🌐",
+                    title: "Website form",
+                    body: "A request form creates the contact and trip instantly.",
+                  },
+                  {
+                    icon: "💬",
+                    title: "Text message",
+                    body: "Your business number answers, asks the intake questions, and logs everything.",
+                  },
+                  {
+                    icon: "✉️",
+                    title: "Email",
+                    body: "Replies are threaded on the same record — no forwarded screenshots.",
+                  },
+                  {
+                    icon: "📘",
+                    title: "Facebook Messenger",
+                    body: "Connected to the same inbox, so referrals don't sit unread.",
+                  },
+                  {
+                    icon: "📞",
+                    title: "Phone calls",
+                    body: "Ring straight to you, with an automatic text if you miss one.",
+                  },
+                  {
+                    icon: "🔁",
+                    title: "Repeat customers",
+                    body: "Recognized by phone or email, with their history already attached.",
+                  },
+                ].map((channel) => (
+                  <div class="rounded-lg border border-border bg-background/50 p-4">
+                    <p class="text-sm font-semibold text-foreground mb-1">
+                      <span aria-hidden="true" class="mr-1.5">{channel.icon}</span>
+                      {channel.title}
+                    </p>
+                    <p class="text-xs text-muted-foreground leading-relaxed">
+                      {channel.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div
+                class="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800/60 dark:bg-amber-950/30"
+              >
+                <p class="text-sm text-amber-900 dark:text-amber-200 leading-relaxed">
+                  <strong class="font-semibold">About calls:</strong> you told me
+                  you don't love the robot-voice sound, and I agree. Calls ring
+                  straight to you — no menu, no "press 1." If you miss one, the
+                  caller gets a friendly text within a minute asking for their
+                  dates and group size, so the lead doesn't evaporate.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative border-l border-border pl-7 pb-10">
+              <span
+                class="absolute -left-4 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground ring-4 ring-card"
+                >02</span
+              >
+              <h3 class="text-lg font-bold text-foreground mb-2">
+                The intake assistant asks the right questions
+              </h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+                A new text or email gets a warm, natural reply in seconds — not a
+                form, not an app, not a "we'll get back to you." It asks one
+                question at a time, in plain language, and remembers the answers
+                as it goes.
+              </p>
+
+              <div
+                class="rounded-lg border border-border bg-background/50 p-5 mb-4"
+              >
+                <p
+                  class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-3"
+                >
+                  The eight things it collects
+                </p>
+                <ol class="grid sm:grid-cols-2 gap-x-6 gap-y-2.5 text-sm text-foreground">
+                  {[
+                    "Arriving or departing — or both",
+                    "Date and time of the pickup",
+                    "Airport, airline, and flight number",
+                    "Cruise line, ship, and terminal (if known)",
+                    "Hotel name and address, when relevant",
+                    "Passengers — adults, children, infants",
+                    "Car seats and boosters, by type and count",
+                    "Luggage estimate and anything special",
+                  ].map((question, index) => (
+                    <li class="flex items-start gap-2.5">
+                      <span class="shrink-0 mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">
+                        {index + 1}
+                      </span>
+                      <span class="leading-snug">{question}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              <div
+                class="rounded-lg border border-border bg-primary/5 p-4"
+              >
+                <p class="text-sm font-semibold text-foreground mb-2">
+                  When it hands the conversation to you
+                </p>
+                <ul class="grid sm:grid-cols-2 gap-x-6 gap-y-1.5 text-xs text-muted-foreground">
+                  {[
+                    "Intake is complete and ready to quote",
+                    "The rider types HUMAN or AGENT",
+                    "They ask for a custom stop or unusual route",
+                    "They mention a complaint, refund, or date change",
+                    "The request falls outside what it knows",
+                    "Anything about a live, same-day pickup",
+                  ].map((rule) => (
+                    <li class="flex items-start gap-2">
+                      <Check size={13} class="mt-0.5 shrink-0 text-primary" />
+                      <span>{rule}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p class="mt-3 text-xs text-muted-foreground">
+                  Rule of thumb: when in doubt, it hands off. It never guesses on
+                  a live pickup or a refund.
+                </p>
+              </div>
+
+              <p class="mt-3 text-xs text-muted-foreground">
+                Every answer is editable. If a customer says "two car seats" but
+                means one booster, you fix it in two clicks and the record is
+                correct forever.
+              </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative border-l border-border pl-7 pb-10">
+              <span
+                class="absolute -left-4 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground ring-4 ring-card"
+                >03</span
+              >
+              <h3 class="text-lg font-bold text-foreground mb-2">
+                A customer record builds itself
+              </h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+                This is the part that replaces your memory and your notes app.
+                Each contact holds the person's details; each trip holds the
+                logistics. One customer can have many trips without overwriting
+                the last one.
+              </p>
+
+              <div class="grid gap-4 lg:grid-cols-3">
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-semibold text-foreground mb-2">
+                    👤 Who they are
+                  </p>
+                  <ul class="space-y-1.5 text-xs text-muted-foreground">
+                    <li>Name, phone, email</li>
+                    <li>Preferred contact method</li>
+                    <li>Referral source (Facebook, friend, return guest)</li>
+                    <li>Notes and preferences</li>
+                    <li>Marketing consent</li>
+                  </ul>
+                </div>
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-semibold text-foreground mb-2">
+                    🧳 What the trip is
+                  </p>
+                  <ul class="space-y-1.5 text-xs text-muted-foreground">
+                    <li>Trip type, date, and pickup time</li>
+                    <li>Airport, airline, and flight number</li>
+                    <li>Cruise line, ship, and terminal</li>
+                    <li>Hotel name and address</li>
+                    <li>Passengers, car seats, luggage, extra stops</li>
+                  </ul>
+                </div>
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-semibold text-foreground mb-2">
+                    💵 What happens next
+                  </p>
+                  <ul class="space-y-1.5 text-xs text-muted-foreground">
+                    <li>Quote, deposit, and total</li>
+                    <li>Payment method and status</li>
+                    <li>Assigned driver and vehicle</li>
+                    <li>Trip status and reminder history</li>
+                    <li>Review request sent</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <p
+                  class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-2"
+                >
+                  The pipeline at a glance
+                </p>
+                <div class="flex flex-wrap items-center gap-1.5">
+                  {[
+                    "New inquiry",
+                    "Info collected",
+                    "Quoted",
+                    "Payment pending",
+                    "Paid",
+                    "Assigned",
+                    "Completed",
+                    "Review sent",
+                  ].map((stage, index) => (
+                    <>
+                      <span class="rounded-full border border-border bg-background px-2.5 py-1 text-[11px] font-medium text-foreground">
+                        {stage}
+                      </span>
+                      {index < 7 && (
+                        <ChevronRight
+                          size={12}
+                          class="shrink-0 text-muted-foreground/60"
+                        />
+                      )}
+                    </>
+                  ))}
+                </div>
+                <p class="mt-2 text-xs text-muted-foreground">
+                  Trips that don't go ahead move to Lost or Cancelled — with the
+                  reason recorded, so patterns become visible.
+                </p>
+              </div>
+
+              <div
+                class="mt-4 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800/60 dark:bg-blue-950/30"
+              >
+                <p class="text-sm text-blue-900 dark:text-blue-200 leading-relaxed">
+                  <strong class="font-semibold">One customer, many trips:</strong>
+                  a family that sails every winter keeps one contact record and a
+                  fresh trip record each time. We never overwrite the ride from
+                  last March with the one next Saturday.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="relative border-l border-border pl-7 pb-10">
+              <span
+                class="absolute -left-4 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground ring-4 ring-card"
+                >04</span
+              >
+              <h3 class="text-lg font-bold text-foreground mb-2">
+                Quote, invoice, and money tracking
+              </h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+                Nothing about how your customers pay changes unless you want it
+                to. What changes is that you stop having to remember who paid.
+              </p>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+                {[
+                  { step: "1", label: "You confirm the price", tone: "you" },
+                  { step: "2", label: "Invoice + trip summary sent", tone: "auto" },
+                  { step: "3", label: "Payment pending list", tone: "you" },
+                  { step: "4", label: "Paid → completed", tone: "auto" },
+                ].map((item) => (
+                  <div class="rounded-lg border border-border bg-background/50 p-3 text-center">
+                    <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-[11px] font-bold text-primary">
+                      {item.step}
+                    </span>
+                    <p class="mt-2 text-xs font-medium text-foreground leading-snug">
+                      {item.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <ul class="space-y-2 text-sm text-foreground/85">
+                {[
+                  "Keep Zelle and Venmo front and center — your riders already know how to use them.",
+                  "Add an optional card / payment link for people who prefer to pay online.",
+                  "Offer a deposit to hold a date, if you want one (for example, 25% at booking).",
+                  "One accounts-receivable view shows exactly who still owes, how much, and how long.",
+                  "Zelle and Venmo payments are marked Paid with one tap; card payments update themselves.",
+                  "A receipt and confirmation go out automatically once payment is recorded.",
+                ].map((item) => (
+                  <li class="flex items-start gap-3">
+                    <Check size={16} class="mt-0.5 shrink-0 text-primary" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div
+                class="mt-4 rounded-lg border border-border bg-primary/5 p-4"
+              >
+                <p class="text-sm text-foreground leading-relaxed">
+                  <strong class="font-semibold">The number you'll actually use:</strong>
+                  "How much is outstanding right now?" It's one screen, always
+                  current, and no longer requires scrolling through Venmo.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="relative border-l border-border pl-7 pb-10">
+              <span
+                class="absolute -left-4 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground ring-4 ring-card"
+                >05</span
+              >
+              <h3 class="text-lg font-bold text-foreground mb-2">
+                Two calendars, not one group chat
+              </h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+                Riders and drivers get separate calendar events — never a shared
+                event with everyone on it. Each person sees only what they need,
+                and a change updates both without three follow-up texts.
+              </p>
+
+              <div class="overflow-x-auto rounded-lg border border-border mb-4">
+                <table class="w-full text-sm min-w-[560px]">
+                  <thead class="bg-muted/70">
+                    <tr>
+                      <th class="text-left px-4 py-3 font-semibold text-foreground">
+                        What's inside
+                      </th>
+                      <th class="text-left px-4 py-3 font-semibold text-foreground">
+                        Rider event
+                      </th>
+                      <th class="text-left px-4 py-3 font-semibold text-foreground">
+                        Driver event
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-border text-xs">
+                    <tr>
+                      <td class="px-4 py-3 font-medium text-foreground">Time &amp; place</td>
+                      <td class="px-4 py-3 text-muted-foreground">Pickup time, terminal/zone, map link</td>
+                      <td class="px-4 py-3 text-muted-foreground">Pickup time, terminal/zone, staging notes</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 font-medium text-foreground">Trip details</td>
+                      <td class="px-4 py-3 text-muted-foreground">Passenger count, drop-off, contact number</td>
+                      <td class="px-4 py-3 text-muted-foreground">Passengers, car seats, luggage, flight/ship info</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 font-medium text-foreground">What it hides</td>
+                      <td class="px-4 py-3 text-muted-foreground">Driver pay, other riders, internal notes</td>
+                      <td class="px-4 py-3 text-muted-foreground">Other drivers' trips, unrelated customers</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 font-medium text-foreground">Updates</td>
+                      <td class="px-4 py-3 text-muted-foreground">Notified when time or driver changes</td>
+                      <td class="px-4 py-3 text-muted-foreground">Notified when time, passenger, or seat count changes</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-semibold text-foreground mb-1">
+                    Delivered where they already look
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    Google, Apple, or Outlook calendar — or the mobile app. Your
+                    drivers don't need to learn new software to see their day.
+                  </p>
+                </div>
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-semibold text-foreground mb-1">
+                    Simple status buttons
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    En route, arrived, picked up. Tap once and dispatch knows —
+                    no "did anyone get the Hendersons?" text thread.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="relative border-l border-border pl-7 pb-10">
+              <span
+                class="absolute -left-4 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground ring-4 ring-card"
+                >06</span
+              >
+              <h3 class="text-lg font-bold text-foreground mb-2">
+                The countdown that survives the ocean
+              </h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+                This is the heart of the system. Every pickup gets three
+                check-ins — a detailed email and a short text at each one — with
+                the map, the meeting point, and the payment details. Every send
+                is logged on the record and visible in your shared inboxes.
+              </p>
+
+              <div class="overflow-x-auto rounded-lg border border-border mb-4">
+                <table class="w-full text-sm min-w-[720px]">
+                  <thead class="bg-muted/70">
+                    <tr>
+                      <th class="text-left px-4 py-3 font-semibold text-foreground w-24">
+                        When
+                      </th>
+                      <th class="text-left px-4 py-3 font-semibold text-foreground">
+                        Email (longer)
+                      </th>
+                      <th class="text-left px-4 py-3 font-semibold text-foreground">
+                        Text (shorter)
+                      </th>
+                      <th class="text-left px-4 py-3 font-semibold text-foreground">
+                        System updates
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-border text-xs">
+                    <tr>
+                      <td class="px-4 py-3 font-semibold text-foreground whitespace-nowrap">
+                        24 hours before
+                      </td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        Full pickup window, terminal/hotel instructions, map pin
+                        or photo, flight/ship notes, balance and payment options.
+                      </td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        Pickup time, meeting point, map link, amount due.
+                      </td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        Record logged; visible in shared email and text inboxes.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 font-semibold text-foreground whitespace-nowrap">
+                        3 hours before
+                      </td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        Same core details, fresh in the inbox — ideal for riders
+                        who just regained signal.
+                      </td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        Same pickup details and map link, kept short.
+                      </td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        Record logged; visible in both shared inboxes.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 font-semibold text-foreground whitespace-nowrap">
+                        30 minutes before
+                      </td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        Everything above, plus assigned vehicle and driver, and
+                        the invoice or remaining balance.
+                      </td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        Driver name, vehicle, plate, exact spot, payment link.
+                      </td>
+                      <td class="px-4 py-3 text-muted-foreground">
+                        Record logged; visible in both shared inboxes.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div
+                class="rounded-lg border border-amber-200 bg-amber-50 p-4 mb-3 dark:border-amber-800/60 dark:bg-amber-950/30"
+              >
+                <p class="text-sm text-amber-900 dark:text-amber-200 leading-relaxed">
+                  <strong class="font-semibold">Built for the 50% who are offline:</strong>
+                  cruise passengers often have no signal at sea, so the 24-hour
+                  message may sit unread. Texts queue at the carrier and emails
+                  wait in the inbox — both land the moment the phone reconnects.
+                  That's exactly why we repeat the details at 3 hours and 30
+                  minutes. The 30-minute text is the one that arrives while
+                  they're standing in the terminal, luggage in hand.
+                </p>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-semibold text-foreground mb-1">
+                    Manual override, always
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    Ship late? Flight delayed? Pause or shift that trip's
+                    countdown in one place. Other trips are untouched, and the
+                    rider gets an updated time.
+                  </p>
+                </div>
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-semibold text-foreground mb-1">
+                    You can see everything that went out
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    Each message appears in the shared text and email inboxes and
+                    on the trip timeline — including sent and delivered status,
+                    where available.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="relative border-l border-border pl-7 pb-10">
+              <span
+                class="absolute -left-4 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground ring-4 ring-card"
+                >07</span
+              >
+              <h3 class="text-lg font-bold text-foreground mb-2">
+                A pickup playbook for every location
+              </h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+                An airport curb, a hotel lobby, and a cruise terminal are three
+                different jobs. The intake questions, maps, and reminder copy
+                adapt to the pickup type — because "meet at the curb" means
+                something different at each one.
+              </p>
+
+              <div class="grid gap-4 lg:grid-cols-3">
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-bold text-foreground mb-2 flex items-center gap-2">
+                    <Plane size={16} class="text-primary" /> Airport
+                  </p>
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-3 mb-1">
+                    What's different
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    Flights land early or late, baggage takes time, and
+                    commercial pickup lanes have strict rules.
+                  </p>
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-3 mb-1">
+                    We capture
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    Airline, flight number, arrival time, checked vs. carry-on
+                    bags.
+                  </p>
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-3 mb-1">
+                    Rider sees
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    Terminal, level, lane, and spot — plus whether the driver
+                    meets them at baggage claim or the curb.
+                  </p>
+                </div>
+
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-bold text-foreground mb-2 flex items-center gap-2">
+                    <Hotel size={16} class="text-primary" /> Hotel
+                  </p>
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-3 mb-1">
+                    What's different
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    No flight delays, but lobby congestion and bell-desk timing
+                    still cause confusion.
+                  </p>
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-3 mb-1">
+                    We capture
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    Hotel name and address, pickup time, party and luggage
+                    count.
+                  </p>
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-3 mb-1">
+                    Rider sees
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    A pin at the main entrance or porte-cochère — not a side door
+                    or service lane.
+                  </p>
+                </div>
+
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-bold text-foreground mb-2 flex items-center gap-2">
+                    <Ship size={16} class="text-primary" /> Cruise port
+                  </p>
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-3 mb-1">
+                    What's different
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    Debarkation windows vary, customs can slow things down, and
+                    cell signal is patchy until riders clear the terminal.
+                  </p>
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-3 mb-1">
+                    We capture
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    Cruise line, ship, terminal number, debarkation window,
+                    self-assist vs. checked bags.
+                  </p>
+                  <p class="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mt-3 mb-1">
+                    Rider sees
+                  </p>
+                  <p class="text-xs text-muted-foreground leading-relaxed">
+                    A zone-by-zone map and photo, repeated at 24h, 3h, and 30m,
+                    plus a fallback number once signal returns.
+                  </p>
+                </div>
+              </div>
+
+              <p class="mt-3 text-xs text-muted-foreground">
+                You approve one pin and one photo per terminal and airport zone.
+                We reuse them on every message — so nobody gets sent to the spot
+                that moved last season.
+              </p>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="relative border-l border-border pl-7">
+              <span
+                class="absolute -left-4 top-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-[11px] font-bold text-primary-foreground ring-4 ring-card"
+                >08</span
+              >
+              <h3 class="text-lg font-bold text-foreground mb-2">
+                Everything else people ask
+              </h3>
+              <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+                Real inboxes aren't only booking requests. People ask about car
+                seats, extra stops, cancellations, lost items, and whether a van
+                fits six people and eight suitcases. We handle this in stages —
+                starting safe and getting smarter from your actual conversations.
+              </p>
+
+              <div class="grid gap-4 lg:grid-cols-2">
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-semibold text-foreground mb-2">
+                    Phase 1 — launch
+                  </p>
+                  <ul class="space-y-1.5 text-xs text-muted-foreground">
+                    <li>• Booking intake fully automated</li>
+                    <li>• A small set of safe, approved FAQs</li>
+                    <li>• Everything uncertain goes to you</li>
+                    <li>• Calls stay human</li>
+                  </ul>
+                </div>
+                <div class="rounded-lg border border-border bg-background/50 p-4">
+                  <p class="text-sm font-semibold text-foreground mb-2">
+                    Weeks 4–8 — learning loop
+                  </p>
+                  <ul class="space-y-1.5 text-xs text-muted-foreground">
+                    <li>• Review the most common non-booking questions</li>
+                    <li>• Write answers in your voice, with your approval</li>
+                    <li>• Let the assistant handle the routine ones</li>
+                    <li>• Keep escalating pricing exceptions and complaints</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-4 rounded-lg border border-border bg-primary/5 p-4">
+                <p class="text-sm font-semibold text-foreground mb-2">
+                  Examples of questions we'll teach it
+                </p>
+                <div class="flex flex-wrap gap-1.5">
+                  {[
+                    "Do you provide car seats?",
+                    "Can we stop for groceries?",
+                    "How many suitcases fit?",
+                    "What if our ship is late?",
+                    "What's your cancellation policy?",
+                    "Do you charge for extra stops?",
+                    "Can you pick up at a hotel?",
+                    "Is gratuity included?",
+                    "Do you have a van for 6?",
+                    "What if a flight is delayed?",
+                  ].map((faq) => (
+                    <span class="rounded-full border border-border bg-card px-2.5 py-1 text-[11px] text-foreground">
+                      {faq}
+                    </span>
+                  ))}
+                </div>
+                <p class="mt-3 text-xs text-muted-foreground">
+                  Anything about money, refunds, or a live pickup still goes
+                  straight to you. The assistant gets faster; it never gets
+                  careless.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================= MESSAGES ============================= -->
+        <section
+          id="messages"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <MessageSquare size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                In your customer's pocket
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                What customers actually see
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-6">
+            Sample copy, shown so you can react to it. Final wording will be in
+            your voice, with your business name, your number, and your payment
+            details. Nothing goes live until you approve it.
+          </p>
+
+          <div class="grid gap-5 lg:grid-cols-3">
+            <!-- Intake -->
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+                <MessageSquare size={13} class="text-primary" /> New inquiry
+              </p>
+              <div
+                class="rounded-[1.75rem] border-[6px] border-gray-800 bg-gray-100 shadow-lg overflow-hidden dark:border-gray-700 dark:bg-gray-900"
+              >
+                <div class="bg-gray-800 px-3 py-1.5 text-center dark:bg-gray-700">
+                  <p class="text-[10px] text-gray-300">Lucky Duck · now</p>
+                </div>
+                <div class="p-3 space-y-2 min-h-[330px]">
+                  <div
+                    class="ml-auto max-w-[90%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-[11px] leading-relaxed text-primary-foreground"
+                  >
+                    Hi! 🦆 Lucky Duck Car Service here. Happy to help — are you
+                    heading TO the cruise port, or getting picked up FROM the
+                    port?
+                  </div>
+                  <div
+                    class="mr-auto max-w-[90%] rounded-2xl rounded-bl-md border border-border bg-white px-3 py-2 text-[11px] leading-relaxed text-foreground dark:bg-gray-800"
+                  >
+                    From the port back to the airport
+                  </div>
+                  <div
+                    class="ml-auto max-w-[90%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-[11px] leading-relaxed text-primary-foreground"
+                  >
+                    Perfect. What date and time should we pick you up, and which
+                    ship are you on?
+                  </div>
+                  <div
+                    class="mr-auto max-w-[90%] rounded-2xl rounded-bl-md border border-border bg-white px-3 py-2 text-[11px] leading-relaxed text-foreground dark:bg-gray-800"
+                  >
+                    Sat the 14th, around 9:30. Carnival Vista.
+                  </div>
+                  <div
+                    class="ml-auto max-w-[90%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-[11px] leading-relaxed text-primary-foreground"
+                  >
+                    Got it. How many passengers, any car seats or boosters, and
+                    roughly how many suitcases?
+                  </div>
+                  <div
+                    class="mr-auto max-w-[90%] rounded-2xl rounded-bl-md border border-border bg-white px-3 py-2 text-[11px] leading-relaxed text-foreground dark:bg-gray-800"
+                  >
+                    2 adults, 2 kids (3 and 7). 1 booster. 4 big bags.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 24h -->
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+                <Clock size={13} class="text-primary" /> 24 hours before
+              </p>
+              <div
+                class="rounded-[1.75rem] border-[6px] border-gray-800 bg-gray-100 shadow-lg overflow-hidden dark:border-gray-700 dark:bg-gray-900"
+              >
+                <div class="bg-gray-800 px-3 py-1.5 text-center dark:bg-gray-700">
+                  <p class="text-[10px] text-gray-300">Lucky Duck · 9:30 AM</p>
+                </div>
+                <div class="p-3 space-y-2 min-h-[330px]">
+                  <div
+                    class="ml-auto max-w-[92%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-[11px] leading-relaxed text-primary-foreground"
+                  >
+                    Hi Sarah! Reminder — your Lucky Duck pickup is TOMORROW at
+                    9:30 AM, Port Canaveral Terminal 8, Zone B (by the blue
+                    canopy). Map: luckyduck.co/t8
+                  </div>
+                  <div
+                    class="ml-auto max-w-[92%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-[11px] leading-relaxed text-primary-foreground"
+                  >
+                    Balance $85 — Zelle or Venmo to
+                    luckyduck@email.com. If your ship is late, just reply here.
+                    We'll be waiting. 🦆
+                  </div>
+                  <p class="pl-1 pt-1 text-[10px] text-muted-foreground">
+                    Delivered · logged to trip
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 30m -->
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+                <Car size={13} class="text-primary" /> 30 minutes before
+              </p>
+              <div
+                class="rounded-[1.75rem] border-[6px] border-gray-800 bg-gray-100 shadow-lg overflow-hidden dark:border-gray-700 dark:bg-gray-900"
+              >
+                <div class="bg-gray-800 px-3 py-1.5 text-center dark:bg-gray-700">
+                  <p class="text-[10px] text-gray-300">Lucky Duck · 9:00 AM</p>
+                </div>
+                <div class="p-3 space-y-2 min-h-[330px]">
+                  <div
+                    class="ml-auto max-w-[92%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-[11px] leading-relaxed text-primary-foreground"
+                  >
+                    Carlos is here! Black Toyota Sienna, plate LUCKY1, at
+                    Terminal 8 Zone B by the blue canopy.
+                  </div>
+                  <div
+                    class="ml-auto max-w-[92%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-[11px] leading-relaxed text-primary-foreground"
+                  >
+                    Balance $85 — pay by card here if you prefer:
+                    luckyduck.co/pay/HD482
+                  </div>
+                  <div
+                    class="ml-auto max-w-[92%] rounded-2xl rounded-br-md bg-primary px-3 py-2 text-[11px] leading-relaxed text-primary-foreground"
+                  >
+                    Need us? Call or text (407) 555-0134. See you in a few
+                    minutes!
+                  </div>
+                  <p class="pl-1 pt-1 text-[10px] text-muted-foreground">
+                    Delivered · logged to trip
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email preview -->
+          <div class="mt-8">
+            <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2 flex items-center gap-1.5">
+              <Mail size={13} class="text-primary" /> The 24-hour email (detailed version)
+            </p>
+            <div class="overflow-hidden rounded-xl border border-border bg-background">
+              <div class="flex items-center gap-1.5 border-b border-border bg-muted/60 px-4 py-2">
+                <span class="h-2 w-2 rounded-full bg-red-400"></span>
+                <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+                <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+                <span class="ml-3 text-[10px] text-muted-foreground">Inbox — Lucky Duck Car Service</span>
+              </div>
+              <div class="p-4 sm:p-6">
+                <p class="text-[11px] uppercase tracking-wider text-muted-foreground">
+                  Subject
+                </p>
+                <p class="text-sm font-semibold text-foreground mb-4">
+                  Your pickup tomorrow at 9:30 AM — Terminal 8, Zone B (map inside)
+                </p>
+
+                <div class="rounded-lg bg-primary p-4 text-primary-foreground mb-4">
+                  <p class="text-[10px] font-semibold uppercase tracking-[0.2em] opacity-80">
+                    Lucky Duck Car Service
+                  </p>
+                  <p class="text-lg font-bold leading-tight mt-1">
+                    You're all set for tomorrow, Sarah.
+                  </p>
+                  <p class="text-xs opacity-90 mt-1">
+                    Everything you need for a smooth pickup at Port Canaveral.
+                  </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-2 mb-4">
+                  {[
+                    ["Pickup", "Sat · 9:30 AM"],
+                    ["From", "Terminal 8, Zone B — blue canopy"],
+                    ["To", "Orlando International (MCO)"],
+                    ["Passengers", "2 adults, 2 children (3 & 7)"],
+                    ["Seat", "1 booster seat"],
+                    ["Driver", "Carlos · black Toyota Sienna · LUCKY1"],
+                  ].map(([label, value]) => (
+                    <div class="rounded-lg border border-border bg-card px-3 py-2">
+                      <p class="text-[10px] uppercase tracking-wider text-muted-foreground">
+                        {label}
+                      </p>
+                      <p class="text-xs font-medium text-foreground mt-0.5">
+                        {value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-xs font-semibold text-foreground mb-2">
+                      Where to meet
+                    </p>
+                    <div
+                      class="relative h-28 overflow-hidden rounded-lg border border-border"
+                      style="background-color:#e8eef2;background-image:linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.7) 1px, transparent 1px);background-size:22px 22px;"
+                    >
+                      <div class="absolute left-1/3 top-0 h-full w-5 bg-amber-300/70"></div>
+                      <div class="absolute left-[38%] top-1/2 -translate-y-1/2">
+                        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground shadow">
+                          <MapPin size={13} />
+                        </span>
+                      </div>
+                      <span class="absolute bottom-2 left-2 rounded bg-background/90 px-1.5 py-0.5 text-[9px] font-medium text-foreground">
+                        North curb · blue canopy
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold text-foreground mb-2">
+                      Balance due
+                    </p>
+                    <div class="rounded-lg border border-border bg-card p-3">
+                      <p class="text-lg font-bold text-foreground">$85.00</p>
+                      <p class="text-[10px] text-muted-foreground mt-1 leading-relaxed">
+                        Zelle: luckyduck@email.com<br />
+                        Venmo: @luckyduck<br />
+                        Card: luckyduck.co/pay/HD482
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="mt-4 text-[11px] text-muted-foreground leading-relaxed">
+                  If your ship is running late, reply to this email or text (407)
+                  555-0134 and we'll adjust — no stress, no extra charge for ship
+                  delays. See you tomorrow.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-4 text-xs text-muted-foreground">
+            Every message includes opt-out language and respects quiet hours for
+            non-urgent sends. Reminder timing can be tuned per route or terminal.
+          </p>
+        </section>
+
+        <!-- ============================= WEBSITE ============================= -->
+        <section
+          id="website"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <Globe size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                Your referral destination
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                A website that answers before you have to
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-6">
+            Facebook and word of mouth are working. What they lack is a place to
+            send people. A clean, fast, mobile-first site turns "let me ask my
+            friend a bunch of questions" into "here's the link — pick your date
+            and we'll text you a price."
+          </p>
+
+          <div class="grid gap-6 lg:grid-cols-2">
+            <div>
+              <h3 class="font-semibold text-foreground mb-3">
+                What's on it at launch
+              </h3>
+              <ul class="space-y-2 text-sm text-foreground/85">
+                {[
+                  "A clear hero: airport ↔ cruise port ↔ hotel transfers",
+                  "How pickup works, in three simple steps",
+                  "Routes with rough starting prices — no guessing",
+                  "Families, car seats, and luggage guidance",
+                  "Facebook reviews and real social proof",
+                  "Short FAQ for the questions you answer daily",
+                  "A trip request form that feeds straight into the CRM",
+                  "Tap-to-call, tap-to-text, and email in the footer",
+                ].map((item) => (
+                  <li class="flex items-start gap-3">
+                    <Check size={16} class="mt-0.5 shrink-0 text-primary" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div
+                class="mt-4 rounded-lg border border-border bg-primary/5 p-4"
+              >
+                <p class="text-sm text-foreground leading-relaxed">
+                  <strong class="font-semibold">One form, one path:</strong>
+                  a request on the website creates the same record the text bot
+                  would. No double entry, no lost lead, no "I filled out your
+                  form last week" mystery.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-semibold text-foreground mb-3">
+                Rough pricing, handled honestly
+              </h3>
+              <div class="overflow-hidden rounded-xl border border-border">
+                <table class="w-full text-sm">
+                  <thead class="bg-muted/70">
+                    <tr>
+                      <th class="text-left px-4 py-2.5 font-semibold text-foreground">
+                        Route
+                      </th>
+                      <th class="text-left px-4 py-2.5 font-semibold text-foreground">
+                        How it's priced
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-border text-xs">
+                    <tr>
+                      <td class="px-4 py-2.5 text-foreground">MCO ↔ Port Canaveral</td>
+                      <td class="px-4 py-2.5 text-muted-foreground">Per vehicle, based on party size</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2.5 text-foreground">MCO ↔ nearby hotels</td>
+                      <td class="px-4 py-2.5 text-muted-foreground">Flat rate by zone</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2.5 text-foreground">Port ↔ hotel</td>
+                      <td class="px-4 py-2.5 text-muted-foreground">Flat rate by zone</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2.5 text-foreground">Car seat / booster</td>
+                      <td class="px-4 py-2.5 text-muted-foreground">Shown clearly as an add-on</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2.5 text-foreground">Extra stop</td>
+                      <td class="px-4 py-2.5 text-muted-foreground">Quoted before the ride</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mt-2 text-xs text-muted-foreground">
+                Illustrative layout only. Your actual rates go in during week one
+                — the site never invents a price, and every final quote is still
+                confirmed by you.
+              </p>
+
+              <div
+                class="mt-4 rounded-lg border border-border bg-background/50 p-4"
+              >
+                <p class="text-sm font-semibold text-foreground mb-2">
+                  Built in, not bolted on
+                </p>
+                <ul class="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-muted-foreground">
+                  <li>• Mobile-first</li>
+                  <li>• Fast-loading</li>
+                  <li>• Search-friendly basics</li>
+                  <li>• Click-to-call / text</li>
+                  <li>• Analytics installed</li>
+                  <li>• Accessible by default</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mt-6 rounded-xl border border-dashed border-border bg-background/40 p-5"
+          >
+            <p class="text-sm font-semibold text-foreground mb-1">
+              Future (not included today — but easy to add later)
+            </p>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+              Online invoice payment, a "check my pickup" page where riders can
+              see their time, map, and balance, and self-serve deposits. We'll add
+              these only if the business wants them, priced separately.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============================= ROLLOUT ============================= -->
+        <section
+          id="rollout"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <CalendarDays size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                Six weeks, in phases
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                A rollout that doesn't disrupt live trips
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-6">
+            We build in stages, launch reminders on one terminal first, and only
+            roll out wider after real trips prove it. You keep running the
+            business the whole time.
+          </p>
+
+          <div class="space-y-3">
+            {[
+              {
+                phase: "Phase 1",
+                when: "Week 1",
+                title: "Discovery and foundation",
+                points: [
+                  "Confirm fields, routes, rates, payment handles, and terminal maps",
+                  "Set up accounts in your name and start A2P 10DLC registration",
+                  "Agree message voice and approval process",
+                ],
+              },
+              {
+                phase: "Phase 2",
+                when: "Weeks 1–2",
+                title: "Website + CRM + intake",
+                points: [
+                  "Launch the branded website with the request form",
+                  "Build contact/trip records, pipeline, and intake assistant",
+                  "Configure shared inboxes and handoff alerts",
+                ],
+              },
+              {
+                phase: "Phase 3",
+                when: "Weeks 3–4",
+                title: "Calendars and the countdown",
+                points: [
+                  "Rider and driver calendar events, plus assignment",
+                  "Build 24h / 3h / 30m email + text sequences",
+                  "Pilot on one airport/terminal pair with real trips",
+                ],
+              },
+              {
+                phase: "Phase 4",
+                when: "Weeks 5–6",
+                title: "Payments, training, go-live",
+                points: [
+                  "Invoice, accounts-receivable flow, and payment tracking",
+                  "Review requests and the first FAQ set",
+                  "Team training, documentation, and full rollout",
+                ],
+              },
+            ].map((item) => (
+              <div class="rounded-xl border border-border bg-background/50 p-5">
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                  <span class="rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                    {item.phase}
+                  </span>
+                  <span class="text-xs text-muted-foreground">{item.when}</span>
+                </div>
+                <h3 class="text-sm font-bold text-foreground mb-2">
+                  {item.title}
+                </h3>
+                <ul class="space-y-1.5 text-xs text-muted-foreground">
+                  {item.points.map((point) => (
+                    <li class="flex items-start gap-2">
+                      <Check size={12} class="mt-0.5 shrink-0 text-primary" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-6 grid gap-4 lg:grid-cols-2">
+            <div class="rounded-xl border border-border bg-background/50 p-5">
+              <p class="text-sm font-semibold text-foreground mb-2">
+                How we'll know it's working
+              </p>
+              <ul class="space-y-1.5 text-xs text-muted-foreground">
+                <li>• New inquiries get a first reply in under a minute</li>
+                <li>• Most trips arrive with every field already filled</li>
+                <li>• Zero reminder texts typed by hand</li>
+                <li>• Every unpaid trip is visible on one screen</li>
+                <li>• Five or more admin hours returned each week</li>
+                <li>• More reviews requested — and received</li>
+              </ul>
+            </div>
+            <div
+              class="rounded-xl border border-emerald-200 bg-emerald-50 p-5 dark:border-emerald-800/60 dark:bg-emerald-950/30"
+            >
+              <p class="text-sm font-semibold text-emerald-900 dark:text-emerald-200 mb-1">
+                The real KPI
+              </p>
+              <p class="text-sm text-emerald-900/90 dark:text-emerald-200/90 leading-relaxed">
+                You can take a Saturday off without the operation wobbling. That's
+                the outcome worth building for — and the one we'll measure.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================= INVESTMENT ============================= -->
+        <section
+          id="investment"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <Wallet size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                Investment
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                Clear scope. Clear numbers.
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-6">
+            No hourly surprises, no software license you have to manage, and no
+            handoff to a support queue. One partner owns the technical side end to
+            end.
+          </p>
+
+          <div class="grid gap-4 lg:grid-cols-3">
+            <div class="rounded-xl border border-border bg-background/50 p-5 flex flex-col">
+              <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                One-time
+              </p>
+              <h3 class="text-lg font-bold text-foreground mt-1">
+                Branded website
+              </h3>
+              <p class="mt-3 text-3xl font-bold text-foreground">
+                $1,500
+              </p>
+              <ul class="mt-4 space-y-1.5 text-xs text-muted-foreground flex-1">
+                <li>• Design and build, mobile-first</li>
+                <li>• Routes, rough pricing, FAQ, reviews</li>
+                <li>• Request form connected to the CRM</li>
+                <li>• Analytics and search basics</li>
+                <li>• Two rounds of revisions</li>
+              </ul>
+            </div>
+
+            <div class="rounded-xl border-2 border-primary bg-primary/5 p-5 flex flex-col relative">
+              <span class="absolute -top-2.5 left-4 rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary-foreground">
+                Core build
+              </span>
+              <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                One-time
+              </p>
+              <h3 class="text-lg font-bold text-foreground mt-1">
+                CRM &amp; automation
+              </h3>
+              <p class="mt-3 text-3xl font-bold text-foreground">
+                $4,500
+              </p>
+              <ul class="mt-4 space-y-1.5 text-xs text-muted-foreground flex-1">
+                <li>• GHL setup, branding, and configuration</li>
+                <li>• Custom fields, pipeline, and records</li>
+                <li>• Intake assistant, handoff rules, inboxes</li>
+                <li>• Rider + driver calendars and assignments</li>
+                <li>• 24h / 3h / 30m reminders, maps, payments</li>
+                <li>• A2P registration, testing, training</li>
+                <li>• 30 days of post-launch support</li>
+              </ul>
+            </div>
+
+            <div class="rounded-xl border border-border bg-background/50 p-5 flex flex-col">
+              <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Ongoing
+              </p>
+              <h3 class="text-lg font-bold text-foreground mt-1">
+                Technical management
+              </h3>
+              <p class="mt-3 text-3xl font-bold text-foreground">
+                $500<span class="text-base font-medium text-muted-foreground">/mo</span>
+              </p>
+              <ul class="mt-4 space-y-1.5 text-xs text-muted-foreground flex-1">
+                <li>• GoHighLevel platform + normal SMS/email usage</li>
+                <li>• Monitoring and issue response</li>
+                <li>• Workflow and template tuning</li>
+                <li>• Terminal/airport map updates</li>
+                <li>• Monthly FAQ and copy refinement</li>
+                <li>• 1 hour per month for review and changes</li>
+                <li>• Additional work at $145/hour</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-5 rounded-xl border border-primary/20 bg-primary/5 p-5">
+            <div class="flex flex-wrap items-baseline justify-between gap-3">
+              <p class="text-sm text-foreground">
+                <strong class="font-semibold">To build:</strong> $6,000 total
+              </p>
+              <p class="text-sm text-foreground">
+                <strong class="font-semibold">To run:</strong> $500/month
+              </p>
+              <p class="text-xs text-muted-foreground">
+                Includes platform + normal usage · begins 30 days after go-live
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 rounded-xl border border-border bg-background/50 p-5">
+            <p class="text-sm font-bold text-foreground mb-1">
+              The build commitment
+            </p>
+            <p class="text-sm text-muted-foreground leading-relaxed">
+              I'm committing to building the complete CRM and automation
+              described in this proposal — records, intake, calendars, the full
+              reminder system, payments, and training. Not a partial setup, and
+              not a template you have to finish yourself.
+            </p>
+          </div>
+
+          <div class="mt-4 rounded-xl border border-border bg-background/50 p-5">
+            <p class="text-sm font-bold text-foreground mb-3">
+              What the $500/month covers
+            </p>
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div>
+                <p class="text-xs font-semibold text-foreground">
+                  The system, running
+                </p>
+                <p class="text-xs text-muted-foreground leading-relaxed mt-1">
+                  Your GoHighLevel platform, normal SMS/email/voice usage,
+                  monitoring, fixes, map updates, and keeping every automation
+                  healthy.
+                </p>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-foreground">
+                  1 hour each month
+                </p>
+                <p class="text-xs text-muted-foreground leading-relaxed mt-1">
+                  A scheduled review to look at what's working, make small
+                  changes, and plan what's next. Unused time doesn't roll over.
+                </p>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-foreground">
+                  Beyond that: $145/hour
+                </p>
+                <p class="text-xs text-muted-foreground leading-relaxed mt-1">
+                  Larger changes or new upgrades are billed at $145/hour — always
+                  approved by you before any work starts.
+                </p>
+              </div>
+            </div>
+            <p class="mt-3 text-[11px] text-muted-foreground">
+              Normal usage is comfortably covered. If volume ever grows enough
+              that usage costs become unusually large, we'll talk it through
+              before anything changes — that hasn't happened yet.
+            </p>
+          </div>
+
+          <h3 class="mt-8 mb-3 font-semibold text-foreground">
+            Payment schedule
+          </h3>
+          <div class="overflow-x-auto rounded-xl border border-border">
+            <table class="w-full text-sm min-w-[560px]">
+              <thead class="bg-muted/70">
+                <tr>
+                  <th class="text-left px-4 py-3 font-semibold text-foreground">When</th>
+                  <th class="text-left px-4 py-3 font-semibold text-foreground">Amount</th>
+                  <th class="text-left px-4 py-3 font-semibold text-foreground">What it covers</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border text-xs">
+                <tr>
+                  <td class="px-4 py-3 font-medium text-foreground">Sign + kickoff</td>
+                  <td class="px-4 py-3 text-foreground">$2,250</td>
+                  <td class="px-4 py-3 text-muted-foreground">Accounts, A2P, discovery, CRM build begins</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-medium text-foreground">Website approved</td>
+                  <td class="px-4 py-3 text-foreground">$1,500</td>
+                  <td class="px-4 py-3 text-muted-foreground">Site goes live with the request form</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-medium text-foreground">Go-live</td>
+                  <td class="px-4 py-3 text-foreground">$2,250</td>
+                  <td class="px-4 py-3 text-muted-foreground">CRM, calendars, reminders handed over + training</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-medium text-foreground">Monthly (from month 2)</td>
+                  <td class="px-4 py-3 text-foreground">$500</td>
+                  <td class="px-4 py-3 text-muted-foreground">Ongoing management and improvements</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-6 grid gap-4 lg:grid-cols-2">
+            <div class="rounded-xl border border-border bg-background/50 p-5">
+              <p class="text-sm font-semibold text-foreground mb-2">
+                Included
+              </p>
+              <p class="text-xs text-muted-foreground leading-relaxed">
+                Everything described in this proposal, including setup, testing,
+                training, documentation, and 30 days of post-launch fixes. One
+                point of contact for the whole technical stack.
+              </p>
+            </div>
+            <div class="rounded-xl border border-border bg-background/50 p-5">
+              <p class="text-sm font-semibold text-foreground mb-2">
+                The only extras
+              </p>
+              <ul class="space-y-1 text-xs text-muted-foreground">
+                <li>• Domain renewal, if a new one is needed (about $15/year)</li>
+                <li>• Card processing fees, only if you add card payments</li>
+              </ul>
+              <p class="mt-2 text-[11px] text-muted-foreground">
+                Your GoHighLevel subscription and normal SMS/email/voice usage
+                are included in the $500/month — no separate software bill to
+                manage. Your customer data and business number stay yours.
+              </p>
+            </div>
+          </div>
+
+          <p class="mt-4 text-xs text-muted-foreground">
+            Proposal valid for 30 days. The retainer includes one hour of work
+            per month and can be cancelled with 30 days' notice. Additional
+            changes and upgrades are billed at $145/hour, approved by you in
+            advance. New scope (for example, a customer payment portal) is quoted
+            separately before any work begins.
+          </p>
+        </section>
+
+        <!-- ============================= ROLES ============================= -->
+        <section
+          id="roles"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <Users size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                A partnership, not a handoff
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                Who does what
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-6">
+            I'm acting as your technical lead — the person who owns the
+            architecture, the integrations, and the uptime. You stay the expert on
+            your customers, your drivers, and your prices.
+          </p>
+
+          <div class="grid gap-4 lg:grid-cols-3">
+            <div class="rounded-xl border border-border bg-background/50 p-5">
+              <p class="text-sm font-bold text-foreground mb-2">
+                I own
+              </p>
+              <ul class="space-y-1.5 text-xs text-muted-foreground">
+                <li>• Architecture and platform setup</li>
+                <li>• CRM schema, pipeline, and automations</li>
+                <li>• Website build and hosting</li>
+                <li>• SMS/email deliverability and A2P</li>
+                <li>• Calendar and payment integrations</li>
+                <li>• Testing, monitoring, and fixes</li>
+                <li>• Vendor and technical issues</li>
+              </ul>
+            </div>
+            <div class="rounded-xl border border-border bg-background/50 p-5">
+              <p class="text-sm font-bold text-foreground mb-2">
+                You own
+              </p>
+              <ul class="space-y-1.5 text-xs text-muted-foreground">
+                <li>• Business rules and pricing</li>
+                <li>• Driver assignments and dispatch judgment</li>
+                <li>• Approving message copy and map pins</li>
+                <li>• Confirming Zelle/Venmo payments</li>
+                <li>• Final say on exceptions and refunds</li>
+                <li>• Customer relationships</li>
+              </ul>
+            </div>
+            <div class="rounded-xl border border-border bg-background/50 p-5">
+              <p class="text-sm font-bold text-foreground mb-2">
+                We decide together
+              </p>
+              <ul class="space-y-1.5 text-xs text-muted-foreground">
+                <li>• What the bot may answer on its own</li>
+                <li>• Reminder timing per route</li>
+                <li>• Which terminals and zones to support first</li>
+                <li>• When to add card payments or deposits</li>
+                <li>• Monthly priorities</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-4 rounded-xl border border-border bg-primary/5 p-4">
+            <p class="text-sm text-foreground leading-relaxed">
+              <strong class="font-semibold">Support expectations:</strong> urgent
+              live-trip issues get a same-day response. Routine requests are
+              handled within one business day. During the build we'll have a
+              short weekly check-in; once live, the $500/month includes one hour
+              each month for a review, small changes, and planning. Additional
+              changes or upgrades are $145/hour, approved before work starts.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============================= ASSUMPTIONS ============================= -->
+        <section
+          id="assumptions"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <Info size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                So we're building the right thing
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                Assumptions and open questions
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-foreground/85 leading-relaxed mb-6">
+            I'd rather write these down and be corrected than build around a
+            guess. Correct anything below — the proposal changes, not the price.
+          </p>
+
+          <div class="grid gap-4 lg:grid-cols-2">
+            <div class="rounded-xl border border-border bg-background/50 p-5">
+              <p class="text-sm font-bold text-foreground mb-3">
+                What I'm assuming today
+              </p>
+              <ul class="space-y-2 text-xs text-muted-foreground">
+                {[
+                  "About nine drivers today, with room to grow.",
+                  "Growth comes from Facebook and referrals — not paid ads.",
+                  "Primary routes are MCO ↔ Port Canaveral and nearby hotels.",
+                  "Customers already use Zelle and Venmo, and want to keep them.",
+                  "Inbound calls should stay human, without a robot menu.",
+                  "You can approve message templates and terminal map pins.",
+                  "You have (or can get) a business number for A2P messaging.",
+                  "Trip volume is somewhere between 40 and 120 trips a month.",
+                ].map((item) => (
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1 w-1 shrink-0 rounded-full bg-primary"></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="rounded-xl border border-border bg-background/50 p-5">
+              <p class="text-sm font-bold text-foreground mb-3">
+                What I'd like to confirm
+              </p>
+              <ol class="space-y-2 text-xs text-muted-foreground">
+                {[
+                  "How do you assign drivers today — shifts, availability, zones, or vehicle?",
+                  "When a flight or ship is delayed, should reminders shift automatically or wait for you?",
+                  "How many trips per month now, and what does peak season look like?",
+                  "Do you want deposits, and what is your cancellation policy?",
+                  "Which airports, terminals, and hotels should we launch with?",
+                  "Keep Zelle/Venmo only, or add optional card payments?",
+                  "Who else needs access to the inbox or calendar?",
+                  "What's your current business phone setup — can we add or port a number?",
+                  "What are your exact rates for the website?",
+                  "Do you want review requests after every ride, or only happy ones?",
+                ].map((item, index) => (
+                  <li class="flex items-start gap-2.5">
+                    <span class="shrink-0 mt-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary/10 text-[9px] font-bold text-primary">
+                      {index + 1}
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================= NEXT STEPS ============================= -->
+        <section
+          id="next-steps"
+          class="scroll-mt-28 bg-card rounded-2xl border border-border shadow-sm p-6 sm:p-8 mb-6"
+        >
+          <div class="flex items-start gap-4 mb-6">
+            <div
+              class="shrink-0 w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center"
+            >
+              <Check size={22} />
+            </div>
+            <div>
+              <p
+                class="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary mb-1"
+              >
+                Next steps
+              </p>
+              <h2 class="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                If this feels right, here's how we start
+              </h2>
+            </div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-3 mb-8">
+            {[
+              {
+                step: "1",
+                title: "Walk through it together",
+                body: "Thirty minutes, in person or on a call. You ask questions, we adjust anything that doesn't fit.",
+              },
+              {
+                step: "2",
+                title: "Confirm the details",
+                body: "I send a one-page scope and simple agreement with the answers from our conversation baked in.",
+              },
+              {
+                step: "3",
+                title: "Kick off",
+                body: "Deposit and access, and I start with accounts, A2P, and the website. First phase live in about two weeks.",
+              },
+            ].map((item) => (
+              <div class="rounded-xl border border-border bg-background/50 p-5">
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                  {item.step}
+                </span>
+                <h3 class="mt-3 text-sm font-bold text-foreground">
+                  {item.title}
+                </h3>
+                <p class="mt-1.5 text-xs text-muted-foreground leading-relaxed">
+                  {item.body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div class="rounded-xl border border-primary/20 bg-primary/5 p-5 sm:p-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p class="text-sm font-semibold text-foreground">
+                  Ready to talk it through?
+                </p>
+                <p class="text-xs text-muted-foreground mt-1">
+                  No pressure, no homework — just a conversation about your
+                  business.
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2 no-print">
+                <a
+                  href="mailto:info@smiling.dev?subject=Lucky%20Duck%20proposal%20walkthrough"
+                  class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+                >
+                  Book the walkthrough
+                  <ArrowRight size={16} />
+                </a>
+                <button
+                  type="button"
+                  id="print-proposal-bottom"
+                  class="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted/60 transition-colors"
+                >
+                  <Printer size={15} />
+                  Print
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-border flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p class="text-sm font-semibold text-foreground">Bryson</p>
+              <p class="text-xs text-muted-foreground">
+                Smiling Dev Consulting · smiling.dev
+              </p>
+              <p class="text-xs text-muted-foreground">
+                Technical lead / fractional CTO for Lucky Duck Car Service
+              </p>
+            </div>
+            <p class="text-xs text-muted-foreground max-w-xs">
+              Questions while you read? Email
+              <a href="mailto:info@smiling.dev" class="text-primary hover:underline">
+                info@smiling.dev
+              </a>
+              — I'll answer personally.
+            </p>
+          </div>
+        </section>
+
+        <!-- Confidential footer -->
+        <footer class="rounded-2xl border border-border bg-muted/30 p-5 text-center">
+          <p class="text-xs text-muted-foreground leading-relaxed">
+            <strong class="font-semibold text-foreground">Confidential.</strong>
+            Prepared exclusively for Lucky Duck Car Service. Please don't forward
+            without permission. Sample messages and prices are illustrative until
+            approved.
+          </p>
+          <div class="mt-3 flex flex-wrap items-center justify-center gap-4 text-xs">
+            <a href="?logout=1" class="text-muted-foreground hover:text-foreground">
+              Sign out
+            </a>
+            <a href="#overview" class="text-muted-foreground hover:text-foreground">
+              Back to top
+            </a>
+          </div>
+        </footer>
+
+        <style>
+          .nav-link.is-active {
+            background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+            color: var(--primary);
+            font-weight: 600;
+          }
+
+          @media print {
+            .no-print {
+              display: none !important;
+            }
+            section,
+            header,
+            footer {
+              break-inside: avoid;
+              box-shadow: none !important;
+            }
+            .lg\:grid {
+              display: block !important;
+            }
+          }
+        </style>
+
+        <script>
+          const printButtons = [
+            document.getElementById("print-proposal"),
+            document.getElementById("print-proposal-bottom"),
+          ];
+          printButtons.forEach((button) => {
+            button?.addEventListener("click", () => window.print());
+          });
+
+          const progressBar = document.getElementById("reading-progress");
+          const updateProgress = () => {
+            const scrollable =
+              document.documentElement.scrollHeight - window.innerHeight;
+            const percent =
+              scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+            if (progressBar) {
+              progressBar.style.width = `${Math.min(100, Math.max(0, percent))}%`;
+            }
+          };
+          window.addEventListener("scroll", updateProgress, { passive: true });
+          window.addEventListener("resize", updateProgress);
+          updateProgress();
+
+          const navLinks = Array.from(document.querySelectorAll(".nav-link"));
+          const navSections = navLinks
+            .map((link) => {
+              const href = link.getAttribute("href");
+              return href ? document.querySelector(href) : null;
+            })
+            .filter((section) => section !== null);
+
+          const updateActiveSection = () => {
+            if (navSections.length === 0) return;
+            const offset = 140;
+            let current = navSections[0];
+            navSections.forEach((section) => {
+              if (section.getBoundingClientRect().top <= offset) {
+                current = section;
+              }
+            });
+            navLinks.forEach((link) => {
+              link.classList.toggle(
+                "is-active",
+                link.getAttribute("href") === `#${current.id}`,
+              );
+            });
+          };
+
+          window.addEventListener("scroll", updateActiveSection, {
+            passive: true,
+          });
+          window.addEventListener("resize", updateActiveSection);
+          updateActiveSection();
+        </script>
+      </div>
+    </div>
+  </div>
+</div>

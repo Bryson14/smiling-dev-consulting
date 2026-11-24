@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Make `dark:` utilities follow the `.dark` class toggled by the site,
+   instead of the OS color-scheme preference (Tailwind v4 default). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: oklch(0.9789 0.0082 121.6272);
   --foreground: oklch(0 0 0);
