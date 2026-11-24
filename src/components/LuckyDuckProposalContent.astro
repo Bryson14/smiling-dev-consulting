@@ -1318,9 +1318,11 @@ const tagLabels: Record<string, string> = {
                     Calendar delivery
                   </p>
                   <p class="text-xs text-muted-foreground leading-relaxed">
-                    Events can be delivered to Google, Apple, or Outlook
-                    calendars, or viewed in the mobile app. Drivers can use the
-                    calendar they already use.
+                    Google and Outlook calendars can connect directly. iCloud can
+                    be connected, and other calendar apps can use a read-only
+                    iCal feed. By default, dispatch sends trips to the driver's
+                    calendar one way, so personal appointments stay private.
+                    Two-way sync is available if a driver wants it.
                   </p>
                 </div>
                 <div class="rounded-lg border border-border bg-background/50 p-4">
@@ -2533,6 +2535,7 @@ const tagLabels: Record<string, string> = {
                 <li>• Which terminals and zones to support first</li>
                 <li>• When to add card payments or deposits</li>
                 <li>• Driver permissions and status updates</li>
+                <li>• Driver calendar sync direction (one-way or two-way)</li>
                 <li>• Monthly priorities</li>
               </ul>
             </div>
