@@ -3,7 +3,6 @@ export const prerender = true;
 import { Picture } from "astro:assets";
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/main.astro";
-import "@/styles/blog.css";
 
 const posts = await getCollection("blog");
 
@@ -57,7 +56,7 @@ const blogJsonLd = {
   description="Thoughts, tutorials, and insights on web development, design, and technology."
   jsonld={blogJsonLd}
 >
-  <div class="container mx-auto px-4 py-12">
+  <div class="container mx-auto px-6 sm:px-8 py-12">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold mb-4">Blog Posts</h1>
       <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -157,7 +156,7 @@ const blogJsonLd = {
     }
   </div>
 
-  <div class="container mx-auto px-4 py-8 text-center">
+  <div class="container mx-auto px-6 sm:px-8 py-8 text-center">
     <a href="/blog/tags" class="text-primary dark:text-primary hover:underline">
       <span class="font-semibold">Explore all tags</span>
     </a>

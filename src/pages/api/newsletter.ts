@@ -36,7 +36,8 @@ export const POST: APIRoute = async ({ request }) => {
       },
       body: JSON.stringify({
         email: email,
-        subject: "New Newsletter Subscription",
+        _subject: "New newsletter subscription",
+        form_type: "newsletter",
         message: `New newsletter subscription request from: ${email}`,
       }),
     });

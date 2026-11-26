@@ -93,8 +93,8 @@ const articleStructuredData = {
 >
   <div class="flex flex-col md:flex-row justify-around" id="blog-container">
     <JsonLd data={articleStructuredData} />
-    <article class="container mx-auto px-2 md:px-6 py-12">
-      <div class="max-w-3xl mx-auto">
+    <article class="container mx-auto min-w-0 px-6 sm:px-8 py-12">
+      <div class="max-w-[44rem] mx-auto">
         <div class="mb-8">
           {
             post.data.keywords.length > 0 && (
@@ -111,7 +111,11 @@ const articleStructuredData = {
             )
           }
 
-          <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
+          <h1
+            class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.1] text-balance mb-6"
+          >
+            {post.data.title}
+          </h1>
 
           <div
             class="flex flex-wrap items-center gap-4 text-muted-foreground mb-6"
@@ -156,7 +160,7 @@ const articleStructuredData = {
             </div>
           )
         }
-        <div class="prose prose-lg max-w-none blog-content">
+        <div class="blog-content">
           <Content />
         </div>
 
@@ -174,11 +178,15 @@ const articleStructuredData = {
     </article>
     <aside
       id="toc-sidebar"
-      class="hidden lg:block shrink-0 px-4 py-12 pr-10 sticky top-12 h-fit"
+      class="hidden lg:block shrink-0 px-4 py-12 pr-10 sticky top-24 h-fit"
     >
       <div class="flex flex-col gap-4" id="toc">
-        <h2 class="text-right">Table of Contents</h2>
-        <div class="flex flex-col gap-2 overflow-y-auto" id="sections">
+        <h2
+          class="text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground"
+        >
+          Table of Contents
+        </h2>
+        <div class="flex flex-col gap-2 overflow-y-auto max-h-[70vh]" id="sections">
           {
             filteredHeadings.map((h) => {
               if (h.depth !== 1 && h.depth !== 2)
@@ -188,7 +196,7 @@ const articleStructuredData = {
                   <span class="text-muted-foreground">&middot;</span>
                   <a
                     href={"#" + h.slug}
-                    class="text-muted-foreground hover:text-primary hover:underline decoration-primary"
+                    class="text-sm text-muted-foreground hover:text-primary hover:underline decoration-primary"
                   >
                     {h.text}
                   </a>

@@ -39,7 +39,7 @@
   --sidebar-ring: oklch(0.7853 0.1041 274.7134);
   --font-sans: DM Sans, sans-serif;
   --font-serif: DM Sans, sans-serif;
-  --font-mono: Space Mono, monospace;
+  --font-mono: "Roboto Mono", ui-monospace, monospace;
   --radius: 1rem;
   --shadow-x: 0px;
   --shadow-y: 0px;
@@ -104,7 +104,7 @@
   --sidebar-ring: oklch(0.6801 0.1583 276.9349);
   --font-sans: DM Sans, sans-serif;
   --font-serif: DM Sans, sans-serif;
-  --font-mono: Space Mono, monospace;
+  --font-mono: "Roboto Mono", ui-monospace, monospace;
   --radius: 1rem;
   --shadow-x: 0px;
   --shadow-y: 0px;

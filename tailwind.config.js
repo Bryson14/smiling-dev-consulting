@@ -7,7 +7,7 @@ export default {
       fontFamily: {
         sans: ["DM Sans", "sans-serif"],
         serif: ["DM Sans", "sans-serif"],
-        mono: ["Space Mono", "monospace"],
+        mono: ["Roboto Mono", "ui-monospace", "monospace"],
       },
       colors: {
         brand: {

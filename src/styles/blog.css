@@ -1,133 +1,298 @@
-h1 {
-  font-size: 2.25rem;
+/* Blog article typography.
+ *
+ * Everything is scoped to `.blog-content` so these rules can't leak into the
+ * site header/footer or into the blog index cards.
+ *
+ * Colors use the Tailwind/shadcn theme variables (`--color-*`), which resolve
+ * to oklch() values and therefore respond to the `.dark` class automatically.
+ */
+
+.blog-content {
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: color-mix(in oklab, var(--color-foreground) 92%, var(--color-background));
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+/* ── Headings ── */
+.blog-content :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--color-foreground);
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: hsl(var(--foreground));
-  padding-bottom: 0.75rem;
-  border-bottom: 3px solid hsl(var(--primary));
-  display: inline-block;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  scroll-margin-top: 6rem;
 }
 
-h2 {
-  font-size: 1.875rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: hsl(var(--primary));
+.blog-content h1 {
+  margin: 2em 0 1em;
+  font-size: 2.25rem;
+  font-weight: 800;
+}
+
+.blog-content h2 {
+  position: relative;
+  margin: 2.5em 0 1em;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid hsl(var(--primary) / 0.3);
-  margin-top: 1.5rem;
+  font-size: 1.75rem;
+  border-bottom: 1px solid
+    color-mix(in oklab, var(--color-primary) 25%, transparent);
 }
 
-h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: hsl(var(--primary) / 0.9);
-  margin-top: 1.25rem;
-}
-
-p {
-  margin-bottom: 1rem;
-}
-
-ul {
-  list-style: none;
-  margin-bottom: 1rem;
-  padding-left: 1.5rem;
-}
-
-ul li {
-  margin-bottom: 0.5rem;
-  position: relative;
-}
-
-ul li::before {
-  content: "→";
+/* Accent segment under each h2 so section titles stand out. */
+.blog-content h2::after {
+  content: "";
   position: absolute;
-  left: -1.5rem;
-  color: hsl(var(--primary));
+  bottom: -1px;
+  left: 0;
+  width: 4rem;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: 9999px;
+}
+
+.blog-content h3 {
+  margin: 2em 0 0.6em;
+  font-size: 1.375rem;
+}
+
+.blog-content h4 {
+  margin: 1.75em 0 0.5em;
+  font-size: 1.125rem;
+}
+
+.blog-content > :first-child {
+  margin-top: 0;
+}
+
+/* ── Text ── */
+.blog-content p {
+  margin: 0 0 1.5em;
+}
+
+.blog-content p:last-child {
+  margin-bottom: 0;
+}
+
+.blog-content a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in oklab, var(--color-primary) 40%, transparent);
+  transition:
+    color 150ms ease,
+    text-decoration-color 150ms ease;
+}
+
+.blog-content a:hover {
+  color: color-mix(in oklab, var(--color-primary) 80%, var(--color-foreground));
+  text-decoration-color: currentColor;
+}
+
+.blog-content strong {
+  color: var(--color-foreground);
+  font-weight: 700;
+}
+
+.blog-content em {
+  font-style: italic;
+}
+
+/* ── Lists ── */
+.blog-content ul,
+.blog-content ol {
+  margin: 1.25em 0;
+  padding-left: 1.5em;
+}
+
+.blog-content ul {
+  list-style-type: disc;
+}
+
+.blog-content ol {
+  list-style-type: decimal;
+}
+
+.blog-content li {
+  margin: 0.5em 0;
+  padding-left: 0.25em;
+}
+
+.blog-content ul > li::marker,
+.blog-content ol > li::marker {
+  color: var(--color-primary);
   font-weight: 600;
-  margin-right: 0.75rem;
 }
 
-ol {
-  list-style: none;
-  margin-bottom: 1rem;
-  padding-left: 2rem;
-  counter-reset: item;
+.blog-content li > ul,
+.blog-content li > ol {
+  margin: 0.5em 0;
 }
 
-ol li {
-  margin-bottom: 0.5rem;
-  position: relative;
-  counter-increment: item;
+/* ── Quotes & rules ── */
+.blog-content blockquote {
+  margin: 1.75em 0;
+  padding: 0.25em 0 0.25em 1.25em;
+  border-left: 4px solid var(--color-primary);
+  color: color-mix(in oklab, var(--color-foreground) 70%, var(--color-background));
+  font-style: italic;
 }
 
-ol li::before {
-  content: counter(item) ".";
-  position: absolute;
-  left: -2rem;
-  color: hsl(var(--primary));
-  font-weight: 600;
-  min-width: 1.5rem;
+.blog-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.blog-content hr {
+  margin: 3em 0;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Media ── */
+.blog-content img,
+.blog-content video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2em auto;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+}
+
+.blog-content figcaption {
+  margin-top: 0.75em;
+  color: var(--color-muted-foreground);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* ── Code ── */
+.blog-content :not(pre) > code {
+  padding: 0.15em 0.4em;
+  border: 1px solid color-mix(in oklab, var(--color-primary) 18%, transparent);
+  border-radius: 0.375rem;
+  background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
+  color: color-mix(in oklab, var(--color-primary) 75%, var(--color-foreground));
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  font-weight: 500;
+  overflow-wrap: break-word;
+}
+
+/* Remove the quote marks the typography plugin may add. */
+.blog-content :not(pre) > code::before,
+.blog-content :not(pre) > code::after {
+  content: none;
+}
+
+.blog-content pre {
+  margin: 1.75em 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  /* Shiki writes the light background inline, so !important is required. */
+  background-color: #f6f8fa !important;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  tab-size: 2;
+}
+
+.blog-content pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-mono);
+  font-size: inherit;
+  font-weight: 400;
+}
+
+/* Shiki dual-theme support: the site toggles `.dark`, not the OS preference,
+   so swap the inline light colors for the `--shiki-dark*` values. */
+.dark .blog-content .astro-code,
+.dark .blog-content .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }
 
 /* ── Tables ── */
-.blog-content {
-  overflow-x: auto;
-}
-
-table {
+.blog-content table {
   width: 100%;
-  min-width: 500px;
-  border-collapse: collapse;
-  margin-bottom: 1.5rem;
-  font-size: 0.925rem;
-  border: 1px solid var(--border) !important;
+  margin: 1.75em 0;
+  border: 1px solid var(--color-border);
+  border-collapse: separate;
+  border-spacing: 0;
   border-radius: 0.5rem;
+  font-size: 0.95em;
+  overflow: hidden;
 }
 
 /* Hide empty header rows generated from markdown tables with no header text */
-thead tr:has(th:empty) {
+.blog-content thead tr:has(th:empty) {
   display: none;
 }
 
-thead {
-  border-bottom: 2px solid var(--primary);
-}
-
-th {
-  font-weight: 700;
+.blog-content th,
+.blog-content td {
+  padding: 0.625rem 0.875rem;
   text-align: left;
-  padding: 0.75rem 1rem;
-  color: hsl(var(--foreground));
-  background-color: hsl(var(--primary) / 0.08);
-  border: 1px solid var(--border) !important;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-border);
+  overflow-wrap: break-word;
 }
 
-td {
-  padding: 0.75rem 1rem;
-  color: hsl(var(--foreground) / 0.85);
-  border: 1px solid var(--border) !important;
-}
-
-/* Style the first row of tbody as header when thead is empty */
-thead:has(th:empty) + tbody tr:first-child {
-  background-color: hsl(var(--primary) / 0.08);
-  border-bottom: 2px solid var(--primary);
-}
-
-thead:has(th:empty) + tbody tr:first-child td {
+.blog-content th {
+  background-color: color-mix(in oklab, var(--color-primary) 8%, transparent);
+  border-bottom: 2px solid var(--color-primary);
+  color: var(--color-foreground);
   font-weight: 700;
-  color: hsl(var(--foreground));
 }
 
-tbody tr:hover {
-  background-color: hsl(var(--primary) / 0.04);
+.blog-content tbody tr:last-child td {
+  border-bottom: 0;
 }
 
-/* Bold text inside table cells (markdown **bold**) */
-td strong,
-th strong {
-  color: hsl(var(--foreground));
+/* Style the first row of tbody as a header when thead is empty */
+.blog-content thead:has(th:empty) + tbody tr:first-child {
+  background-color: color-mix(in oklab, var(--color-primary) 8%, transparent);
+}
+
+.blog-content thead:has(th:empty) + tbody tr:first-child td {
+  color: var(--color-foreground);
+  font-weight: 700;
+}
+
+.blog-content tbody tr:hover {
+  background-color: color-mix(in oklab, var(--color-primary) 4%, transparent);
+}
+
+.blog-content td strong,
+.blog-content th strong {
+  color: var(--color-foreground);
+}
+
+@media (max-width: 640px) {
+  .blog-content {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  .blog-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .blog-content h3 {
+    font-size: 1.25rem;
+  }
+
+  .blog-content pre {
+    padding: 1rem;
+    font-size: 0.8125rem;
+  }
 }
