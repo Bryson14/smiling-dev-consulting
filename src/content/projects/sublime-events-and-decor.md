@@ -13,7 +13,7 @@ keywords:
 technologies:
   - Wix
   - Calendly
-image: src/content/images/sublime-decor-landing-page.webp
+image: ../images/sublime-decor-landing-page.webp
 featured: false
 websiteLink: https://sublimeeventsdecor.com
 ---
@@ -22,7 +22,7 @@ websiteLink: https://sublimeeventsdecor.com
 
 I helped Sublime Events & Decor establish a comprehensive digital presence to support their transition from word-of-mouth referrals to professional marketing and client acquisition. This project created a complete business management platform that showcases their diverse event services while streamlining operations.
 
-![](src/content/images/sublime-decor-logo.webp)
+![](../images/sublime-decor-logo.webp)
 
 ## The Challenge
 

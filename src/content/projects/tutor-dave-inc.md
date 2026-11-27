@@ -23,7 +23,7 @@ technologies:
   - Google Analytics
   - GA4
   - MDX
-image: src/content/images/tutor-dave-inc-landing.webp
+image: ../images/tutor-dave-inc-landing.webp
 featured: true
 websiteLink: https://tutor-dave-inc.com
 ---

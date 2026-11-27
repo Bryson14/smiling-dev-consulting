@@ -19,7 +19,7 @@ technologies:
   - json-ld
   - oklch colors
 featured: true
-image: src/content/images/blue-logic-water-hero.png
+image: ../images/blue-logic-water-hero.png
 websiteLink: https://bluelogicwater.com
 ---
 

@@ -13,7 +13,7 @@ technologies:
   - Wordpress
   - MySQL
   - Wix
-image: src/content/images/slf-landing-page.webp
+image: ../images/slf-landing-page.webp
 featured: true
 websiteLink: https://sorensonlegacyfoundation.org
 ---
@@ -22,7 +22,7 @@ websiteLink: https://sorensonlegacyfoundation.org
 
 I helped the Sorenson Legacy Foundation modernize their outdated website by migrating from a decade-old WordPress installation to a modern, cost-effective platform. This comprehensive website overhaul addressed both technical and financial challenges while improving the user experience.
 
-![](src/content/images/slf-logo.webp)
+![](../images/slf-logo.webp)
 
 ## The Challenge
 
@@ -73,4 +73,4 @@ The migration delivered immediate and ongoing benefits:
 
 This project demonstrates how strategic technology decisions can simultaneously reduce costs, improve user experience, and empower organizations to manage their digital presence more effectively.
 
-![](src/content/images/slf-education-sorenson.webp)
+![](../images/slf-education-sorenson.webp)

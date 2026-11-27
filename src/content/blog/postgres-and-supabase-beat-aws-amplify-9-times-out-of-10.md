@@ -12,7 +12,7 @@ keywords:
   - Postgres
   - Supabase
   - AI Agents
-image: src/content/images/IMG_9667.png
+image: ../images/IMG_9667.png
 ---
 
 # Solid Technology Makes for Good Choices

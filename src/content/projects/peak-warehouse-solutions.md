@@ -21,7 +21,7 @@ technologies:
   - svelte
   - json-ld
 featured: true
-image: src/content/images/peak-warehouse-solutions-hero.webp
+image: ../images/peak-warehouse-solutions-hero.webp
 websiteLink: https://peakwarehousesolutions.com
 ---
 

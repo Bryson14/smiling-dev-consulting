@@ -14,7 +14,7 @@ keywords:
   - marimo
   - python
   - polars
-image: src/content/images/polars.png
+image: ../images/polars.png
 ---
 
 # Polars, Marimo, and the Joy of Personal Finance
@@ -89,11 +89,11 @@ Marimo fixes this by:
 
 The result? Beautiful, instantly updated dashboards that are actually presentable to a manager or coworker.
 
-![](src/content/images/Screenshot%20From%202026-02-11%2017-45-03.png)
+![](../images/Screenshot%20From%202026-02-11%2017-45-03.png)
 
-![](src/content/images/Screenshot%20From%202026-02-11%2017-47-16.png)
+![](../images/Screenshot%20From%202026-02-11%2017-47-16.png)
 
-![](src/content/images/Screenshot%20From%202026-02-11%2017-46-12.png)
+![](../images/Screenshot%20From%202026-02-11%2017-46-12.png)
 
 |                     |                                            |                                                       |
 | ------------------- | ------------------------------------------ | ----------------------------------------------------- |

@@ -14,7 +14,7 @@ keywords:
   - Squarespace
   - Static Sites
   - Performance
-image: src/content/images/ask-the-customer.jpg
+image: ../images/ask-the-customer.jpg
 ---
 
 # The Real Cost of Choosing the Wrong Website Platform

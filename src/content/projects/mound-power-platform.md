@@ -24,7 +24,7 @@ technologies:
   - Bluetooth Low Energy
   - Sentry
   - PostHog
-image: src/content/images/mound-power-logo.png
+image: ../images/mound-power-logo.png
 featured: true
 websiteLink: https://moundpower.com
 ---

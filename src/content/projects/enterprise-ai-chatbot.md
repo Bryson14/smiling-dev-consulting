@@ -16,7 +16,7 @@ technologies:
   - FastAPI
   - MongoDB
   - Vector Embeddings
-image: src/content/images/enterprise-chat-bot-ui-copy.png
+image: ../images/enterprise-chat-bot-ui-copy.png
 featured: false
 ---
 

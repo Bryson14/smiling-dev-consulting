@@ -12,7 +12,7 @@ keywords:
   - Google Analytics
   - Google Search Console
   - Structured Data
-image: src/content/images/astro-seo-checklist-linegraph.webp
+image: ../images/astro-seo-checklist-linegraph.webp
 ---
 
 My friend just launched his own river rafting website from an Astro template. It looks great — hero images of white water, booking CTAs, trip photos. But the day after launch, he asked the question every new site owner asks: _"How do I actually get people to find this thing?"_

@@ -26,7 +26,7 @@ technologies:
   - cookie-based auth
   - rate limiting
   - admin dashboard
-image: src/content/images/IMG_2231.jpeg
+image: ../images/IMG_2231.jpeg
 featured: true
 websiteLink: https://escaperoom.brockadams.com
 ---

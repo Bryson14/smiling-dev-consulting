@@ -12,7 +12,7 @@ keywords:
   - Python
   - Apache
   - ECS
-image: src/content/images/IMG_0293.png
+image: ../images/IMG_0293.png
 ---
 
 Strategies

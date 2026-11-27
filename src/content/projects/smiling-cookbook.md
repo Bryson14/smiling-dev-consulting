@@ -23,7 +23,7 @@ technologies:
   - frontmatter
   - tailwind css
 featured: true
-image: src/content/images/smiling-cookbook-hero.png
+image: ../images/smiling-cookbook-hero.png
 websiteLink: https://cookbook.smiling.dev
 ---
 

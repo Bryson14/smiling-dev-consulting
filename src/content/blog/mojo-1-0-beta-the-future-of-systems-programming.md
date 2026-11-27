@@ -13,7 +13,7 @@ keywords:
   - Chris Lattner
   - MLIR
   - Language Design
-image: src/content/images/sudoku-rust.png
+image: ../images/sudoku-rust.png
 ---
 
 On May 7, 2026, Modular announced that Mojo had officially entered its 1.0 beta phase. This wasn't a typical feature release. It was a declaration that after years of evolution, a new programming language—one designed from first principles for the AI era—had reached a level of maturity worth paying attention to.

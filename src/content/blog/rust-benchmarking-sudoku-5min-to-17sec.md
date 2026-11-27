@@ -15,7 +15,7 @@ keywords:
   - Software Engineering
   - Criterion
   - Benchmarking
-image: src/content/images/sudoku-rust.png
+image: ../images/sudoku-rust.png
 ---
 
 I’ll take you through the process of optimizing a Sudoku solver written in Rust. We’ll start with a simple, unoptimized version and apply a series of optimizations that will take the time to solve 100,000 puzzles from over 5 minutes down to just 33 seconds, and 20,000 of the hardest puzzles from over 2 minutes down to just 17 seconds.

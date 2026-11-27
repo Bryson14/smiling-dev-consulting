@@ -14,7 +14,7 @@ keywords:
   - Authenticity
   - Wabi-sabi
   - Branding
-image: src/content/images/sudoku-rust.png
+image: ../images/sudoku-rust.png
 ---
 
 # The Tactile Rebellion: Why Imperfection Has Become the Ultimate Luxury

@@ -20,7 +20,7 @@ technologies:
   - tailwind css
   - row-level security
 featured: true
-image: src/content/images/law-of-importance-hero.png
+image: ../images/law-of-importance-hero.png
 websiteLink: https://thelawofimportance.com
 ---
 

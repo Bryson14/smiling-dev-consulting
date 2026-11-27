@@ -12,7 +12,7 @@ keywords:
   - Rust
   - ClI Tools
   - Rewrite
-image: src/content/images/IMG_0754.png
+image: ../images/IMG_0754.png
 ---
 
 I have really been enjoying the new tooling in Python, let me just start out with that. What the team at Astral has been doing with uv, Ruff, and Typo has really pushed the tooling and developer experience. For a lot of things, Python is the right way to go. It's quick and "fast enough." Most developers are proficient in Python, even if they don't know it well. AI tools can rip through it. So why consider Rust?

@@ -10,7 +10,7 @@ keywords:
 technologies:
   - Wordpress
   - MySQL
-image: src/content/images/crocker-ventures-landing_page.webp
+image: ../images/crocker-ventures-landing_page.webp
 featured: false
 websiteLink: https://crockerventures.com
 ---
@@ -19,7 +19,7 @@ websiteLink: https://crockerventures.com
 
 I partnered with Crocker Ventures, a Utah-based venture capital firm, to modernize their existing website while maintaining business continuity. This project focused on security updates, performance optimization, and content enhancement within an accelerated timeline.
 
-![](src/content/images/crocker-ventures-logo.webp)
+![](../images/crocker-ventures-logo.webp)
 
 ## The Challenge
 

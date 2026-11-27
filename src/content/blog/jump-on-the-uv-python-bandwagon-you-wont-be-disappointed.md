@@ -14,7 +14,7 @@ keywords:
   - Python
   - Software Development
   - Modern Tooling
-image: src/content/images/jump-on-uv-bandwagon-python-hugger.png
+image: ../images/jump-on-uv-bandwagon-python-hugger.png
 ---
 
 Tired of slow `pip` installs, confusing virtual environments, and messy `requirements.txt` files? Meet **UV**, the new Python package installer and manager that's changing the game. UV is super fast, easy to use, and much better than older tools like `pip`, `virtualenv`, and even `poetry`.

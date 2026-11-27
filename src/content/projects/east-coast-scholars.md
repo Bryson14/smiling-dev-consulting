@@ -19,7 +19,7 @@ technologies:
   - supabase functions
   - hono
   - postgresql
-image: src/content/images/east-coast-scholars-landing.png
+image: ../images/east-coast-scholars-landing.png
 featured: false
 websiteLink: https://eastcoastscholars.com
 ---
@@ -27,7 +27,7 @@ websiteLink: https://eastcoastscholars.com
 
 East Coast Scholars represents a comprehensive platform rewrite and rebranding of Tutor the Future—migrating from AWS Amplify to Supabase while modernizing the entire technical architecture. This project demonstrates the strategic evolution from NoSQL to SQL, improved developer experience, and enhanced platform capabilities while maintaining the core educational technology features that drive the business.
 
-![](src/content/images/east-coast-scholars-landing.png)
+![](../images/east-coast-scholars-landing.png)
 
 ## The Journey
 
@@ -123,7 +123,7 @@ The robust platform foundation enabled the business to expand beyond traditional
 - **College advising services** - Comprehensive educational guidance
 - **Custom learning paths** - Personalized educational experiences
 
-![](src/content/images/east-coast-scholars-dashboard.png)
+![](../images/east-coast-scholars-dashboard.png)
 
 ## Key Features & Capabilities
 
@@ -186,7 +186,7 @@ This migration project showcases advanced platform engineering and data migratio
 
 The platform rewrite has delivered substantial improvements:
 
-![](src/content/images/east-coast-scholars-mobile.png)
+![](../images/east-coast-scholars-mobile.png)
 
 ### Technical Outcomes
 

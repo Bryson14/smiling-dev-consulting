@@ -11,7 +11,7 @@ keywords:
   - AI
   - Cognitive Science
   - Deep Learning
-image: src/content/images/sudoku-rust.png
+image: ../images/sudoku-rust.png
 ---
 
 We've built a culture that glorifies speed. Ship fast, iterate quickly, move fast and break things. In education, we celebrate the student who can breeze through material and get the right answers. In tech, we celebrate the developer who ships features in a day.
