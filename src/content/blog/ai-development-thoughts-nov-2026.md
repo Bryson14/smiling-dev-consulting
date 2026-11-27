@@ -18,17 +18,9 @@ I’m not trying to make this really long; I’m also not gonna try to fact chec
 
 The is here. Also we saw a lot of agentic frameworks that have kind of crashed and burned. We saw N8N, OpenClaw, and OpenHermes. I thought those were all super cool for about a month, and I tried to get them up and running, but I just never really liked them.
 
-Also, this year, I was really big into having all my development happen on an old laptop that I installed Pop!_OS on. It was always plugged in. I took the battery out so I didn’t accidentally blow the battery on it, but it is one of those old janky HP laptops. And for a while, it was pretty sweet. I was able to use Terminus on my iPhone to SSH into that laptop, and then do some development for clients while I was at the park with my kids. Looking back, it was a little clunky, and I was not present entirely at the park. So I didn’t love doing that.
-
-But I think a lot of things are stabilizing. And when things are stabilizing, and there’s massive money in projection still trying to recuperate costs, I don’t think 2027 is going to be a good year for stocks, or startups. I think valuations have to come down because the money is simply not there.
-
-From what I understand, the majority of the tokens being used are by developers. We’re the demographic that most uses AI and the longest running agentic loops, and we are willing to pay for it because we can get massive ROI from it. I think last month I spent $800 on AI tokens at my job, but I’m working on a multimillion dollar project and I’m trying to get it done in a few months, so yeah, it’s worth it.
-
-I don’t know of a single other person in my life, thinking about, like, my siblings that have other professions, or friends and family, or even colleagues outside of software engineering that are using AI as much as I do. Granted, a lot of people will use it for summarizing meetings.
+Also, this year, I was really big into having all my development happen on an old laptop that I installed Pop!_OS on. It was always plugged in. I took the battery out so I didn’t accidentally blow the battery on it, but it is one of those old janky HP laptops. And for a while, it was pretty sweet. I was able to use Terminus on my iPhone to SSH into that laptop, and then do some development for clients while I was at the park with my kids. Looking back, it was a little clunky, and I was not present entirely at the park. I didn’t love doing that.
 
 So where are we at now? Sadly, I have not typed as much code as I thought I would be doing. My development is really done with Codex, OpenCode, or Claude. For me, I really don’t care about which one I’m using; it’s just basically based on who’s paying for it. If I’m paying for it, I’m usually using OpenRouter with DeepSeek Flash. If someone else is paying for it, I’ll use whatever system they want me to use.
-
-I’m really getting sick of the LinkedIn bro poetry that comes out of all of these AI models. It shows up all the time in code documentation, and it’s a pretty easy giveaway.
 
 Implementing code has never been easier, but it’s not even easier to do weird things in code. And while my ability to actually write a little bit of code is probably actually a little bit worse, I’ve become much more opinionated on how I want to implement code. And I’m constantly trying to pare down the scope of work that these agents keep on trying to do. They want to do everything. They don’t tend to follow great architecture patterns or abstractions. I end up working on codebases where I have a duplicate of the same function.
 
@@ -40,8 +32,18 @@ My effort also goes into enforcing good architecture, modularity, coding standar
 
 I do end up doing more rewrites. I rewrite API boundaries across my code. I think a lot about ways to improve things. It’s all about self-preservation, because I’m the maintainer for projects so I want to keep things easier for my future self.
 
-Overall it’s the Wild West. I hate reading articles about how my job is gone and software engineering is a thing of the past. It doesn’t feel like that. In fact, my ability to understand what is happening feels more valuable than ever. At my company, they are using various 'quick app platforms' like Bolt or Replit to make various one-off or prototype apps. They are pretty fun and easy for showcasing something during an all hands, or making an interesting game.
+Overall it’s the Wild West. I’m really getting sick of the LinkedIn bro poetry that comes out of all of these AI models. It shows up all the time in code documentation, and it’s a pretty easy giveaway. I hate reading articles about how my job is gone and software engineering is a thing of the past. It doesn’t feel like that. In fact, my ability to understand what is happening feels more valuable than ever.
+
+At my company, they are using various 'quick app platforms' like Bolt or Replit to make various one-off or prototype apps. They are pretty fun and easy for showcasing something during an all hands, or making an interesting game.
 
 But I’ve had a Replit handed to me for a larger prototype. While it was a great handoff and got the intent across, it’s still been over 2 months of unwinding the Replit rat’s nest of code, reworking UI that was really so complicated and unintuitive for users. It takes a lot of attention, _taste_, and just work to make the interactions for users better. I don’t know if AI is going to take this away.
 
-Job market is still sucky and stagnating. There are a lot of economic headwinds that are making this worse outside of the AI psychosis-induced layoffs. Is it a depression? Is it getting back to pre-pandemic headcount levels? Is it AI making it more obvious that some teams are better than others? Who knows. I’m going to try to keep my job, enjoy my life and family, leaving work at work.
+But I think a lot of things are stabilizing. And when things are stabilizing, and there’s massive money in projection still trying to recuperate costs, I don’t think 2027 is going to be a good year for stocks, or startups. I think valuations have to come down because the money is simply not there.
+
+From what I understand, the majority of the tokens being used are by developers. We’re the demographic that most uses AI and the longest running agentic loops, and we are willing to pay for it because we can get massive ROI from it. I think last month I spent $800 on AI tokens at my job, but I’m working on a multimillion dollar project and I’m trying to get it done in a few months, so yeah, it’s worth it.
+
+I don’t know of a single other person in my life, thinking about, like, my siblings that have other professions, or friends and family, or even colleagues outside of software engineering that are using AI as much as I do. Granted, a lot of people will use it for summarizing meetings.
+
+Job market is still sucky and stagnating. There are a lot of economic headwinds that are making this worse outside of the AI psychosis-induced layoffs. Is it a depression? Is it getting back to pre-pandemic headcount levels? Is it AI making it more obvious that some teams are better than others? Who knows.
+
+I’m going to try to keep my job, enjoy my life and family, leaving work at work.
