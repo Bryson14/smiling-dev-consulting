@@ -31,3 +31,7 @@ So where are we at now. Sadly, I have not typed as much code as I thought I woul
 I’m really getting sick of the LinkedIn bro poetry that comes out of all of these AI models. It shows up all the time and code documentation, and it’s pretty easy giveaway.
 
 Implementing code has never been easier, but it’s not even easier to do weird things in code. And while my abilities to actually write, a little bit of code is probably actually a little bit, I’ve become much more opinionated on how I want to implement cone. And I’m constantly trying to pair down the scope of work that these agents keep on trying to do. They want to do everything, they don’t tend to follow great architecture patterns or extractions. I end up working on code basis, I have a duplicate at the same function.
+
+on the other hand, it’s been great to get better with work trees and I find for me when I have a task list to work off of, agents do the best. And agency do the best just because you’re getting structured work and a clear stop and start signal. I’ve done this on personal projects using markdown files and each markdown file is a task. I also done this Jira, Linear, Clickup, Github Projects. Its all same In my opinion. I ain’t got it really does it just forces you to sit down and make meaningful task.
+
+And where does a lot of my effort go into? I’d say it goes into reviewing and writing good tasks. Not only a good for agents, but it’s also great for getting credit. And you know you always got a CYA. Cover your ass. 
