@@ -2,5 +2,7 @@ allowBuilds:
   esbuild: true
   sharp: true
   workerd: true
+minimumReleaseAgeExclude:
+  - lucide-react@1.81.0
 packages:
   - "."
