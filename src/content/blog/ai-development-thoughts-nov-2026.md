@@ -6,7 +6,7 @@ description: Just a short checkpoint on all of my thoughts that have been
 author: Bryson Meiling
 pubDate: 2026-11-26
 updateDate: 2026-11-26
-mediumLink: https://medium.com
+mediumLink: https://medium.com/@BryMei/ai-development-thoughts-in-november-2026-70d587fa6127
 keywords:
   - AI
   - Learning
